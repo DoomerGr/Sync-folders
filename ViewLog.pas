@@ -17,6 +17,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N1SaveClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -33,31 +34,20 @@ implementation
 
 uses SinhronN;
 
+procedure TFmViewLog.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ MainMenu1.Items.Items[0].Items[0].Visible:=True;
+end;
+
 procedure TFmViewLog.FormShow(Sender: TObject);
 var MemStream:TMemoryStream;
 begin
  RzRichEdit1.Lines.Clear;
-
  if NameFileLog<>'' then
   begin
    if FileExists(NameFileLog) then
     RzRichEdit1.Lines.LoadFromFile(NameFileLog);
-  end
-    else
-     begin
-      try
-       MemStream:=TMemoryStream.Create;
-        try
-         FmSinhron.RzRichEditEchoCom.Lines.SaveToStream(MemStream);
-         MemStream.Seek(0,soFromBeginning);
-         RzRichEdit1.Lines.LoadFromStream(MemStream);
-          finally
-            MemStream.Free;
-          end;
-       except
-        FmViewLog.NameFileLog:='';
-       end;
-     end
+  end;
 end;
 
 procedure TFmViewLog.N1SaveClick(Sender: TObject);

@@ -4249,12 +4249,6 @@ object FmSinhron: TFmSinhron
       Width = 558
       Height = 309
     end
-    object RzBorder1: TRzBorder
-      Left = 578
-      Top = 13
-      Width = 266
-      Height = 102
-    end
     object RzLabel1: TRzLabel
       Left = 196
       Top = 24
@@ -4283,9 +4277,15 @@ object FmSinhron: TFmSinhron
       ParentFont = False
       Transparent = True
     end
+    object RzBorder1: TRzBorder
+      Left = 573
+      Top = 13
+      Width = 268
+      Height = 105
+    end
     object RzLabel6: TRzLabel
-      Left = 640
-      Top = 16
+      Left = 642
+      Top = 24
       Width = 129
       Height = 18
       Caption = #1069#1090#1086#1090' '#1082#1086#1084#1087#1100#1102#1090#1077#1088
@@ -4313,49 +4313,13 @@ object FmSinhron: TFmSinhron
       TabOrder = 0
       OnClick = RzListBoxProfileClick
     end
-    object RzRadioButtonWork: TRzRadioButton
-      Left = 594
-      Top = 44
-      Width = 210
-      Height = 23
-      AlignmentVertical = avCenter
-      Caption = '  '#1056#1072#1073#1086#1095#1080#1081' '#1082#1086#1084#1087#1100#1102#1090#1077#1088
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 10748068
-      Font.Height = -17
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 1
-      TabStop = True
-      Transparent = True
-      OnClick = RzRadioButtonWorkClick
-    end
-    object RzRadioButtonHome: TRzRadioButton
-      Left = 594
-      Top = 77
-      Width = 231
-      Height = 23
-      AlignmentVertical = avCenter
-      Caption = '  '#1044#1086#1084#1072#1096#1085#1080#1081' '#1082#1086#1084#1087#1100#1102#1090#1077#1088
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 10748068
-      Font.Height = -17
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-      Transparent = True
-      OnClick = RzRadioButtonHomeClick
-    end
     object RzBtnSinhronWorkHome: TRzBitBtn
-      Left = 578
+      Left = 573
       Top = 154
       Width = 266
       Height = 70
       FrameColor = 7617536
-      Caption = #1088#1072#1073#1086#1095#1080#1081' '#1089' '#1076#1086#1084#1072#1096#1085#1080#1084
+      Caption = #1072#1083#1100#1092#1072'  '#1089'  '#1073#1077#1090#1072
       Color = 15791348
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 10748068
@@ -4364,7 +4328,7 @@ object FmSinhron: TFmSinhron
       Font.Style = [fsBold]
       HotTrack = True
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 1
       OnClick = RzBtnSinhronWorkHomeClick
     end
     object RzBitBtnAddProfil: TRzBitBtn
@@ -4379,7 +4343,7 @@ object FmSinhron: TFmSinhron
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 2
       OnClick = RzBitBtnAddProfilClick
       Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
@@ -4446,7 +4410,7 @@ object FmSinhron: TFmSinhron
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
       OnClick = RzBitBtnDelProfilClick
       Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
@@ -4513,7 +4477,7 @@ object FmSinhron: TFmSinhron
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 4
       OnClick = RzBitBtnEditConfigClick
       Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
@@ -4575,14 +4539,16 @@ object FmSinhron: TFmSinhron
       Height = 230
       Align = alBottom
       BorderOuter = fsNone
-      TabOrder = 7
+      TabOrder = 5
       object RzPanelProgress: TRzPanel
         Left = 0
         Top = 133
         Width = 852
         Height = 97
         Align = alBottom
+        BorderInner = fsGroove
         BorderOuter = fsNone
+        BorderSides = [sdTop]
         ParentShowHint = False
         ShowHint = False
         TabOrder = 0
@@ -4724,20 +4690,11 @@ object FmSinhron: TFmSinhron
           TabOrder = 1
         end
       end
-      object RzPanel3: TRzPanel
-        Left = 0
-        Top = 123
-        Width = 852
-        Height = 10
-        Align = alBottom
-        BorderOuter = fsFlat
-        TabOrder = 1
-      end
       object RzRichEditEchoCom: TRzRichEdit
         Left = 0
         Top = 0
         Width = 852
-        Height = 123
+        Height = 133
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -4751,16 +4708,16 @@ object FmSinhron: TFmSinhron
         ParentFont = False
         ReadOnly = True
         ScrollBars = ssBoth
-        TabOrder = 2
+        TabOrder = 1
       end
     end
     object RzBtnSinhronHomeWork: TRzBitBtn
-      Left = 578
+      Left = 573
       Top = 245
       Width = 266
       Height = 73
       FrameColor = 7617536
-      Caption = #1076#1086#1084#1072#1096#1085#1080#1081' '#1089' '#1088#1072#1073#1086#1095#1080#1084
+      Caption = #1073#1077#1090#1072' '#1089' '#1072#1083#1100#1092#1072
       Color = 15791348
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 10748068
@@ -4769,8 +4726,44 @@ object FmSinhron: TFmSinhron
       Font.Style = [fsBold]
       HotTrack = True
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 6
       OnClick = RzBtnSinhronHomeWorkClick
+    end
+    object RzRadioButtonHome: TRzRadioButton
+      Left = 596
+      Top = 80
+      Width = 180
+      Height = 23
+      AlignmentVertical = avCenter
+      Caption = '   '#1082#1086#1084#1087#1100#1102#1090#1077#1088' '#1073#1077#1090#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 10748068
+      Font.Height = -17
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      Transparent = True
+      OnClick = RzRadioButtonHomeClick
+    end
+    object RzRadioButtonWork: TRzRadioButton
+      Left = 596
+      Top = 49
+      Width = 196
+      Height = 23
+      AlignmentVertical = avCenter
+      Caption = '   '#1082#1086#1084#1087#1100#1102#1090#1077#1088' a'#1083#1100#1092#1072
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 10748068
+      Font.Height = -17
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      TabStop = True
+      Transparent = True
+      OnClick = RzRadioButtonWorkClick
     end
   end
   object RzPanel1: TRzPanel
@@ -4779,18 +4772,17 @@ object FmSinhron: TFmSinhron
     Width = 97
     Height = 562
     Align = alLeft
-    BorderOuter = fsNone
+    BorderInner = fsStatus
     ParentShowHint = False
     ShowHint = False
     TabOrder = 1
     object RzLblVersion: TRzLabel
-      Left = -1
+      Left = 14
       Top = 522
-      Width = 98
+      Width = 72
       Height = 13
       Hint = #1042#1072#1089#1080#1083#1100#1103#1085#1086#1074' '#1048#1075#1086#1088#1100' '#1053#1080#1082#1086#1083#1072#1077#1074#1080#1095
       Alignment = taCenter
-      AutoSize = False
       Caption = 'RzLblVersion'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 10748068
@@ -4804,9 +4796,9 @@ object FmSinhron: TFmSinhron
     object RzLabel5: TRzLabel
       Left = 6
       Top = 539
-      Width = 88
+      Width = 85
       Height = 13
-      Caption = 'Doomer 2020 '#1075'.'
+      Caption = 'Doomer 2020 '#1075
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -5971,7 +5963,7 @@ object FmSinhron: TFmSinhron
         2A738C70D67AB3AA75F9C6DA74AECE77B852EA961B14A8A86EC1BCF129238018
         E07A3CEA35372C48B646644486878C00624446E4081901C4888CC81132028811
         199123E4FF01794796CE2D8FE5020000000049454E44AE426082}
-      PopupMenu = PopupMenuStyleThemes
+      PopupMenu = PopupMenuTools
       Proportional = True
       ShowHint = True
       Stretch = True
@@ -6627,13 +6619,31 @@ object FmSinhron: TFmSinhron
     Top = 16
   end
   object RzVersionInfo1: TRzVersionInfo
-    Left = 128
-    Top = 16
+    Left = 560
+    Top = 120
   end
-  object PopupMenuStyleThemes: TPopupMenu
+  object PopupMenuTools: TPopupMenu
     AutoHotkeys = maManual
-    Left = 281
-    Top = 112
+    Left = 289
+    Top = 120
+    object C1: TMenuItem
+      Caption = 'C'#1084#1077#1085#1080#1090#1100' '#1086#1073#1083#1086#1078#1082#1091
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object N2: TMenuItem
+      Caption = #1057#1086#1079#1076#1072#1090#1100' '#1089#1085#1080#1084#1086#1082' '#1087#1072#1087#1082#1080
+      OnClick = N2Click
+    end
+    object N3: TMenuItem
+      Caption = #1057#1088#1072#1074#1085#1080#1090#1100' '#1089#1085#1080#1084#1082#1080
+      OnClick = N3Click
+    end
+    object N4ViewSnimok: TMenuItem
+      Caption = #1055#1088#1086#1089#1084#1086#1090#1088' '#1089#1085#1080#1084#1082#1072
+      OnClick = N4ViewSnimokClick
+    end
   end
   object PopupMenuLogView: TPopupMenu
     OnPopup = PopupMenuLogViewPopup
@@ -6643,5 +6653,31 @@ object FmSinhron: TFmSinhron
       Caption = #1055#1088#1086#1089#1084#1086#1090#1088' '#1083#1086#1075#1072' '#1086#1087#1077#1088#1072#1094#1080#1081' '#1087#1088#1086#1092#1080#1083#1103
       OnClick = N1ViewLogClick
     end
+  end
+  object RzSelectFolderDialog1: TRzSelectFolderDialog
+    ButtonCaptions.Cancel = #1047#1072#1082#1088#1099#1090#1100
+    ButtonCaptions.CreateFolder = #1057#1086#1079#1076#1072#1090#1100' '#1087#1072#1087#1082#1091
+    ButtonCaptions.DeleteFolder = #1059#1076#1072#1083#1080#1090#1100
+    Title = #1042#1099#1073#1077#1088#1080#1090#1077' '#1087#1072#1087#1082#1091
+    FormHeight = 650
+    Options = [sfdoCreateDeleteButtons, sfdoContextMenus, sfdoIncludeNonFolders, sfdoCreateFolderIcon, sfdoDeleteFolderIcon, sfdoShowHidden]
+    FrameStyle = fsBump
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ShowButtonGlyphs = True
+    Left = 156
+    Top = 120
+  end
+  object SaveDialogFlsSnimok: TSaveDialog
+    DefaultExt = 'fdat'
+    Filter = #1057#1085#1080#1084#1082#1080' '#1087#1072#1087#1086#1082'|*.fdat'
+    Left = 153
+    Top = 184
+  end
+  object OpenDialogSnimok: TOpenDialog
+    DefaultExt = 'fdat'
+    Filter = #1057#1085#1080#1084#1082#1080' '#1087#1072#1087#1086#1082'|*.fdat'
+    Left = 273
+    Top = 184
   end
 end

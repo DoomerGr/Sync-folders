@@ -32,15 +32,15 @@ end;
 
 TNameAtribFile = record
    Nature:byte;
-   FName:string[255];
+   FName:shortstring;
    FDataTime:Double;
    SizeFile:Int64;
    FNameTmp:string[25];
 end;
 
 TFolderDual = record
-  PathWork:string[255];
-  PathHome:string[255];
+  PathWork:shortstring;
+  PathHome:shortstring;
 end;
 
 TFileList = class(TStringList)
@@ -49,17 +49,33 @@ destructor destroy;override;
 end;
 
 TProfilLine = record
-   NameConf:string[255];
+   NameConf:shortstring;
    Id:string[8];
    IdPC:string[25];
    FolderDual: array [1..10] of TFolderDual;
-   LineExcept:string[255];
+   LineExcept:shortstring;
    PC:string[4];
    OperacDell:boolean;
    DellBasket:boolean;
    DellСonfirmat:Boolean;
    SaveLog:Boolean;
+   LogExt:Boolean;
+   Notransit:Boolean;
 end;
+
+TProfile = record
+   NameConf:string;
+   Id:string;
+   IdPC:string;
+   FolderDual: array [1..10] of TFolderDual;
+   LineExcept:string;
+   PC:string;
+   OperacDell:boolean;
+   DellBasket:boolean;
+   DellСonfirmat:Boolean;
+   SaveLog:Boolean;
+end;
+
 
  IFileCopier = interface
    ['{9ACEC816-5A3F-4BA4-95A2-B3C8CE08B82D}']
@@ -180,28 +196,27 @@ end;
 procedure TFileCopier.Copy;
  function FileSize (const AFileName: string): Int64;
  var
-   FS: TFileStream;
    sr: TSearchRec;
  begin
-   try
     try
      if FindFirst(AFileName, faAnyFile, sr)=0 then Result:=sr.Size
      else
       begin
-       FmSinhron.AddEchoText('Файл не найден: '+AFileName,clRed);
+       FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Файл не найден: '+
+                  AFileName,clRed,FmSinhron.Task.SaveLog);
        Result:=-1;
       end;
      except
-     FmSinhron.AddEchoText('Ошибка доступа к файлу: '+AFileName,clRed);
-    end
-    finally
-     FindClose(sr);
-   end;
+     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка доступа к файлу: '+
+                AFileName,clRed,FmSinhron.Task.SaveLog);
+    end;
+   FindClose(sr);
  end;
+
 var w:longbool;
     Size:Integer;
 begin
- if FCopyBreak then exit;
+ if FCopyBreak then exit;w:=false;
  if Assigned(FProgressBar) then
  begin
    FProgressBar.Position:=0;
@@ -217,11 +232,14 @@ begin
    end;
   if (w=false) and (FMemoResult<>nil) then
    if (GetLastError and PROGRESS_CANCEL)<>0 then
-     FmSinhron.AddEchoText('Файл не скопирован: '+FSource,clRed)
+     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Файл не скопирован: '+
+                          FSource,clRed,FmSinhron.Task.SaveLog)
    else
     if (GetLastError and ERROR_ACCESS_DENIED)<>0 then
-      FmSinhron.AddEchoText('Ошибка доступа к файлу: '+FSource,clRed)
-       else FmSinhron.AddEchoText('Ошибка копирования файла: '+FSource,clRed);
+      FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка доступа к файлу: '+
+                          FSource,clRed,FmSinhron.Task.SaveLog)
+       else FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка копирования файла: '+
+                         FSource,clRed,FmSinhron.Task.SaveLog);
  end;
 
 procedure TFileCopier.SetPosition(APos: Int64);
@@ -279,14 +297,16 @@ function GetFileSize(FileName: String): Int64;
 var
  FS: TFileStream;
 begin
+ FS:=nil;
   try
-   FS := TFileStream.Create(Filename, fmOpenRead);
+   FS:=TFileStream.Create(Filename, fmOpenRead);
+   Result:=FS.Size;
    except
-    FmSinhron.AddEchoText('Не могу открыть файл: '+ Filename,clRed);
+    FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Не могу открыть файл: '+
+    Filename,clRed,FmSinhron.Task.SaveLog);
     Result:=-1;
   end;
-  if Result<>-1 then Result:=FS.Size;
-  FS.Free;
+   FS.Free;
 end;
 
 
@@ -401,7 +421,7 @@ begin
  if Fst=2 then begin ScanFile(StartDir,Mask,List);exit; end;
  if Fst=0 then ScanFile(StartDir,Mask,List);
  Fst:=Fst+5;
- if FindFirst(StartDir+'*.*', faDirectory, SearchRec) = 0 then
+ if FindFirst(StartDir+'*.*', faDirectory+faHidden+faSysFile, SearchRec) = 0 then
   begin
     repeat
      if (SearchRec.Attr and faDirectory) = faDirectory then
@@ -430,7 +450,8 @@ function DelDir(dir: string;ToRecycle:boolean;Progress:boolean): Boolean;
 var
   fos: TSHFileOpStruct;
 begin
- FmSinhron.AddEchoText('Удаления папки: '+dir,clGreen);
+ FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Удаление папки: '+
+                  dir,clGreen,FmSinhron.Task.SaveLog);Result:=false;
   try
    ZeroMemory(@fos, SizeOf(fos));
    with fos do
@@ -443,9 +464,11 @@ begin
      pFrom  := PChar(dir + #0);
     end;
     Application.ProcessMessages;
-    Result := (0 = ShFileOperation(fos));
+    Result:=(0 = ShFileOperation(fos));
     except
-   on Exception do FmSinhron.AddEchoText('Ошибка удаления папки: '+dir,clRed);
+   on Exception do
+      FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка удаления папки: '+
+                           dir,clRed,FmSinhron.Task.SaveLog);
   end;
 end;
 
@@ -465,7 +488,9 @@ begin
     Application.ProcessMessages;
     Result := (SHFileOperation(fos) = 0) and (not fos.fAnyOperationsAborted);
     except
-   on Exception do FmSinhron.AddEchoText('Ошибка удаления файла: '+FileName,clRed);
+   on Exception do
+     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка удаления файла: '+
+                                FileName,clRed,FmSinhron.Task.SaveLog);
   end;
 end;
 
@@ -475,27 +500,15 @@ end.
    FS: TFileStream;
    sr: TSearchRec;
  begin
-{   try
-     try
-      FS := TFileStream.Create(AFileName,fmOpenRead);
-      Result := FS.Size
-     except
-      on EAbort do;
-     end;
-    finally
-     FS.Free;
-    end;
-   if GetLastError=ERROR_ACCESS_DENIED then
-     FmSinhron.AddEchoText('Ошибка доступа к файлу: '+AFileName,clRed)}
   try
    if FindFirst(AFileName, faAnyFile, sr)=0 then Result:=sr.Size
    else
     begin
-     FmSinhron.AddEchoText('Файл не найден: '+AFileName,clRed);
+     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Файл не найден: '+AFileName,clRed);
      Result:=-1;
     end;
    except
-   FmSinhron.AddEchoText('Ошибка доступа к файлу: '+AFileName,clRed);
+   FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка доступа к файлу: '+AFileName,clRed);
   end
    FindClose(sr);
  end;

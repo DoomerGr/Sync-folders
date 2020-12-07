@@ -4,7 +4,7 @@
         <MainSource>Sinhron.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <TargetedPlatforms>17</TargetedPlatforms>
+        <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
         <ProjectVersion>15.1</ProjectVersion>
@@ -66,11 +66,6 @@
         <VerInfo_Locale>1049</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Keys>FileVersion=3.1.1.7;ProductName=file sync;ProductVersion=3.1.1.4;Comments=File sync;OriginalFilename=Sinhron3.exe;CompanyName=Doomer;FileDescription=Synchronization of files;LegalCopyright=Doomer private</VerInfo_Keys>
-        <VerInfo_Build>7</VerInfo_Build>
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>Sinhron_Icon.ico</Icon_MainIcon>
@@ -86,42 +81,41 @@
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_ImportedDataReferences>false</DCC_ImportedDataReferences>
-        <VerInfo_Build>20</VerInfo_Build>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
+        <VerInfo_Build>56</VerInfo_Build>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Keys>FileVersion=3.1.1.20;ProductName=file sync;ProductVersion=3.1.1.4;Comments=File sync;OriginalFilename=Sinhron3.exe;CompanyName=Doomer;FileDescription=Synchronization of files;LegalCopyright=Doomer private</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.56;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
-        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32\Release</DCC_ExeOutput>
-        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32\Release</DCC_DcuOutput>
-        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32\Release</DCC_DcpOutput>
-        <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;D:\Documents\RAD Studio\Sinhronizac_3</DCC_UnitSearchPath>
+        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_ExeOutput>
+        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcuOutput>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcpOutput>
+        <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
         <DCC_Optimize>false</DCC_Optimize>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
         <DCC_Optimize>true</DCC_Optimize>
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Build>20</VerInfo_Build>
-        <VerInfo_Keys>FileVersion=3.1.1.20;ProductName=File Sync;ProductVersion=3.1.1.4;Comments=File sync;OriginalFilename=Sinhron3.exe;CompanyName=Doomer;FileDescription=Synchronization of files;LegalCopyright=Doomer private</VerInfo_Keys>
+        <VerInfo_Build>56</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.56;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>Sinhron_Icon1.ico</Icon_MainIcon>
-        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32</DCC_DcpOutput>
-        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32</DCC_ExeOutput>
-        <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;D:\Documents\RAD Studio\Sinhronizac_3;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcpOutput>
+        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_ExeOutput>
+        <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_3\DCU\Win32</DCC_DcuOutput>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcuOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -142,6 +136,9 @@
         </DCCReference>
         <DCCReference Include="ViewLog.pas">
             <Form>FmViewLog</Form>
+        </DCCReference>
+        <DCCReference Include="ViewSnimok.pas">
+            <Form>FmShowSnimok</Form>
         </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -196,7 +193,6 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
-                <Platform value="Android">True</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>

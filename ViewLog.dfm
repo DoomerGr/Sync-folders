@@ -13,6 +13,7 @@ object FmViewLog: TFmViewLog
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 101
   TextHeight = 13

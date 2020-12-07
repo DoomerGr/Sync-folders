@@ -42,6 +42,8 @@ type
     RadioButtonPCHome: TRadioButton;
     ButtonViewLog: TButton;
     RzCheckBoxDellBasket: TRzCheckBox;
+    RzCheckBoxNoTransit: TRzCheckBox;
+    RzCheckBoxLogExt: TRzCheckBox;
     procedure RzBitBtnCloseConfigClick(Sender: TObject);
     procedure RzBitBtnSaveConfigClick(Sender: TObject);
     procedure ButtonPathWorkClick(Sender: TObject);
@@ -55,6 +57,7 @@ type
       var AllowChange: Boolean);
     procedure ButtonViewLogClick(Sender: TObject);
     procedure RzCheckBoxOperacDelClick(Sender: TObject);
+    procedure RzCheckBoxSaveLogClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,7 +68,7 @@ type
 
 var
   FmConfig: TFmConfig;
-  ProgramPath:string;
+  ProgramPath:String;
   ProfilLine:TProfilLine;
   ProfilArray: array of TProfilLine;
 
@@ -102,7 +105,7 @@ procedure TFmConfig.ButtonViewLogClick(Sender: TObject);
 begin
  if (FileExists(ProgramPath+'Task\'+FmSinhron.Task.Id+'\'+FmSinhron.Task.Id+'.log'))  then
   begin
-   FmViewLog.NameFileLog:=ProgramPath+'Task\'+FmSinhron.Task.Id+'\'+FmSinhron.Task.Id+'.log';
+   FmViewLog.NameFileLog:=String(ProgramPath+'Task\'+FmSinhron.Task.Id+'\'+FmSinhron.Task.Id+'.log');
    FmViewLog.Show;
   end
    else exit;
@@ -146,6 +149,16 @@ begin
   end;
 
 
+ if RzCheckBoxNoTransit.Checked then
+  begin
+   if (DirectoryExists(ProgramPath+'Task\'+ProfilLine.Id+'\WFiles')) then
+   DelDir(ProgramPath+'Task\'+ProfilLine.Id+'\WFiles',false,true);
+   if (DirectoryExists(ProgramPath+'Task\'+ProfilLine.Id+'\HFiles')) then
+   DelDir(ProgramPath+'Task\'+ProfilLine.Id+'\HFiles',false,true);
+  end;
+
+
+
  AssignFile(f,ProgramPath+'Sinhron.cfg');
  if  not(FileExists(ProgramPath+'Sinhron.cfg')) then Rewrite(f)
   else Reset(f);
@@ -156,6 +169,8 @@ begin
    Dell—onfirmat:=RzCheckBoxDelConfirm.Checked;
    SaveLog:=RzCheckBoxSaveLog.Checked;
    DellBasket:=RzCheckBoxDellBasket.Checked;
+   LogExt:=RzCheckBoxLogExt.Checked;
+   Notransit:=RzCheckBoxNoTransit.Checked;
    ID:=EditIdProf.Text;
    IdPC:=FmSinhron.PCIdent;
    if RadioButtonPCWork.Checked then PC:='work'
@@ -173,7 +188,7 @@ begin
  FmSinhron.CreateListExcept(ProfilLine.LineExcept);
  FmSinhron.RzListBoxProfile.Items.Clear;
  for i:=0 to Length(ProfilArray)-1 do
- FmSinhron.RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
+ FmSinhron.RzListBoxProfile.Items.Add(String(ProfilArray[i].NameConf));
  ProfNew:=false;FmSinhron.ExistenceData;
  Close
 end;
@@ -192,10 +207,17 @@ begin
    end;
 end;
 
+procedure TFmConfig.RzCheckBoxSaveLogClick(Sender: TObject);
+begin
+ if RzCheckBoxSaveLog.Checked then
+     RzCheckBoxLogExt.Enabled:=True
+   else      RzCheckBoxLogExt.Enabled:=False
+end;
+
 procedure TFmConfig.RzTrackBarNomFolderChange(Sender: TObject);
 begin
- EditPathWork.Text:= ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork;
- EditPathHome.Text:=ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome;
+ EditPathWork.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork);
+ EditPathHome.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome);
  RzLabelNomer.Caption:=IntToStr(RzTrackBarNomFolder.Position);
 end;
 
@@ -223,12 +245,14 @@ begin
         begin
          EditProfName.text:=NameConf;
          RzCheckBoxDelConfirm.Checked:=Dell—onfirmat;
-         EditPathWork.Text:=FolderDual[1].PathWork;
-         EditPathHome.Text:=FolderDual[1].Pathhome;
+         EditPathWork.Text:=String(FolderDual[1].PathWork);
+         EditPathHome.Text:=String(FolderDual[1].Pathhome);
          RzCheckBoxSaveLog.Checked:=SaveLog;
          RzCheckBoxDellBasket.Checked:=DellBasket;
-         EditIdProf.Text:=Id;
-         EditFileExcept.Text:=LineExcept;
+         RzCheckBoxLogExt.Checked:=LogExt;
+         RzCheckBoxNoTransit.Checked:=Notransit;
+         EditIdProf.Text:=String(Id);
+         EditFileExcept.Text:=String(LineExcept);
          if IdPC=FmSinhron.PCIdent then
           if PC='work' then RadioButtonPCWork.Checked:=true
            else RadioButtonPCHome.Checked:=true;
@@ -249,6 +273,8 @@ begin
      RzCheckBoxDellBasket.Checked:=False;
      RadioButtonPCWork.Checked:=true;
      RzCheckBoxOperacDel.Checked:=false;
+     RzCheckBoxLogExt.Checked:=false;
+     RzCheckBoxNoTransit.Checked:=false;
      for i:=1 to 10 do
       begin
        ProfilLine.FolderDual[i].PathWork:='';

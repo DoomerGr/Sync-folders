@@ -2,7 +2,7 @@ object FmConfig: TFmConfig
   Left = 0
   Top = 0
   Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1086#1092#1080#1083#1103
-  ClientHeight = 552
+  ClientHeight = 580
   ClientWidth = 995
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -3843,7 +3843,7 @@ object FmConfig: TFmConfig
   TextHeight = 13
   object RzPanel1: TRzPanel
     Left = 0
-    Top = 491
+    Top = 519
     Width = 995
     Height = 61
     Align = alBottom
@@ -3933,7 +3933,7 @@ object FmConfig: TFmConfig
     Left = 0
     Top = 0
     Width = 995
-    Height = 491
+    Height = 519
     GradientColorStart = clBtnFace
     GradientColorStop = clBtnShadow
     GroupBorderSize = 8
@@ -4077,7 +4077,7 @@ object FmConfig: TFmConfig
         Top = 42
         Width = 142
         Height = 25
-        Caption = #1055#1072#1087#1082#1072' '#1088#1072#1073#1086#1095#1072#1103
+        Caption = #1055#1072#1087#1082#1072' '#1072#1083#1100#1092#1072
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -4092,7 +4092,7 @@ object FmConfig: TFmConfig
         Top = 91
         Width = 142
         Height = 25
-        Caption = #1055#1072#1087#1082#1072' '#1076#1086#1084#1072#1096#1085#1103#1103
+        Caption = #1055#1072#1087#1082#1072' '#1073#1077#1090#1072
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -4135,7 +4135,7 @@ object FmConfig: TFmConfig
       CanClose = False
       Items = <>
       Opened = True
-      OpenedHeight = 154
+      OpenedHeight = 180
       DividerVisible = False
       Caption = #1054#1087#1094#1080#1080
       Font.Charset = DEFAULT_CHARSET
@@ -4174,7 +4174,7 @@ object FmConfig: TFmConfig
         Transparent = True
       end
       object RzCheckBoxDelConfirm: TRzCheckBox
-        Left = 507
+        Left = 451
         Top = 114
         Width = 176
         Height = 19
@@ -4210,8 +4210,8 @@ object FmConfig: TFmConfig
         TabOrder = 0
       end
       object RzCheckBoxSaveLog: TRzCheckBox
-        Left = 773
-        Top = 114
+        Left = 13
+        Top = 148
         Width = 182
         Height = 19
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1083#1086#1075' '#1086#1087#1077#1088#1072#1094#1080#1080
@@ -4227,6 +4227,7 @@ object FmConfig: TFmConfig
         State = cbUnchecked
         TabOrder = 2
         Transparent = True
+        OnClick = RzCheckBoxSaveLogClick
       end
       object RzCheckBoxOperacDel: TRzCheckBox
         Left = 13
@@ -4254,7 +4255,7 @@ object FmConfig: TFmConfig
         Top = 37
         Width = 113
         Height = 17
-        Caption = '  '#1056#1072#1073#1086#1095#1080#1084
+        Caption = '  '#1040#1083#1100#1092#1072
         Checked = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -4270,7 +4271,7 @@ object FmConfig: TFmConfig
         Top = 37
         Width = 113
         Height = 17
-        Caption = '  '#1044#1086#1084#1072#1096#1085#1080#1084
+        Caption = '  '#1041#1077#1090#1072
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -14
@@ -4280,7 +4281,7 @@ object FmConfig: TFmConfig
         TabOrder = 5
       end
       object RzCheckBoxDellBasket: TRzCheckBox
-        Left = 276
+        Left = 248
         Top = 114
         Width = 140
         Height = 19
@@ -4298,13 +4299,57 @@ object FmConfig: TFmConfig
         TabOrder = 6
         Transparent = True
       end
+      object RzCheckBoxNoTransit: TRzCheckBox
+        Left = 689
+        Top = 114
+        Width = 268
+        Height = 19
+        Hint = #1057#1080#1085#1088#1086#1085#1080#1079#1072#1094#1080#1103' '#1087#1072#1087#1086#1082' '#1074' '#1088#1077#1072#1083#1100#1085#1086#1084' '#1074#1088#1077#1084#1077#1085#1080' '#1073#1077#1079' '#1090#1088#1072#1085#1079#1080#1090#1072' '#1092#1072#1081#1083#1086#1074
+        Caption = #1057#1080#1085#1093#1088#1086#1085#1080#1079#1072#1094#1080#1103#1103' '#1073#1077#1079' '#1090#1088#1072#1085#1079#1080#1090#1072' '#1092#1072#1081#1083#1086#1074
+        FrameColor = 8409372
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -14
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        HighlightColor = 2203937
+        HotTrack = True
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        State = cbUnchecked
+        TabOrder = 7
+        Transparent = True
+      end
+      object RzCheckBoxLogExt: TRzCheckBox
+        Left = 248
+        Top = 148
+        Width = 192
+        Height = 19
+        Hint = #1052#1086#1078#1077#1090' '#1091#1074#1077#1083#1080#1095#1080#1090#1100' '#1074#1088#1077#1084#1103' '#1085#1072' '#1074#1099#1087#1086#1083#1085#1077#1085#1080#1077' '#1086#1087#1077#1088#1072#1094#1080#1081
+        Caption = #1056#1072#1089#1096#1080#1088#1077#1085#1085#1086#1077' '#1083#1086#1075#1080#1088#1086#1074#1072#1085#1080#1077
+        FrameColor = 8409372
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -14
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        HighlightColor = 2203937
+        HotTrack = True
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        State = cbUnchecked
+        TabOrder = 8
+        Transparent = True
+      end
     end
   end
   object ImageList1: TImageList
     Left = 838
     Top = 359
     Bitmap = {
-      494C010104000800680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040008007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
