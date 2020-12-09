@@ -88,10 +88,10 @@
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.56;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
-        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_ExeOutput>
-        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcuOutput>
+        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_ExeOutput>
+        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_DcuOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcpOutput>
+        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_DcpOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -107,15 +107,15 @@
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Build>56</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.56;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>59</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.59;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>Sinhron_Icon1.ico</Icon_MainIcon>
-        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcpOutput>
-        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_ExeOutput>
+        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_DcpOutput>
+        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_ExeOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcuOutput>
+        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_DcuOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

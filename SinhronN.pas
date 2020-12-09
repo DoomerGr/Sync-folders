@@ -1291,11 +1291,9 @@ begin
                   Timer1.Enabled:=true;
                   Exit;
                  end;
-
                 end;
-                Timer1.Enabled:=True;
               end;
-           end;
+            end;
          end
        end
      else
@@ -1397,7 +1395,7 @@ begin
          ProgressBarFolder.Max:=HomeList.Count;
          ProgressBarFolder.Position:=0;
         end;
-
+        Screen.Cursor:= crDefault;
        if not(ChekDiskSize(' ',SizeFiles)) then
         begin
          MessageDlg('На диске не достаточно свободного места для выполнения операций',
@@ -1406,7 +1404,7 @@ begin
          FreeAndNil(HomeList);
          exit
          end;
-        Screen.Cursor:= crDefault;
+
        //копирование или удаление файлов по признаку Action
         for j:=0 to HomeList.Count-1 do
          begin
@@ -1422,8 +1420,6 @@ begin
            begin
             RzLabelNameFile.Caption:=MinimizeName(FSource,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
             if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
-//            CopyFileWithProgress(Sc,St,TAtrib(HomeList.Objects[j]).FileDataTime,ProgressBarFile);
-//            CopyFileStreamProgress(Sc,St,TAtrib(HomeList.Objects[j]).FileDataTime,ProgressBarFile);
             if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
              else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
            end;
