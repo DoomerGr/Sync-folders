@@ -232,8 +232,8 @@ begin
    end;
   if (w=false) and (FMemoResult<>nil) then
    if (GetLastError and PROGRESS_CANCEL)<>0 then
-     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Файл не скопирован: '+
-                          FSource,clRed,FmSinhron.Task.SaveLog)
+     FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,
+     'Файл: '+FSource+#13+#10+'не скопирован в '+FDest,clRed,FmSinhron.Task.SaveLog)
    else
     if (GetLastError and ERROR_ACCESS_DENIED)<>0 then
       FmSinhron.AddEchoText(FmSinhron.RzRichEditEchoCom,'Ошибка доступа к файлу: '+

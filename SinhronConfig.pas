@@ -159,8 +159,8 @@ begin
 
 
 
- AssignFile(f,ProgramPath+'Sinhron.cfg');
- if  not(FileExists(ProgramPath+'Sinhron.cfg')) then Rewrite(f)
+ AssignFile(f,FmSinhron.FileNameConfig);
+ if  not(FileExists(FmSinhron.FileNameConfig)) then Rewrite(f)
   else Reset(f);
 
  with ProfilLine do

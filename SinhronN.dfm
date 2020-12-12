@@ -6615,8 +6615,8 @@ object FmSinhron: TFmSinhron
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 25
-    Top = 16
+    Left = 209
+    Top = 64
   end
   object RzVersionInfo1: TRzVersionInfo
     Left = 560
@@ -6643,6 +6643,20 @@ object FmSinhron: TFmSinhron
     object N4ViewSnimok: TMenuItem
       Caption = #1055#1088#1086#1089#1084#1086#1090#1088' '#1089#1085#1080#1084#1082#1072
       OnClick = N4ViewSnimokClick
+    end
+    object N4: TMenuItem
+      Caption = '-'
+    end
+    object N5LoadPrifile: TMenuItem
+      Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1087#1088#1086#1092#1080#1083#1100
+      OnClick = N5LoadPrifileClick
+    end
+    object N5: TMenuItem
+      Caption = '-'
+    end
+    object cmdExampleLine: TMenuItem
+      Caption = #1055#1088#1080#1084#1077#1088' cmd '#1079#1072#1087#1091#1089#1082#1072
+      OnClick = cmdExampleLineClick
     end
   end
   object PopupMenuLogView: TPopupMenu
@@ -6679,5 +6693,18 @@ object FmSinhron: TFmSinhron
     Filter = #1057#1085#1080#1084#1082#1080' '#1087#1072#1087#1086#1082'|*.fdat'
     Left = 273
     Top = 184
+  end
+  object OpenDialogConf: TOpenDialog
+    DefaultExt = 'cfg'
+    Filter = #1092#1072#1081#1083' '#1087#1088#1086#1092#1080#1083#1077#1081'|*.cfg'
+    Left = 369
+    Top = 184
+  end
+  object TimerCmdBoot: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = TimerCmdBootTimer
+    Left = 257
+    Top = 64
   end
 end

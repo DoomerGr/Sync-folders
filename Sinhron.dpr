@@ -22,5 +22,11 @@ begin
   Application.CreateForm(TFmDialogFulCopy, FmDialogFulCopy);
   Application.CreateForm(TFmViewLog, FmViewLog);
   Application.CreateForm(TFmShowSnimok, FmShowSnimok);
+  if ParamCount>1 then
+   begin
+    FmSinhron.WindowState:=wsMinimized;
+    if ParamStr(5)='hide' then  FmSinhron.RunParamStr(FmSinhron);
+    FmSinhron.TimerCmdBoot.Enabled:=true;
+   end;
   Application.Run;
 end.

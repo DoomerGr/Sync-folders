@@ -60,6 +60,12 @@ type
     SaveDialogFlsSnimok: TSaveDialog;
     OpenDialogSnimok: TOpenDialog;
     N4ViewSnimok: TMenuItem;
+    OpenDialogConf: TOpenDialog;
+    N4: TMenuItem;
+    N5LoadPrifile: TMenuItem;
+    N5: TMenuItem;
+    cmdExampleLine: TMenuItem;
+    TimerCmdBoot: TTimer;
     procedure RzBitBtnEditConfigClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RzBitBtnAddProfilClick(Sender: TObject);
@@ -98,6 +104,12 @@ type
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4ViewSnimokClick(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure LoadProfile;
+    procedure N5LoadPrifileClick(Sender: TObject);
+    procedure RunParamStr(Sender:TObject);
+    procedure cmdExampleLineClick(Sender: TObject);
+    procedure TimerCmdBootTimer(Sender: TObject);
 
   private
     FileCopier:IFileCopier;
@@ -112,6 +124,7 @@ type
     ListExcept:TStringList;
     PathTask:string;
     RichEditLog:TRzRichEdit;
+    FileNameConfig:string;
     property progress:integer read fProgress write setTaskProgress;
   end;
 
@@ -193,6 +206,11 @@ begin
   end;
 end;
 
+procedure TFmSinhron.N5LoadPrifileClick(Sender: TObject);
+begin
+ LoadProfile
+end;
+
 procedure TFmSinhron.FormActivate(Sender: TObject);
 begin
  RzListBoxProfile.Focused;
@@ -225,13 +243,14 @@ var f:file of TProfilLine;
     m:TmenuItem;
     RegData:TRegistry;
     pn:TPoint;
-    tbList : ITaskBarList;
-    state : TTaskState;
+    tbList:ITaskBarList;
+    state:TTaskState;
 begin
-// Application.MainFormOnTaskBar := True;
-  TbList:=CreateComObject(CLSID_TaskBarList) as ITaskBarList;
-  TbList.QueryInterface(IID_ITaskBarList3,taskBarList);
-  pn.x:=-1;
+ // Application.MainFormOnTaskBar := True;
+ if (ParamCount>1) and (ParamCount<4) then halt(0);
+ TbList:=CreateComObject(CLSID_TaskBarList) as ITaskBarList;
+ TbList.QueryInterface(IID_ITaskBarList3,taskBarList);
+ pn.x:=-1;StopCopy:=false;
  try
   RegData:=TRegistry.Create;
   RegData.RootKey:=HKEY_CURRENT_USER;
@@ -269,42 +288,52 @@ begin
     LongMonthNames[11]  := 'Ноября';
     LongMonthNames[12]  := 'Декабря';
    end;
+ FileCopier := TFileCopier.Create;
+ FileCopier.ProgressBar:=ProgressBarFile;
+ FileCopier.MemoResult:=RzRichEditEchoCom;
  Screen.Cursor := crDefault;
  AddEchoText(RzRichEditEchoCom,'Старт программы. Сейчас '+
  FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,Task.SaveLog);
- ProgramPath:=ExtractFilePath(ParamStr(0));
+ RzLblVersion.Caption:='v.'+RzVersionInfo1.FileVersion;
  PCIdent:=GetHDSerNo; RichEditLog:=nil;
- if  FileExists(ProgramPath+'Sinhron.cfg') then
+ if ParamCount=1 then
   begin
-     AssignFile(f,ProgramPath+'Sinhron.cfg');Reset(f);
-     if FileSize(f)>0 then
-      begin
-       SetLength(ProfilArray,FileSize(f));i:=0;
-       while not(Eof(f)) do
-        begin
-         read(f,ProfilArray[i]);
-         RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
-         inc(i)
-        end;
-       Task:=ProfilArray[0];
-      end;
-    CloseFile(f);
-  end;
-  if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
-
-  FmSinhron.ExistenceData;
-  RzLblVersion.Caption:='v.'+RzVersionInfo1.FileVersion;
-  FileCopier := TFileCopier.Create;
-  FileCopier.ProgressBar:=ProgressBarFile;
-  FileCopier.MemoResult:=RzRichEditEchoCom;
-
-  for i := 0 to Length(TStyleManager.StyleNames)-1 do
+   ProgramPath:=IncludeTrailingBackslash(ParamStr(1));
+   FileNameConfig:=IncludeTrailingBackslash(ParamStr(1))+'Sinhron.cfg';
+  end
+   else
     begin
-      m:=TmenuItem.Create(FmSinhron);
-      m.Caption:=TStyleManager.StyleNames[i];
-      m.OnClick:=LoadStyle;
-      PopupMenuTools.Items.Items[0].Add(m);
+     ProgramPath:=ExtractFilePath(ParamStr(0));
+     FileNameConfig:=ProgramPath+'Sinhron.cfg';
     end;
+ for i := 0 to Length(TStyleManager.StyleNames)-1 do
+  begin
+    m:=TmenuItem.Create(FmSinhron);
+    m.Caption:=TStyleManager.StyleNames[i];
+    m.OnClick:=LoadStyle;
+    PopupMenuTools.Items.Items[0].Add(m);
+  end;
+  if ParamCount<2 then
+   begin
+    if  FileExists(FileNameConfig) then
+     begin
+       AssignFile(f,FileNameConfig);Reset(f);
+       if FileSize(f)>0 then
+        begin
+         SetLength(ProfilArray,FileSize(f));i:=0;
+         while not(Eof(f)) do
+          begin
+           read(f,ProfilArray[i]);
+           RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
+           inc(i)
+          end;
+         Task:=ProfilArray[0];
+        end;
+      CloseFile(f);
+     end;
+     if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
+     FmSinhron.ExistenceData;
+   end;
 end;
 
 procedure TFmSinhron.SetTaskProgress(newValue: Integer);
@@ -347,6 +376,45 @@ begin
  TestState(Task);
 end;
 
+
+procedure TFmSinhron.LoadProfile;
+var f:file of TProfilLine;
+    i:Integer;
+begin
+ if OpenDialogConf.Execute then
+  begin
+    ProgramPath:=ExtractFilePath(OpenDialogConf.FileName);
+    SetLength(ProfilArray,0);
+    try
+     AssignFile(f,OpenDialogConf.FileName);Reset(f);
+     if FileSize(f)>0 then
+      begin
+       FileNameConfig:=OpenDialogConf.FileName;
+       SetLength(ProfilArray,FileSize(f));i:=0;
+       RzListBoxProfile.Items.Clear;
+       while not(Eof(f)) do
+        begin
+         read(f,ProfilArray[i]);
+         RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
+         inc(i)
+        end;
+       Task:=ProfilArray[0];
+       if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
+       FmSinhron.ExistenceData;
+      end;
+     finally
+      CloseFile(f);
+    end
+  end;
+end;
+
+
+procedure TFmSinhron.Image1Click(Sender: TObject);
+begin
+ LoadProfile;
+end;
+
+
 procedure TFmSinhron.PopupMenuLogViewPopup(Sender: TObject);
 begin
  if (FileExists(ProgramPath+'Task\'+Task.Id+'\'+Task.Id+'.log')) then
@@ -379,7 +447,7 @@ begin
    SetLength(ProfilArray, Length(ProfilArray)-1);
    RzListBoxProfile.Items.Clear;
 
-   AssignFile(f,ProgramPath+'Sinhron.cfg');Rewrite(f);
+   AssignFile(f,FileNameConfig);Rewrite(f);
    for i:=0 to Length(ProfilArray)-1 do
     begin
      RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
@@ -563,6 +631,7 @@ begin
  if Disk=' ' then i:=0 else i:=Ord(Disk[1])-64;
  if SizeFiles<=DiskFree(i) then Result:=True  else Result:=False;
 end;
+
 
 procedure TFmSinhron.RunWorkHome_Home(TaskData:TProfilLine);
 var I_Poisk,j,i:integer;
@@ -1609,6 +1678,7 @@ begin
   Timer1.Enabled:=False;
 end;
 
+
 function TFmSinhron.ExistenceData:Boolean;
 begin
   if Length(ProfilArray)>0 then
@@ -2094,8 +2164,117 @@ begin
 
 end;
 
+procedure TFmSinhron.RunParamStr(Sender:TObject);
+var f:file of TProfilLine;
+    nom,i,j:Integer;
+    Tip:Char;
+    TipOperac,S:string;
+begin
+  Task.NameConf:='';Tip:='0';
+  for i:=1 to ParamCount do
+   case i of
+    1: begin
+         S:=IncludeTrailingBackslash(ParamStr(i));
+         if FileExists(S+'Sinhron.cfg') then
+           begin
+            FileNameConfig:=S+'Sinhron.cfg';
+            ProgramPath:=S
+           end
+         else Halt(0);
+       end;
+    2: Nom:=StrToInt(ParamStr(i))-1;
+    3: Tip:=ParamStr(i)[1];
+    4: TipOperac:=ParamStr(i);
+   end;
+   if nom<0 then Halt(0);
+   try
+     AssignFile(f,FileNameConfig);Reset(f);
+     SetLength(ProfilArray,0);
+     if FileSize(f)>0 then
+      begin
+       SetLength(ProfilArray,FileSize(f));j:=0;
+       while not(Eof(f)) do
+        begin
+         read(f,ProfilArray[j]);
+         inc(j)
+        end;
+      end;
+     CloseFile(f);
+     except
+     CloseFile(f);Halt(0)
+   end;
+   Task:=ProfilArray[nom];
+   if nom>Length(ProfilArray)-1 then Halt(0);
+   if ((Task.NameConf='') or (Tip='0')) or
+              ((TipOperac<>'AB') and (TipOperac<>'BA')) then Halt(0);
+   if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
+   PathTask:=ProgramPath+'Task\'+Task.Id;
+   if Task.SaveLog then
+    begin
+      RichEditLog:=TRzRichEdit.Create(FmSinhron);
+       with RichEditLog do
+        begin
+         Parent:=RzPanel2; WantReturns:=true;
+         PlainText:=false; Visible:=false;
+         Font.Size:=10;
+        end;
+     AddEchoText(RichEditLog,'Старт программы. Сейчас '+
+     FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,false);
+    end;
+   if (TipOperac='AB') then
+    begin
+     if Task.Notransit then
+       RunNoTransit(Task,12)
+     else
+      begin
+       if Tip='A' then RunWorkHome_Work(Task);
+       if Tip='B' then RunWorkHome_Home(Task);
+      end;
+    end;
+   if (TipOperac='BA') then
+    begin
+      if Task.Notransit then
+       RunNoTransit(Task,21)
+      else
+       begin
+        if Tip='A' then RunHomeWork_Work(Task);
+        if Tip='B' then RunHomeWork_Home(Task);
+       end;
+    end;
+    ProgressBarFolder.Position:=0;ProgressBarFile.Position:=0;
+    SetTaskProgress(0);setTaskStopViewProg;
+    TestState(Task);Screen.Cursor:= crDefault;
+    if Task.SaveLog then
+      begin
+       AddLogTmpToLogFile(Sender);
+       FreeAndNil(RichEditLog);
+      end;
+  Halt(0);
+end;
+
+procedure TFmSinhron.cmdExampleLineClick(Sender: TObject);
+var s:string;
+begin
+  AddEchoText(RzRichEditEchoCom,#13+#10+
+     'Sinhron.exe E:\Sin\ 1 A AB hide',clRed,false);
+  S:='1 параметр: "E:\Sin\" путь к конфигурационному файлу и он определяет рабочую папку'+#13+#10+
+     '2 параметр: "1" номер профиля в списке'+#13+#10+
+     '3 параметр: текущий компьютер: "A" - альфа "B" бета'+#13+#10+
+     '4 параметр: направление синхронизации "AB"-альфа с бета, "BA"-бета с альфа'+#13+#10+
+     '5 параметр: "hide" (необязательный) позволяет выполнять все операции скрытно. Для отключения всех '+#13+#10+
+     '                     сообщений уберите галочку в профиле подтверждения на удаление.'+#13+#10+
+     'Можно подставить только первый параметр для выбора Sinhron.cfg и рабочей папки.'+#13+#10+
+     'Eсли параметров больше одного то обязательно нужно вводить все параметры, кроме пятого (необязательного).'+#13+#10+
+     'При использовании четырех (пяти) параметров программа запустится в свернутом состоянии, отработает и закроется.'+#13+#10+
+     'Шрифт латиница. ';
+ AddEchoText(RzRichEditEchoCom,s,clTeal,false);
+end;
+
+procedure TFmSinhron.TimerCmdBootTimer(Sender: TObject);
+begin
+ TimerCmdBoot.Enabled:=false;
+ if (ParamCount<>0) then  FmSinhron.RunParamStr(FmSinhron);
+
+end;
+
 End.
-
-
-
-
