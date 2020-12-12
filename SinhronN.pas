@@ -66,6 +66,7 @@ type
     N5: TMenuItem;
     cmdExampleLine: TMenuItem;
     TimerCmdBoot: TTimer;
+    N6HelpProg: TMenuItem;
     procedure RzBitBtnEditConfigClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RzBitBtnAddProfilClick(Sender: TObject);
@@ -110,6 +111,7 @@ type
     procedure RunParamStr(Sender:TObject);
     procedure cmdExampleLineClick(Sender: TObject);
     procedure TimerCmdBootTimer(Sender: TObject);
+    procedure N6HelpProgClick(Sender: TObject);
 
   private
     FileCopier:IFileCopier;
@@ -2269,6 +2271,21 @@ begin
      'Шрифт латиница. ';
  AddEchoText(RzRichEditEchoCom,s,clTeal,false);
 end;
+
+procedure TFmSinhron.N6HelpProgClick(Sender: TObject);
+var s:string;
+begin
+ S:=#13+#10+
+ 'Синхронизация выбранных папок 2х компьютеров через внешний носитель например USB-Flash.'+#13+#10+
+ 'Программа имеет в профиле 10 пар папок компьютеров альфа и бета. При синхронизации будут включены'+#13+#10+
+ 'все подпапки. Позволяет синхронизировать эти папки если работа ведется с файлами на разных рабочих местах.'+#13+#10+
+ 'Есть возможность синхронизации без транзита файлов на флешку, напрямую, например если синхронизировать с внешним'+#13+#10+
+ 'жестким диском. Также возможно создавать снимки папок с дальнейшим их сравнением. Добавлен просмотрщик снимков.'+#13+#10+
+ 'Ведется логирование операций упрощенное или расширенное.'+#13+#10+
+ 'Есть режим удаления в корзину и возможность смены скинов программы.';
+  AddEchoText(RzRichEditEchoCom,s,clBlue,false);
+end;
+
 
 procedure TFmSinhron.TimerCmdBootTimer(Sender: TObject);
 begin
