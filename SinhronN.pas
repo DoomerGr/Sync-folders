@@ -1485,6 +1485,7 @@ begin
             break;
            end;
           ProgressBarFolder.Position:=ProgressBarFolder.Position+1;
+          SetTaskProgress(ProgressBarFolder.Position);
           FDest:=PathArhFlsTrgFld+TAtrib(HomeList.Objects[j]).FNameTmp;
           FSource:=TaskData.FolderDual[i].PathHome+HomeList[j];
           if TAtrib(HomeList.Objects[j]).Action='copy' then
