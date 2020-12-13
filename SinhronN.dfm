@@ -6658,6 +6658,10 @@ object FmSinhron: TFmSinhron
       Caption = #1055#1088#1080#1084#1077#1088' cmd '#1079#1072#1087#1091#1089#1082#1072
       OnClick = cmdExampleLineClick
     end
+    object N6HelpProg: TMenuItem
+      Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
+      OnClick = N6HelpProgClick
+    end
   end
   object PopupMenuLogView: TPopupMenu
     OnPopup = PopupMenuLogViewPopup

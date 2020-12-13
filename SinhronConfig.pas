@@ -135,7 +135,7 @@ begin
 
  if not(ProvName and ProvPath) then
   begin
-   Application.MessageBox('ÕÂ ‚ÒÂ Ô‡‡ÏÂÚ˚ ‚‚Â‰ÂÌ˚', 'Œ¯Ë·Í‡', MB_OK +
+   Application.MessageBox('–ù–µ –≤—Å–µ –ø–∞—Ä–∞–º–µ—Ç—Ä—ã –≤–≤–µ–¥–µ–Ω—ã', '–û—à–∏–±–∫–∞', MB_OK +
    MB_ICONSTOP);
    exit
   end;
@@ -166,7 +166,7 @@ begin
  with ProfilLine do
   begin
    NameConf:=EditProfName.Text;
-   Dell—onfirmat:=RzCheckBoxDelConfirm.Checked;
+   Dell–°onfirmat:=RzCheckBoxDelConfirm.Checked;
    SaveLog:=RzCheckBoxSaveLog.Checked;
    DellBasket:=RzCheckBoxDellBasket.Checked;
    LogExt:=RzCheckBoxLogExt.Checked;
@@ -244,7 +244,7 @@ begin
        with ProfilLine do
         begin
          EditProfName.text:=NameConf;
-         RzCheckBoxDelConfirm.Checked:=Dell—onfirmat;
+         RzCheckBoxDelConfirm.Checked:=Dell–°onfirmat;
          EditPathWork.Text:=String(FolderDual[1].PathWork);
          EditPathHome.Text:=String(FolderDual[1].Pathhome);
          RzCheckBoxSaveLog.Checked:=SaveLog;

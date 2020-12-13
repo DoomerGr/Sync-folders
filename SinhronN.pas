@@ -186,11 +186,11 @@ begin
     with FmShowSnimok do
      begin
       StringGrid1.RowCount:=FileSize(f);
-      StringGrid1.Cells[0,0]:='№';
-      StringGrid1.Cells[1,0]:='Имя файла';
-      StringGrid1.Cells[2,0]:='Размер';
-      StringGrid1.Cells[3,0]:='Дата';
-      StringGrid1.Cells[4,0]:='Время';
+      StringGrid1.Cells[0,0]:='в„–';
+      StringGrid1.Cells[1,0]:='РРјСЏ С„Р°Р№Р»Р°';
+      StringGrid1.Cells[2,0]:='Р Р°Р·РјРµСЂ';
+      StringGrid1.Cells[3,0]:='Р”Р°С‚Р°';
+      StringGrid1.Cells[4,0]:='Р’СЂРµРјСЏ';
       if not(eof(f)) then read(f,s);
        RzLabelFolderName.Caption:=MinimizeName(s.FName,RzLabelFolderName.Canvas,
         RzLabelFolderName.Width);
@@ -277,25 +277,25 @@ begin
   end;
   with FormatSettings do
    begin
-    LongMonthNames[1]  := 'Января';
-    LongMonthNames[2]  := 'Февраля';
-    LongMonthNames[3]  := 'Марта';
-    LongMonthNames[4]  := 'Апреля';
-    LongMonthNames[5]  := 'Мая';
-    LongMonthNames[6]  := 'Июня';
-    LongMonthNames[7]  := 'Июля';
-    LongMonthNames[8]  := 'Августа';
-    LongMonthNames[9]  := 'Сентября';
-    LongMonthNames[10]  := 'Октября';
-    LongMonthNames[11]  := 'Ноября';
-    LongMonthNames[12]  := 'Декабря';
+    LongMonthNames[1]  := 'РЇРЅРІР°СЂСЏ';
+    LongMonthNames[2]  := 'Р¤РµРІСЂР°Р»СЏ';
+    LongMonthNames[3]  := 'РњР°СЂС‚Р°';
+    LongMonthNames[4]  := 'РђРїСЂРµР»СЏ';
+    LongMonthNames[5]  := 'РњР°СЏ';
+    LongMonthNames[6]  := 'РСЋРЅСЏ';
+    LongMonthNames[7]  := 'РСЋР»СЏ';
+    LongMonthNames[8]  := 'РђРІРіСѓСЃС‚Р°';
+    LongMonthNames[9]  := 'РЎРµРЅС‚СЏР±СЂСЏ';
+    LongMonthNames[10]  := 'РћРєС‚СЏР±СЂСЏ';
+    LongMonthNames[11]  := 'РќРѕСЏР±СЂСЏ';
+    LongMonthNames[12]  := 'Р”РµРєР°Р±СЂСЏ';
    end;
  FileCopier := TFileCopier.Create;
  FileCopier.ProgressBar:=ProgressBarFile;
  FileCopier.MemoResult:=RzRichEditEchoCom;
  Screen.Cursor := crDefault;
- AddEchoText(RzRichEditEchoCom,'Старт программы. Сейчас '+
- FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'РЎС‚Р°СЂС‚ РїСЂРѕРіСЂР°РјРјС‹. РЎРµР№С‡Р°СЃ '+
+ FormatDateTime('d mmmm yyyy "Рі - " dddd',Now)+'. Р’СЂРµРјСЏ: '+TimeToStr(Time)+'.',clMaroon,Task.SaveLog);
  RzLblVersion.Caption:='v.'+RzVersionInfo1.FileVersion;
  PCIdent:=GetHDSerNo; RichEditLog:=nil;
  if ParamCount=1 then
@@ -439,8 +439,8 @@ begin
 
    if DirectoryExists(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id) then
     begin
-      if MessageBox(Handle, 'Удалить задание и все связанные с ним файлы?',
-        'Предупреждение', MB_YESNO + MB_ICONWARNING)=mrNo then Exit
+      if MessageBox(Handle, 'РЈРґР°Р»РёС‚СЊ Р·Р°РґР°РЅРёРµ Рё РІСЃРµ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ РЅРёРј С„Р°Р№Р»С‹?',
+        'РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ', MB_YESNO + MB_ICONWARNING)=mrNo then Exit
          else DelDir(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id,false,true)
     end;
 
@@ -475,7 +475,7 @@ var Spisok:TStringList;
 begin
  Result:=0;
  Spisok:=TStringList.Create;
- // 0 все вложенные папки и файлы 1 все вложенные папки 2 файлы в указанной папке
+ // 0 РІСЃРµ РІР»РѕР¶РµРЅРЅС‹Рµ РїР°РїРєРё Рё С„Р°Р№Р»С‹ 1 РІСЃРµ РІР»РѕР¶РµРЅРЅС‹Рµ РїР°РїРєРё 2 С„Р°Р№Р»С‹ РІ СѓРєР°Р·Р°РЅРЅРѕР№ РїР°РїРєРµ
  ScanDisk(PathFolder,'*.*',Spisok,0);
 
  AssignFile(f,NameFiles); Rewrite(f);
@@ -505,7 +505,7 @@ begin
      if skip then continue;
      if Length(Spisok.Strings[i])>255 then
       begin
-       AddEchoText(RzRichEditEchoCom,'Ошибка! Уменьшите длину пути\имени файла: '+Spisok.Strings[i],clRed,Task.SaveLog);
+       AddEchoText(RzRichEditEchoCom,'РћС€РёР±РєР°! РЈРјРµРЅСЊС€РёС‚Рµ РґР»РёРЅСѓ РїСѓС‚Рё\РёРјРµРЅРё С„Р°Р№Р»Р°: '+Spisok.Strings[i],clRed,Task.SaveLog);
        Continue;
       end;
      FName:=Spisok.Strings[i];
@@ -532,7 +532,7 @@ var Spisok:TStringList;
 begin
  Result:=0;
  Spisok:=TStringList.Create;
- // 0 все вложенные папки и файлы 1 все вложенные папки 2 файлы в указанной папке
+ // 0 РІСЃРµ РІР»РѕР¶РµРЅРЅС‹Рµ РїР°РїРєРё Рё С„Р°Р№Р»С‹ 1 РІСЃРµ РІР»РѕР¶РµРЅРЅС‹Рµ РїР°РїРєРё 2 С„Р°Р№Р»С‹ РІ СѓРєР°Р·Р°РЅРЅРѕР№ РїР°РїРєРµ
  ScanDisk(PathFolder,'*.*',Spisok,0);
  AssignFile(f,NameFiles); Rewrite(f);
  with tmp do
@@ -543,14 +543,14 @@ begin
    FDataTime:=Time;
    SizeFile:=0;
   end;
- Write(f,tmp); //запись с именем корневой папки
+ Write(f,tmp); //Р·Р°РїРёСЃСЊ СЃ РёРјРµРЅРµРј РєРѕСЂРЅРµРІРѕР№ РїР°РїРєРё
  For i:=0 to Spisok.Count-1 do
   begin
    with tmp do
     begin
      if Length(Spisok.Strings[i])>255 then
       begin
-       AddEchoText(RzRichEditEchoCom,'Ошибка! Уменьшите длину пути\имени файла: '+Spisok.Strings[i],clRed,Task.SaveLog);
+       AddEchoText(RzRichEditEchoCom,'РћС€РёР±РєР°! РЈРјРµРЅСЊС€РёС‚Рµ РґР»РёРЅСѓ РїСѓС‚Рё\РёРјРµРЅРё С„Р°Р№Р»Р°: '+Spisok.Strings[i],clRed,Task.SaveLog);
        Continue;
       end;
      FName:=Spisok.Strings[i];
@@ -575,12 +575,12 @@ var f:file of TNameAtribFile;
     NameAtribFile:TNameAtribFile;
     FSource,FDest:string;
 begin
-  AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+PathFolder,clGreen,Task.SaveLog);
+  AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+PathFolder,clGreen,Task.SaveLog);
   RzLabelNameFolder.Caption:=MinimizeName(PathFolder,RzLabelNameFolder.Canvas,RzLabelNameFolder.Width);
   AssignFile(f,PathList);Reset(f);
   ProgressBarFolder.Max:=FileSize(f)-1;
   ProgressBarFolder.Position:=0;
-  if not(Eof(f)) then read(f,NameAtribFile);//пропускаем первую запись
+  if not(Eof(f)) then read(f,NameAtribFile);//РїСЂРѕРїСѓСЃРєР°РµРј РїРµСЂРІСѓСЋ Р·Р°РїРёСЃСЊ
    while not(Eof(f)) do
     begin
      ProgressBarFolder.Position:=ProgressBarFolder.Position+1;
@@ -598,7 +598,7 @@ begin
       end
     end;
    CloseFile(f);
-   AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+PathFolder+' завершено',clGreen,Task.SaveLog);
+   AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+PathFolder+' Р·Р°РІРµСЂС€РµРЅРѕ',clGreen,Task.SaveLog);
 end;
 
 
@@ -608,7 +608,7 @@ var f:file of TNameAtribFile;
     tmp:TNameAtribFile;
 begin
   AssignFile(f,PathFiles);Reset(f);
-  if not EOF(f) then read(f,tmp);//пропускаем первую запись
+  if not EOF(f) then read(f,tmp);//РїСЂРѕРїСѓСЃРєР°РµРј РїРµСЂРІСѓСЋ Р·Р°РїРёСЃСЊ
    while not EOF(f) do
     begin
       read(f,tmp); AtribFile:=TAtrib.Create;
@@ -645,9 +645,9 @@ var I_Poisk,j,i:integer;
     MRes:TModalResult;
     SizeFiles:int64;
 begin
- //создание списка============================================================
+ //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР°============================================================
  SizeFiles:=0;StopCopy:=false;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ РѕРїРµСЂР°С†РёРё: Р°Р»СЊС„Р°==>Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р±РµС‚Р°',clBlue,Task.SaveLog);
  for i:=1 to 10 do
  with TaskData.FolderDual[i] do
   if PathHome<>'' then
@@ -655,7 +655,7 @@ begin
      if DirectoryExists(PathHome) then
        begin
         Screen.Cursor:= crHourGlass;
-        AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+        AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
         CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
         Screen.Cursor:= crDefault;
        end
@@ -675,22 +675,22 @@ begin
      if TaskData.FolderDual[i].PathWork<>'' then
        begin
          with CreateMessageDialog(
-          'В профиле, в группе папок N'+IntTostr(i)+' отсутствует путь к синхронной папке компьютера бета.'+#13+#10+
-          'Папка: '+TaskData.FolderDual[i].PathHome+#13+#10+
-          'Выберите "Путь" и добавьте в профиле недостающие данные и запустите повторно операцию по синхронизации.'+#13+#10+
-          'Выберите "Удалить" и удалите эти файлы отменив синхронизацию этих папок.',mtWarning, [mbYes,mbNo]) do
+          'Р’ РїСЂРѕС„РёР»Рµ, РІ РіСЂСѓРїРїРµ РїР°РїРѕРє N'+IntTostr(i)+' РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСѓС‚СЊ Рє СЃРёРЅС…СЂРѕРЅРЅРѕР№ РїР°РїРєРµ РєРѕРјРїСЊСЋС‚РµСЂР° Р±РµС‚Р°.'+#13+#10+
+          'РџР°РїРєР°: '+TaskData.FolderDual[i].PathHome+#13+#10+
+          'Р’С‹Р±РµСЂРёС‚Рµ "РџСѓС‚СЊ" Рё РґРѕР±Р°РІСЊС‚Рµ РІ РїСЂРѕС„РёР»Рµ РЅРµРґРѕСЃС‚Р°СЋС‰РёРµ РґР°РЅРЅС‹Рµ Рё Р·Р°РїСѓСЃС‚РёС‚Рµ РїРѕРІС‚РѕСЂРЅРѕ РѕРїРµСЂР°С†РёСЋ РїРѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.'+#13+#10+
+          'Р’С‹Р±РµСЂРёС‚Рµ "РЈРґР°Р»РёС‚СЊ" Рё СѓРґР°Р»РёС‚Рµ СЌС‚Рё С„Р°Р№Р»С‹ РѕС‚РјРµРЅРёРІ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЋ СЌС‚РёС… РїР°РїРѕРє.',mtWarning, [mbYes,mbNo]) do
          try
-          Caption := 'Внимание';
-          (FindComponent('Yes') as TButton).Caption := 'Путь';
-          (FindComponent('No') as TButton).Caption := 'Удалить';
+          Caption := 'Р’РЅРёРјР°РЅРёРµ';
+          (FindComponent('Yes') as TButton).Caption := 'РџСѓС‚СЊ';
+          (FindComponent('No') as TButton).Caption := 'РЈРґР°Р»РёС‚СЊ';
            MRes:=ShowModal;
           finally
            Free
           end;
          if MRes=mrYes then
           begin
-            AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: альфа=>бета. Тип операции: '+
-            'Компьютер бета.',clBlue,Task.SaveLog);
+            AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р°Р»СЊС„Р°=>Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: '+
+            'РљРѕРјРїСЊСЋС‚РµСЂ Р±РµС‚Р°.',clBlue,Task.SaveLog);
             exit;
           end;
        end;
@@ -709,7 +709,7 @@ begin
     HomeList:=TFileList.Create;
     CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
 
-    //сравнение списков рабочий-->домашний
+    //СЃСЂР°РІРЅРµРЅРёРµ СЃРїРёСЃРєРѕРІ СЂР°Р±РѕС‡РёР№-->РґРѕРјР°С€РЅРёР№
     for j:=0 to WorkList.Count-1 do
      begin
       I_Poisk:=HomeList.IndexOf(WorkList[j]);
@@ -726,7 +726,7 @@ begin
               begin
                TAtrib(WorkList.Objects[j]).Action:='copy';
                if task.LogExt then
-               AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
+               AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
                TaskData.FolderDual[i].PathHome+HomeList[I_Poisk],clPurple,Task.SaveLog);
                TAtrib(HomeList.Objects[I_Poisk]).Free;
                HomeList.Delete(I_Poisk);
@@ -742,7 +742,7 @@ begin
         begin
          if TAtrib(WorkList.Objects[j]).Nature=1 then TAtrib(WorkList.Objects[j]).action:='copy';
          if task.LogExt then
-         AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
+         AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р» РґРѕР±Р°РІР»РµРЅ: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
         end;
      end;
 
@@ -756,7 +756,7 @@ begin
       end;
      FreeAndNil(HomeList);
 
-    //подсчет необходимого места
+    //РїРѕРґСЃС‡РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РјРµСЃС‚Р°
     SizeFiles:=0;
     for j:=0 to WorkList.Count-1 do
      begin
@@ -766,7 +766,7 @@ begin
 
      if not(ChekDiskSize(Char(TaskData.FolderDual[i].PathWork[1]),SizeFiles)) then
       begin
-       MessageDlg('На диске не достаточно свободного места для выполнения операций',
+       MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
        mtError, [mbOK], 0);
        RzPanelProgress.Hide;
        FreeAndNil(WorkList);
@@ -776,12 +776,12 @@ begin
      if SizeFiles>0 then
       begin
        RzPanelProgress.Show;
-       AddEchoText(RzRichEditEchoCom,'Копирование файлов в '+TaskData.FolderDual[i].PathHome,clGreen,Task.SaveLog);
+       AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РІ '+TaskData.FolderDual[i].PathHome,clGreen,Task.SaveLog);
        ProgressBarFolder.Max:=WorkList.Count;
        ProgressBarFolder.Position:=0;
       end;
 
-    if TaskData.DellСonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
+    if TaskData.DellРЎonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
 
     for j:=0 to WorkList.Count-1 do
      begin
@@ -801,19 +801,19 @@ begin
 //        CopyFileWithProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
 //        CopyFileStreamProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
         if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-         else RzRichEditEchoCom.Lines.Add('Отсутствует файл: '+FSource);
+         else RzRichEditEchoCom.Lines.Add('РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„Р°Р№Р»: '+FSource);
        end;
       if TAtrib(WorkList.Objects[j]).Action='del' then
        begin
         RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
         if (MRes=mrYes) or (MRes=mrNo) then
-        with CreateMessageDialog('Удалить: '+FDest, mtWarning, [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
+        with CreateMessageDialog('РЈРґР°Р»РёС‚СЊ: '+FDest, mtWarning, [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
           try
-            Caption := 'Внимание';
-            (FindComponent('Yes') as TButton).Caption := 'Да';
-            (FindComponent('No') as TButton).Caption := 'Нет';
-            (FindComponent('YesToAll') as TButton).Caption := 'Да для всех';
-            (FindComponent('NoToAll') as TButton).Caption := 'Нет для всех';
+            Caption := 'Р’РЅРёРјР°РЅРёРµ';
+            (FindComponent('Yes') as TButton).Caption := 'Р”Р°';
+            (FindComponent('No') as TButton).Caption := 'РќРµС‚';
+            (FindComponent('YesToAll') as TButton).Caption := 'Р”Р° РґР»СЏ РІСЃРµС…';
+            (FindComponent('NoToAll') as TButton).Caption := 'РќРµС‚ РґР»СЏ РІСЃРµС…';
              MRes:=ShowModal;
            finally
            Free
@@ -824,7 +824,7 @@ begin
               begin
                if FileExists(FDest) then
                 begin
-                 AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
+                 AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ С„Р°Р№Р»Р°: '+FDest,clRed,Task.SaveLog);
                  DelFiles(FDest,TaskData.DellBasket)
                 end
               end
@@ -833,7 +833,7 @@ begin
                if pos('..',FDest)<>0 then delete(FDest,pos('..',FDest)-1,3);
                if  DirectoryExists(FDest) then
                 begin
-                 AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
+                 AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ РїР°РїРєРё: '+FDest,clRed,Task.SaveLog);
                  DelDir(FDest,TaskData.DellBasket,True)
                 end
               end
@@ -841,16 +841,16 @@ begin
        end;
      end;
      WorkList.Free;
-     if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
+     if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ Р·Р°РІРµСЂС€РµРЅРѕ',clGreen,Task.Savelog);
      RzLabelNameFile.Caption:='';
      ProgressBarFile.Position:=ProgressBarFile.Max;
      Screen.Cursor:= crHourGlass;
-     AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+     AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
      CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
      Screen.Cursor:= crDefault;
    end;
  if (DirectoryExists(PathTask+'\WFiles')) then DelDir(PathTask+'\WFiles',false,true);
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р°Р»СЊС„Р°==>Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р±РµС‚Р°',clBlue,Task.SaveLog);
  Timer1.Enabled:=True;
 end;
 
@@ -866,18 +866,18 @@ var I_Poisk,j,i:integer;
     SizeFiles:int64;
 begin
  All:=False;SizeFiles:=0;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ РѕРїРµСЂР°С†РёРё: Р°Р»СЊС„Р°==>Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р°Р»СЊС„Р°',clBlue,Task.SaveLog);
  if (DirectoryExists(PathTask+'\WFiles')) then
       if DelDir(PathTask+'\WFiles',false,true)=false then exit;
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
-//проверка существования папок в профиле
+//РїСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ РїР°РїРѕРє РІ РїСЂРѕС„РёР»Рµ
  for i:=1 to 10 do
   if TaskData.FolderDual[i].PathWork<>'' then
    begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathWork)) then
       begin
-       MessageDlg('В профиле ошибочный путь:'+#10+#13+
+       MessageDlg('Р’ РїСЂРѕС„РёР»Рµ РѕС€РёР±РѕС‡РЅС‹Р№ РїСѓС‚СЊ:'+#10+#13+
        TaskData.FolderDual[i].PathWork,mtError,[mbOK],0);
        exit;
       end;
@@ -890,7 +890,7 @@ begin
       begin
        if DirectoryExists(PathWork) then
         begin
-         //если запуск первый раз. инфы о домашнем нет
+         //РµСЃР»Рё Р·Р°РїСѓСЃРє РїРµСЂРІС‹Р№ СЂР°Р·. РёРЅС„С‹ Рѕ РґРѕРјР°С€РЅРµРј РЅРµС‚
          if not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat')) then
           begin
            if All=false then
@@ -905,12 +905,12 @@ begin
                if not(DirectoryExists(PathTask+'\WFiles')) then
                   ForceDirectories(PathTask+'\WFiles');
                Screen.Cursor:= crHourGlass;
-               AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+               AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
                SizeFiles:=CreateListFiles(TaskData.FolderDual[i].PathWork,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
                Screen.Cursor:= crDefault;
                 if not(ChekDiskSize(' ',SizeFiles)) then
                   begin
-                    MessageDlg('На диске не достаточно свободного места для выполнения операций',
+                    MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
                      mtError, [mbOK], 0);RzPanelProgress.Hide;
                      exit
                   end;
@@ -926,7 +926,7 @@ begin
               else
               begin
                Screen.Cursor:= crHourGlass;
-               AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+               AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
                SizeFiles:=CreateListFiles(TaskData.FolderDual[i].PathWork,
                                        PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
                Screen.Cursor:= crDefault;
@@ -935,7 +935,7 @@ begin
           else
            begin
             Screen.Cursor:= crHourGlass;
-            AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+            AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
             SizeFiles:=CreateListFiles(TaskData.FolderDual[i].PathWork,
                                        PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
             Screen.Cursor:= crDefault;
@@ -961,15 +961,15 @@ begin
      begin
       if not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat')) then Continue;
 
-      //создание списка рабочий
+      //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° СЂР°Р±РѕС‡РёР№
       WorkList:=TFileList.Create;
       CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
 
-      //создание списка домашний
+      //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° РґРѕРјР°С€РЅРёР№
       HomeList:=TFileList.Create;
       CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
 
-      //сравнение списков рабочий-->домашний
+      //СЃСЂР°РІРЅРµРЅРёРµ СЃРїРёСЃРєРѕРІ СЂР°Р±РѕС‡РёР№-->РґРѕРјР°С€РЅРёР№
       for j:=0 to WorkList.Count-1 do
        begin
         I_Poisk:=HomeList.IndexOf(WorkList[j]);
@@ -986,7 +986,7 @@ begin
                   begin
                    TAtrib(WorkList.Objects[j]).Action:='copy';
                    if task.LogExt then
-                   AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
+                   AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
                    TaskData.FolderDual[i].PathHome+HomeList[I_Poisk],clPurple,Task.SaveLog);
                    TAtrib(HomeList.Objects[I_Poisk]).Free;
                    HomeList.Delete(I_Poisk);
@@ -1002,11 +1002,11 @@ begin
           begin
            if TAtrib(WorkList.Objects[j]).Nature=1 then TAtrib(WorkList.Objects[j]).action:='copy';
            if task.LogExt then
-           AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
+           AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р» РґРѕР±Р°РІР»РµРЅ: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
           end;
        end;
 
-      //если на рабочем отсутсвуют
+      //РµСЃР»Рё РЅР° СЂР°Р±РѕС‡РµРј РѕС‚СЃСѓС‚СЃРІСѓСЋС‚
       if HomeList.Count>0 then
        begin
         if not(DirectoryExists(PathTask+'\WFiles')) then ForceDirectories(PathTask+'\WFiles');
@@ -1020,7 +1020,7 @@ begin
        end;
        FreeAndNil(HomeList);
 
-       //подсчет необходимого места
+       //РїРѕРґСЃС‡РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РјРµСЃС‚Р°
        SizeFiles:=0;
        for j:=0 to WorkList.Count-1 do
         begin
@@ -1030,19 +1030,19 @@ begin
 
        if not(ChekDiskSize(' ',SizeFiles)) then
         begin
-         MessageDlg('На диске не достаточно свободного места для выполнения операций',
+         MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
          mtError, [mbOK], 0);
          RzPanelProgress.Hide;
          FreeAndNil(WorkList);
          exit
          end;
 
-      //копирование или удаление файлов по признаку Action
+      //РєРѕРїРёСЂРѕРІР°РЅРёРµ РёР»Рё СѓРґР°Р»РµРЅРёРµ С„Р°Р№Р»РѕРІ РїРѕ РїСЂРёР·РЅР°РєСѓ Action
        PathArhFlsTrgFld:=PathTask+'\WFiles\Folder_'+IntToStr(i)+'\';
        if SizeFiles>0 then
         begin
          RzPanelProgress.Show;
-         AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+TaskData.FolderDual[i].PathWork,0,Task.SaveLog);
+         AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+TaskData.FolderDual[i].PathWork,0,Task.SaveLog);
          ProgressBarFolder.Max:=WorkList.Count;
          ProgressBarFolder.Position:=0;
         end;
@@ -1065,15 +1065,15 @@ begin
 //            CopyFileWithProgress(Sc,St,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
 //            CopyFileStreamProgress(Sc,St,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
             if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-             else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
+             else AddEchoText(RzRichEditEchoCom,'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„Р°Р№Р»: '+FSource,clRed,Task.SaveLog);
            end;
          end;
          WorkList.free;
-         if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
+         if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ Р·Р°РІРµСЂС€РµРЅРѕ',clGreen,Task.Savelog);
          RzLabelNameFile.Caption:='';
          ProgressBarFile.Position:=ProgressBarFile.Max;
      end;
-  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: альфа==>бета. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
+  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р°Р»СЊС„Р°==>Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р°Р»СЊС„Р°',clBlue,Task.SaveLog);
   Timer1.Enabled:=True;
 end;
 
@@ -1089,9 +1089,9 @@ var I_Poisk,j,i:integer;
     SizeFiles:int64;
 
 begin
-  //создание списка============================================================
+  //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР°============================================================
   SizeFiles:=0;
-  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
+  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ РѕРїРµСЂР°С†РёРё: Р±РµС‚Р°=>Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р°Р»СЊС„Р°',clBlue,Task.SaveLog);
    for i:=1 to 10 do
    with TaskData.FolderDual[i] do
     if PathWork<>'' then
@@ -1099,7 +1099,7 @@ begin
        if DirectoryExists(PathWork) then
          begin
           Screen.Cursor:= crHourGlass;
-          AddEchoText(RzRichEditEchoCom,'Анализ папки: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+          AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР· РїР°РїРєРё: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
           SizeFiles:=CreateListFiles(TaskData.FolderDual[i].PathWork,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
           Screen.Cursor:= crDefault;
          end
@@ -1119,22 +1119,22 @@ begin
       if TaskData.FolderDual[i].PathHome<>'' then
        begin
          with CreateMessageDialog(
-          'В профиле, в группе папок N'+IntTostr(i)+' отсутствует путь к синхронной папке компьютера альфа.'+#13+#10+
-          'Папка: '+TaskData.FolderDual[i].PathHome+#13+#10+
-          'Выберите "Путь" и добавьте в профиле недостающие данные и запустите повторно операцию по синхронизации.'+#13+#10+
-          'Выберите "Удалить" и удалите эти файлы отменив синхронизацию этих папок.',mtWarning, [mbYes,mbNo]) do
+          'Р’ РїСЂРѕС„РёР»Рµ, РІ РіСЂСѓРїРїРµ РїР°РїРѕРє N'+IntTostr(i)+' РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСѓС‚СЊ Рє СЃРёРЅС…СЂРѕРЅРЅРѕР№ РїР°РїРєРµ РєРѕРјРїСЊСЋС‚РµСЂР° Р°Р»СЊС„Р°.'+#13+#10+
+          'РџР°РїРєР°: '+TaskData.FolderDual[i].PathHome+#13+#10+
+          'Р’С‹Р±РµСЂРёС‚Рµ "РџСѓС‚СЊ" Рё РґРѕР±Р°РІСЊС‚Рµ РІ РїСЂРѕС„РёР»Рµ РЅРµРґРѕСЃС‚Р°СЋС‰РёРµ РґР°РЅРЅС‹Рµ Рё Р·Р°РїСѓСЃС‚РёС‚Рµ РїРѕРІС‚РѕСЂРЅРѕ РѕРїРµСЂР°С†РёСЋ РїРѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.'+#13+#10+
+          'Р’С‹Р±РµСЂРёС‚Рµ "РЈРґР°Р»РёС‚СЊ" Рё СѓРґР°Р»РёС‚Рµ СЌС‚Рё С„Р°Р№Р»С‹ РѕС‚РјРµРЅРёРІ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЋ СЌС‚РёС… РїР°РїРѕРє.',mtWarning, [mbYes,mbNo]) do
          try
-          Caption := 'Внимание';
-          (FindComponent('Yes') as TButton).Caption := 'Путь';
-          (FindComponent('No') as TButton).Caption := 'Удалить';
+          Caption := 'Р’РЅРёРјР°РЅРёРµ';
+          (FindComponent('Yes') as TButton).Caption := 'РџСѓС‚СЊ';
+          (FindComponent('No') as TButton).Caption := 'РЈРґР°Р»РёС‚СЊ';
            MRes:=ShowModal;
           finally
            Free
           end;
          if MRes=mrYes then
           begin
-            AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: бета=>альфа. Тип операции: '+
-            'Компьютер альфа',clBlue,Task.SaveLog);
+            AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р±РµС‚Р°=>Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: '+
+            'РљРѕРјРїСЊСЋС‚РµСЂ Р°Р»СЊС„Р°',clBlue,Task.SaveLog);
             exit;
           end;
        end;
@@ -1153,7 +1153,7 @@ begin
       HomeList:=TFileList.Create;
       CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
 
-      //сравнение списков домашний -->рабочий
+      //СЃСЂР°РІРЅРµРЅРёРµ СЃРїРёСЃРєРѕРІ РґРѕРјР°С€РЅРёР№ -->СЂР°Р±РѕС‡РёР№
       for j:=0 to HomeList.Count-1 do
        begin
         I_Poisk:=WorkList.IndexOf(HomeList[j]);
@@ -1170,7 +1170,7 @@ begin
                   begin
                    TAtrib(HomeList.Objects[j]).Action:='copy';
                    if Task.LogExt then
-                   AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
+                   AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
                    TaskData.FolderDual[i].PathWork+WorkList[I_Poisk],clPurple,Task.SaveLog);
                    TAtrib(WorkList.Objects[I_Poisk]).Free;
                    WorkList.Delete(I_Poisk);
@@ -1186,7 +1186,7 @@ begin
           begin
            if TAtrib(HomeList.Objects[j]).Nature=1 then TAtrib(HomeList.Objects[j]).action:='copy';
            if Task.LogExt then
-           AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
+           AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р» РґРѕР±Р°РІР»РµРЅ: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
           end;
        end;
 
@@ -1200,7 +1200,7 @@ begin
         end;
       FreeAndNil(WorkList);
 
-      //подсчет необходимого места
+      //РїРѕРґСЃС‡РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РјРµСЃС‚Р°
        SizeFiles:=0;
        for j:=0 to HomeList.Count-1 do
         begin
@@ -1210,7 +1210,7 @@ begin
 
        if not(ChekDiskSize(Char(TaskData.FolderDual[i].PathWork[1]),SizeFiles)) then
         begin
-         MessageDlg('На диске не достаточно свободного места для выполнения операций',
+         MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
          mtError, [mbOK], 0);
          RzPanelProgress.Hide;
          FreeAndNil(HomeList);
@@ -1222,12 +1222,12 @@ begin
        if SizeFiles>0 then
         begin
          RzPanelProgress.Show;
-         AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+ PathFldFrom,clGreen,Task.Savelog);
+         AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+ PathFldFrom,clGreen,Task.Savelog);
          ProgressBarFolder.Max:=HomeList.Count;
          ProgressBarFolder.Position:=0;
         end;
 
-      if TaskData.DellСonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
+      if TaskData.DellРЎonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
       for j:=0 to HomeList.Count-1 do
        begin
           if StopCopy then
@@ -1244,19 +1244,19 @@ begin
           RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
           if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
           if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-           else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
+           else AddEchoText(RzRichEditEchoCom,'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„Р°Р№Р»: '+FSource,clRed,Task.SaveLog);
          end;
         if TAtrib(HomeList.Objects[j]).Action='del' then
          begin
           if (MRes=mrYes) or (MRes=mrNo) then
-          with CreateMessageDialog('Удалить: '+FDest, mtWarning,
+          with CreateMessageDialog('РЈРґР°Р»РёС‚СЊ: '+FDest, mtWarning,
                                      [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
             try
-               Caption := 'Внимание';
-              (FindComponent('Yes') as TButton).Caption := 'Да';
-              (FindComponent('No') as TButton).Caption := 'Нет';
-              (FindComponent('YesToAll') as TButton).Caption := 'Да для всех';
-              (FindComponent('NoToAll') as TButton).Caption := 'Нет для всех';
+               Caption := 'Р’РЅРёРјР°РЅРёРµ';
+              (FindComponent('Yes') as TButton).Caption := 'Р”Р°';
+              (FindComponent('No') as TButton).Caption := 'РќРµС‚';
+              (FindComponent('YesToAll') as TButton).Caption := 'Р”Р° РґР»СЏ РІСЃРµС…';
+              (FindComponent('NoToAll') as TButton).Caption := 'РќРµС‚ РґР»СЏ РІСЃРµС…';
                MRes:=ShowModal;
              finally
              Free
@@ -1267,7 +1267,7 @@ begin
                 begin
                  if FileExists(FDest) then
                   begin
-                   AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
+                   AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ С„Р°Р№Р»Р°: '+FDest,clRed,Task.SaveLog);
                    DelFiles(FDest,TaskData.DellBasket)
                   end
                 end
@@ -1276,7 +1276,7 @@ begin
                  if pos('..',FDest)<>0 then delete(FDest,pos('..',FDest)-1,3);
                  if  DirectoryExists(FDest) then
                   begin
-                   AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
+                   AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ РїР°РїРєРё: '+FDest,clRed,Task.SaveLog);
                    DelDir(FDest,TaskData.DellBasket,True)
                   end
                 end
@@ -1284,17 +1284,17 @@ begin
          end;
        end;
         HomeList.Free;
-        if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
+        if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ Р·Р°РІРµСЂС€РµРЅРѕ',clGreen,Task.Savelog);
         RzLabelNameFile.Caption:='';
         ProgressBarFile.Position:=ProgressBarFile.Max;
         Screen.Cursor:= crHourGlass;
-        AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+        AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
         CreateListFiles(TaskData.FolderDual[i].PathWork,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
         Screen.Cursor:= crDefault;
      end;
  if (DirectoryExists(PathTask+'\HFiles')) then DelDir(PathTask+'\HFiles',false,true);
  Timer1.Enabled:=True;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р±РµС‚Р°=>Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р°Р»СЊС„Р°',clBlue,Task.SaveLog);
 end;
 
 
@@ -1310,18 +1310,18 @@ var I_Poisk,j,i:integer;
     f:file of TNameAtribFile;
 begin
  All:=False;SizeFiles:=0;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ РѕРїРµСЂР°С†РёРё: Р±РµС‚Р°=>Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р±РµС‚Р°',clBlue,Task.SaveLog);
  if (DirectoryExists(PathTask+'\HFiles')) then
    if DelDir(PathTask+'\HFiles',false,true)=false then exit;
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
-//проверка существования папок в профиле
+//РїСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ РїР°РїРѕРє РІ РїСЂРѕС„РёР»Рµ
  for i:=1 to 10 do
   if TaskData.FolderDual[i].PathHome<>'' then
     begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathHome)) then
       begin
-       MessageDlg('В профиле ошибочный путь:'+#10+#13+
+       MessageDlg('Р’ РїСЂРѕС„РёР»Рµ РѕС€РёР±РѕС‡РЅС‹Р№ РїСѓС‚СЊ:'+#10+#13+
        TaskData.FolderDual[i].PathHome,mtError,[mbOK],0);
        exit;
       end;
@@ -1334,11 +1334,11 @@ begin
        begin
         if DirectoryExists(PathHome) then
          begin
-           AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+           AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
            if CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat')=0
             then
              begin
-              AddEchoText(RzRichEditEchoCom,'Папка '+TaskData.FolderDual[i].PathHome+' пуста. Конец анализа',0,Task.SaveLog);
+              AddEchoText(RzRichEditEchoCom,'РџР°РїРєР° '+TaskData.FolderDual[i].PathHome+' РїСѓСЃС‚Р°. РљРѕРЅРµС† Р°РЅР°Р»РёР·Р°',0,Task.SaveLog);
               continue
              end;
            if not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat')) then
@@ -1390,15 +1390,15 @@ begin
       if Filesize(f)<2 then begin CloseFile(f);Continue end
        else  CloseFile(f);
 
-      //создание списка рабочий
+      //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° СЂР°Р±РѕС‡РёР№
       WorkList:=TFileList.Create;
       CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
 
-      //создание списка домашний
+      //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° РґРѕРјР°С€РЅРёР№
       HomeList:=TFileList.Create;
       CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
 
-      //сравнение списков домашний-->рабочий
+      //СЃСЂР°РІРЅРµРЅРёРµ СЃРїРёСЃРєРѕРІ РґРѕРјР°С€РЅРёР№-->СЂР°Р±РѕС‡РёР№
       for j:=0 to HomeList.Count-1 do
        begin
         I_Poisk:=WorkList.IndexOf(HomeList[j]);
@@ -1415,7 +1415,7 @@ begin
                 begin
                  TAtrib(HomeList.Objects[j]).Action:='copy';
                  if Task.LogExt then
-                 AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
+                 AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
                  TaskData.FolderDual[i].PathWork+WorkList[I_Poisk],clPurple,Task.SaveLog);
                  TAtrib(WorkList.Objects[I_Poisk]).Free;
                  WorkList.Delete(I_Poisk);
@@ -1431,11 +1431,11 @@ begin
           begin
            if TAtrib(HomeList.Objects[j]).Nature=1 then TAtrib(HomeList.Objects[j]).action:='copy';
            if Task.LogExt then
-           AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
+           AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р» РґРѕР±Р°РІР»РµРЅ: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
           end;
        end;
 
-      //если на рабочем отсутсвуют
+      //РµСЃР»Рё РЅР° СЂР°Р±РѕС‡РµРј РѕС‚СЃСѓС‚СЃРІСѓСЋС‚
       if WorkList.Count>0 then
        begin
         if not(DirectoryExists(PathTask+'\HFiles')) then ForceDirectories(PathTask+'\HFiles');
@@ -1449,7 +1449,7 @@ begin
        end;
        FreeAndNil(WorkList);
 
-      //подсчет необходимого места
+      //РїРѕРґСЃС‡РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РјРµСЃС‚Р°
        SizeFiles:=0;
        for j:=0 to HomeList.Count-1 do
         begin
@@ -1462,21 +1462,21 @@ begin
         if SizeFiles>0 then
         begin
          RzPanelProgress.Show;
-         AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+TaskData.FolderDual[i].PathHome,clGreen,Task.Savelog);
+         AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+TaskData.FolderDual[i].PathHome,clGreen,Task.Savelog);
          ProgressBarFolder.Max:=HomeList.Count;
          ProgressBarFolder.Position:=0;
         end;
         Screen.Cursor:= crDefault;
        if not(ChekDiskSize(' ',SizeFiles)) then
         begin
-         MessageDlg('На диске не достаточно свободного места для выполнения операций',
+         MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
          mtError, [mbOK], 0);
          RzPanelProgress.Hide;
          FreeAndNil(HomeList);
          exit
          end;
 
-       //копирование или удаление файлов по признаку Action
+       //РєРѕРїРёСЂРѕРІР°РЅРёРµ РёР»Рё СѓРґР°Р»РµРЅРёРµ С„Р°Р№Р»РѕРІ РїРѕ РїСЂРёР·РЅР°РєСѓ Action
         for j:=0 to HomeList.Count-1 do
          begin
           if StopCopy then
@@ -1493,14 +1493,14 @@ begin
             RzLabelNameFile.Caption:=MinimizeName(FSource,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
             if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
             if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-             else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
+             else AddEchoText(RzRichEditEchoCom,'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„Р°Р№Р»: '+FSource,clRed,Task.SaveLog);
            end;
          end;
          HomeList.Free;
          RzLabelNameFile.Caption:='';
          ProgressBarFile.Position:=ProgressBarFile.Max;
      end;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: бета=>альфа. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† РѕРїРµСЂР°С†РёРё: Р±РµС‚Р°=>Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: РљРѕРјРїСЊСЋС‚РµСЂ Р±РµС‚Р°',clBlue,Task.SaveLog);
  Timer1.Enabled:=True;
 end;
 
@@ -1518,8 +1518,8 @@ begin
        PlainText:=false; Visible:=false;
        Font.Size:=10;
       end;
-   AddEchoText(RichEditLog,'Старт программы. Сейчас '+
-   FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,false);
+   AddEchoText(RichEditLog,'РЎС‚Р°СЂС‚ РїСЂРѕРіСЂР°РјРјС‹. РЎРµР№С‡Р°СЃ '+
+   FormatDateTime('d mmmm yyyy "Рі - " dddd',Now)+'. Р’СЂРµРјСЏ: '+TimeToStr(Time)+'.',clMaroon,false);
   end;
 
  StopCopy:=false; Task:=ProfilArray[RzListBoxProfile.ItemIndex];
@@ -1557,8 +1557,8 @@ begin
        PlainText:=false; Visible:=false;
        Font.Size:=10;
       end;
-   AddEchoText(RichEditLog,'Старт программы. Сейчас '+
-   FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,false);
+   AddEchoText(RichEditLog,'РЎС‚Р°СЂС‚ РїСЂРѕРіСЂР°РјРјС‹. РЎРµР№С‡Р°СЃ '+
+   FormatDateTime('d mmmm yyyy "Рі - " dddd',Now)+'. Р’СЂРµРјСЏ: '+TimeToStr(Time)+'.',clMaroon,false);
   end;
 
  StopCopy:=false; Task:=ProfilArray[RzListBoxProfile.ItemIndex];
@@ -1793,14 +1793,14 @@ var I_Poisk,j,i:integer;
 begin
  All:=False;SizeFiles:=0;
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
-//проверка существования папок в профиле
+//РїСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ РїР°РїРѕРє РІ РїСЂРѕС„РёР»Рµ
  for i:=1 to 10 do
   begin
     if TaskData.FolderDual[i].PathWork<>'' then
      begin
        if not(DirectoryExists(TaskData.FolderDual[i].PathWork)) then
         begin
-         MessageDlg('В профиле ошибочный путь:'+#10+#13+
+         MessageDlg('Р’ РїСЂРѕС„РёР»Рµ РѕС€РёР±РѕС‡РЅС‹Р№ РїСѓС‚СЊ:'+#10+#13+
          TaskData.FolderDual[i].PathWork,mtError,[mbOK],0);
          exit;
         end;
@@ -1809,7 +1809,7 @@ begin
      begin
        if not(DirectoryExists(TaskData.FolderDual[i].PathHome)) then
         begin
-         MessageDlg('В профиле ошибочный путь:'+#10+#13+
+         MessageDlg('Р’ РїСЂРѕС„РёР»Рµ РѕС€РёР±РѕС‡РЅС‹Р№ РїСѓС‚СЊ:'+#10+#13+
          TaskData.FolderDual[i].PathHome,mtError,[mbOK],0);
          exit;
         end;
@@ -1817,9 +1817,9 @@ begin
   end;
 
  if napr=12 then
-  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало синхронизации альфа с бета. Тип операции: без транзита файлов.',clBlue,Task.SaveLog)
+  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р°Р»СЊС„Р° СЃ Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: Р±РµР· С‚СЂР°РЅР·РёС‚Р° С„Р°Р№Р»РѕРІ.',clBlue,Task.SaveLog)
   else
-   AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало синхронизации бета с альфа. Тип операции: без транзита файлов.',clBlue,Task.SaveLog);
+   AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РќР°С‡Р°Р»Рѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р±РµС‚Р° СЃ Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: Р±РµР· С‚СЂР°РЅР·РёС‚Р° С„Р°Р№Р»РѕРІ.',clBlue,Task.SaveLog);
 
 
  for i:=1 to 10 do
@@ -1828,10 +1828,10 @@ begin
      if (DirectoryExists(PathWork)) and (DirectoryExists(PathHome)) then
         begin
           Screen.Cursor:= crHourGlass;
-          AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
+          AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
           CreateListFiles(TaskData.FolderDual[i].PathWork,
           PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
-          AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+          AddEchoText(RzRichEditEchoCom,'РђРЅР°Р»РёР·: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
           CreateListFiles(TaskData.FolderDual[i].PathHome,
           PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
           Screen.Cursor:= crDefault;
@@ -1852,7 +1852,7 @@ begin
            Continue
       end;
 
-      //создание списка рабочий
+      //СЃРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° СЂР°Р±РѕС‡РёР№
       WorkList:=TFileList.Create; HomeList:=TFileList.Create;
       if napr=12 then
        begin
@@ -1865,7 +1865,7 @@ begin
          CreateListOfFiles(WorkList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
         end;
 
-      //сравнение списков рабочий-->домашний
+      //СЃСЂР°РІРЅРµРЅРёРµ СЃРїРёСЃРєРѕРІ СЂР°Р±РѕС‡РёР№-->РґРѕРјР°С€РЅРёР№
       for j:=0 to WorkList.Count-1 do
        begin
         I_Poisk:=HomeList.IndexOf(WorkList[j]);
@@ -1881,7 +1881,7 @@ begin
                  else
                   begin
                    TAtrib(WorkList.Objects[j]).Action:='copy';
-                   AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
+                   AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+TaskData.FolderDual[i].PathWork+WorkList[j]+' <==> '+
                    TaskData.FolderDual[i].PathHome+HomeList[I_Poisk],clPurple,Task.SaveLog);
                    TAtrib(HomeList.Objects[I_Poisk]).Free;
                    HomeList.Delete(I_Poisk);
@@ -1897,11 +1897,11 @@ begin
           begin
            if TAtrib(WorkList.Objects[j]).Nature=1 then TAtrib(WorkList.Objects[j]).action:='copy';
            if Task.LogExt then
-           AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
+           AddEchoText(RzRichEditEchoCom,'Р¤Р°Р№Р» РґРѕР±Р°РІР»РµРЅ: '+TaskData.FolderDual[i].PathWork+WorkList[j],clGreen,Task.Savelog);
           end;
        end;
 
-      //если на рабочем отсутсвуют
+      //РµСЃР»Рё РЅР° СЂР°Р±РѕС‡РµРј РѕС‚СЃСѓС‚СЃРІСѓСЋС‚
       if HomeList.Count>0 then
         for j:=0 to HomeList.Count-1 do
           begin
@@ -1913,7 +1913,7 @@ begin
 
        FreeAndNil(HomeList);
 
-       //подсчет необходимого места
+       //РїРѕРґСЃС‡РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РјРµСЃС‚Р°
        SizeFiles:=0;
        for j:=0 to WorkList.Count-1 do
         begin
@@ -1923,7 +1923,7 @@ begin
 
        if not(ChekDiskSize(ExtractFileDrive(TaskData.FolderDual[i].PathHome) ,SizeFiles)) then
         begin
-         MessageDlg('На диске не достаточно свободного места для выполнения операций',
+         MessageDlg('РќР° РґРёСЃРєРµ РЅРµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕРїРµСЂР°С†РёР№',
          mtError, [mbOK], 0);
          RzPanelProgress.Hide;
          FreeAndNil(WorkList);
@@ -1941,16 +1941,16 @@ begin
         Fld1_Path:=TaskData.FolderDual[i].PathHome;
        end;
 
-      //копирование или удаление файлов по признаку Action
+      //РєРѕРїРёСЂРѕРІР°РЅРёРµ РёР»Рё СѓРґР°Р»РµРЅРёРµ С„Р°Р№Р»РѕРІ РїРѕ РїСЂРёР·РЅР°РєСѓ Action
       if SizeFiles>0 then
         begin
          RzPanelProgress.Show;
-         AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+Fld1_Path+'  в  '+Fld2_Path,clGreen,Task.Savelog);
+         AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РёР· '+Fld1_Path+'  РІ  '+Fld2_Path,clGreen,Task.Savelog);
          ProgressBarFolder.Max:=WorkList.Count;
          ProgressBarFolder.Position:=0;
         end;
 
-    if TaskData.DellСonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
+    if TaskData.DellРЎonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
 
     for j:=0 to WorkList.Count-1 do
      begin
@@ -1968,19 +1968,19 @@ begin
         RzLabelNameFile.Caption:=MinimizeName(FSource,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
         if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
         if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-         else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
+         else AddEchoText(RzRichEditEchoCom,'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„Р°Р№Р»: '+FSource,clRed,Task.SaveLog);
        end;
       if TAtrib(WorkList.Objects[j]).Action='del' then
        begin
         RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
         if (MRes=mrYes) or (MRes=mrNo) then
-        with CreateMessageDialog('Удалить: '+FDest, mtWarning, [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
+        with CreateMessageDialog('РЈРґР°Р»РёС‚СЊ: '+FDest, mtWarning, [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
           try
-            Caption := 'Внимание';
-            (FindComponent('Yes') as TButton).Caption := 'Да';
-            (FindComponent('No') as TButton).Caption := 'Нет';
-            (FindComponent('YesToAll') as TButton).Caption := 'Да для всех';
-            (FindComponent('NoToAll') as TButton).Caption := 'Нет для всех';
+            Caption := 'Р’РЅРёРјР°РЅРёРµ';
+            (FindComponent('Yes') as TButton).Caption := 'Р”Р°';
+            (FindComponent('No') as TButton).Caption := 'РќРµС‚';
+            (FindComponent('YesToAll') as TButton).Caption := 'Р”Р° РґР»СЏ РІСЃРµС…';
+            (FindComponent('NoToAll') as TButton).Caption := 'РќРµС‚ РґР»СЏ РІСЃРµС…';
              MRes:=ShowModal;
            finally
            Free
@@ -1991,7 +1991,7 @@ begin
               begin
                if FileExists(FDest) then
                 begin
-                 AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
+                 AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ С„Р°Р№Р»Р°: '+FDest,clRed,Task.SaveLog);
                  DelFiles(FDest,TaskData.DellBasket)
                 end
               end
@@ -2000,7 +2000,7 @@ begin
                if pos('..',FDest)<>0 then delete(FDest,pos('..',FDest)-1,3);
                if  DirectoryExists(FDest) then
                 begin
-                 AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
+                 AddEchoText(RzRichEditEchoCom,'РЈРґР°Р»РµРЅРёРµ РїР°РїРєРё: '+FDest,clRed,Task.SaveLog);
                  DelDir(FDest,TaskData.DellBasket,True)
                 end
               end
@@ -2008,14 +2008,14 @@ begin
        end;
      end;
      WorkList.free;
-     if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
+     if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ Р·Р°РІРµСЂС€РµРЅРѕ',clGreen,Task.Savelog);
      RzLabelNameFile.Caption:='';
      ProgressBarFile.Position:=ProgressBarFile.Max;
    end;
     if napr=12 then
-    AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец синхронизации альфа с бета. Тип операции: без транзита файлов.',clBlue,Task.SaveLog)
+    AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р°Р»СЊС„Р° СЃ Р±РµС‚Р°. РўРёРї РѕРїРµСЂР°С†РёРё: Р±РµР· С‚СЂР°РЅР·РёС‚Р° С„Р°Р№Р»РѕРІ.',clBlue,Task.SaveLog)
    else
-     AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец синхронизации бета с альфа. Тип операции: без транзита файлов.',clBlue,Task.SaveLog);
+     AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РљРѕРЅРµС† СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р±РµС‚Р° СЃ Р°Р»СЊС„Р°. РўРёРї РѕРїРµСЂР°С†РёРё: Р±РµР· С‚СЂР°РЅР·РёС‚Р° С„Р°Р№Р»РѕРІ.',clBlue,Task.SaveLog);
    Timer1.Enabled:=True;setTaskStopViewProg;
 end;
 
@@ -2034,12 +2034,12 @@ begin
      begin
       if FileExists(SaveDialogFlsSnimok.FileName) then
        begin
-        with CreateMessageDialog('Файл: '+ExtractFileName(SaveDialogFlsSnimok.FileName)+' существует. Перезаписать?',
+        with CreateMessageDialog('Р¤Р°Р№Р»: '+ExtractFileName(SaveDialogFlsSnimok.FileName)+' СЃСѓС‰РµСЃС‚РІСѓРµС‚. РџРµСЂРµР·Р°РїРёСЃР°С‚СЊ?',
          mtWarning, [mbYes,mbNo]) do
            try
-            Caption := 'Внимание';
-            (FindComponent('Yes') as TButton).Caption := 'Да';
-            (FindComponent('No') as TButton).Caption := 'Нет';
+            Caption := 'Р’РЅРёРјР°РЅРёРµ';
+            (FindComponent('Yes') as TButton).Caption := 'Р”Р°';
+            (FindComponent('No') as TButton).Caption := 'РќРµС‚';
              MRes:=ShowModal;
             finally
              Free
@@ -2050,10 +2050,10 @@ begin
        Path:=RzSelectFolderDialog1.SelectedPathName;
        NameSnimok:=SaveDialogFlsSnimok.FileName;
        Screen.Cursor:= crHourGlass;
-       AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Создание снимка папки: '+Path,clBlue,Task.SaveLog);
+       AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  РЎРѕР·РґР°РЅРёРµ СЃРЅРёРјРєР° РїР°РїРєРё: '+Path,clBlue,Task.SaveLog);
        CreateListFilesCompare(Path,NameSnimok);
        Screen.Cursor:= crDefault;
-       AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Cнимок папки: '+Path+' создан. Имя файла: '+NameSnimok,clBlue,Task.SaveLog);
+       AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  CРЅРёРјРѕРє РїР°РїРєРё: '+Path+' СЃРѕР·РґР°РЅ. РРјСЏ С„Р°Р№Р»Р°: '+NameSnimok,clBlue,Task.SaveLog);
      end;
   end;
 end;
@@ -2081,8 +2081,8 @@ begin
    FmViewLog.MainMenu1.Items.Items[0].Items[0].Visible:=False;
    FmViewLog.Show;
    Path1:='';Path2:='';
-   AddEchoText(FmViewLog.RzRichEdit1,'['+TimeToStr(Time)+']  Cравнение снимков: '+
-                      FileSnimok1+' и '+FileSnimok2,clBlue,false);
+   AddEchoText(FmViewLog.RzRichEdit1,'['+TimeToStr(Time)+']  CСЂР°РІРЅРµРЅРёРµ СЃРЅРёРјРєРѕРІ: '+
+                      FileSnimok1+' Рё '+FileSnimok2,clBlue,false);
     try
       Assignfile(f,FileSnimok1);
       try
@@ -2105,8 +2105,8 @@ begin
     end;
     List1:=TFileList.Create;List2:=TFileList.Create;
     CreateListOfFiles(List1,FileSnimok1,'');CreateListOfFiles(List2,FileSnimok2,'');
-    AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok1+' папка '+Path1,clBlue,false);
-    AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok2+' папка '+Path2,clBlue,false);
+    AddEchoText(FmViewLog.RzRichEdit1,'РЎРЅРёРјРѕРє '+FileSnimok1+' РїР°РїРєР° '+Path1,clBlue,false);
+    AddEchoText(FmViewLog.RzRichEdit1,'РЎРЅРёРјРѕРє '+FileSnimok2+' РїР°РїРєР° '+Path2,clBlue,false);
     for j:=0 to List1.Count-1 do
      begin
       I_Poisk:=List2.IndexOf(List1[j]);
@@ -2120,7 +2120,7 @@ begin
                 end
                else
                 begin
-                 AddEchoText(FmViewLog.RzRichEdit1,'Файлы отличаются: '+
+                 AddEchoText(FmViewLog.RzRichEdit1,'Р¤Р°Р№Р»С‹ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ: '+
                   List1[j]+' <==> '+List2[I_Poisk],clPurple,false);
                  TAtrib(List2.Objects[I_Poisk]).Free;
                  List2.Delete(I_Poisk);
@@ -2134,17 +2134,17 @@ begin
            end
        else
         begin
-         AddEchoText(FmViewLog.RzRichEdit1,'В папке '+Path2+' нет файла: '+
+         AddEchoText(FmViewLog.RzRichEdit1,'Р’ РїР°РїРєРµ '+Path2+' РЅРµС‚ С„Р°Р№Р»Р°: '+
                    List1[j],clGreen,false);comp:=false;inc(mError);
         end;
        if mError>100 then
          with CreateMessageDialog(
-         'Количество отсутствующих файлов в одной из папок превышает 100.'+#13+#10+
-         '    Возможно папки совершенно разные. Прервать операцию?', mtWarning, [mbYes,mbNo]) do
+         'РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёС… С„Р°Р№Р»РѕРІ РІ РѕРґРЅРѕР№ РёР· РїР°РїРѕРє РїСЂРµРІС‹С€Р°РµС‚ 100.'+#13+#10+
+         '    Р’РѕР·РјРѕР¶РЅРѕ РїР°РїРєРё СЃРѕРІРµСЂС€РµРЅРЅРѕ СЂР°Р·РЅС‹Рµ. РџСЂРµСЂРІР°С‚СЊ РѕРїРµСЂР°С†РёСЋ?', mtWarning, [mbYes,mbNo]) do
             try
-              Caption := 'Внимание';
-              (FindComponent('Yes') as TButton).Caption := 'Да';
-              (FindComponent('No') as TButton).Caption := 'Нет';
+              Caption := 'Р’РЅРёРјР°РЅРёРµ';
+              (FindComponent('Yes') as TButton).Caption := 'Р”Р°';
+              (FindComponent('No') as TButton).Caption := 'РќРµС‚';
                if ShowModal=mrYes then break else mError:=0;
              finally
              Free
@@ -2153,17 +2153,17 @@ begin
       if (List2.Count>0) and (mError<100) then
         for j:=0 to List2.Count-1 do
           begin
-           AddEchoText(FmViewLog.RzRichEdit1,'В папке '+Path1+
-                      ' нет файла: '+List2[j],clMaroon,false);
+           AddEchoText(FmViewLog.RzRichEdit1,'Р’ РїР°РїРєРµ '+Path1+
+                      ' РЅРµС‚ С„Р°Р№Р»Р°: '+List2[j],clMaroon,false);
            List1.AddObject(List2[j],TAtrib(List2.Objects[j]));
            comp:=false;inc(mError);
            List2.Objects[j]:=nil;
           end;
        List2.Free;List1.Free;
   end;
-  if not(comp) then AddEchoText(FmViewLog.RzRichEdit1,'В снимках есть отличия.',
+  if not(comp) then AddEchoText(FmViewLog.RzRichEdit1,'Р’ СЃРЅРёРјРєР°С… РµСЃС‚СЊ РѕС‚Р»РёС‡РёСЏ.',
                   clGreen,false)
-   else AddEchoText(FmViewLog.RzRichEdit1,'Снимки идентичны',clGreen,false);
+   else AddEchoText(FmViewLog.RzRichEdit1,'РЎРЅРёРјРєРё РёРґРµРЅС‚РёС‡РЅС‹',clGreen,false);
 
 end;
 
@@ -2221,8 +2221,8 @@ begin
          PlainText:=false; Visible:=false;
          Font.Size:=10;
         end;
-     AddEchoText(RichEditLog,'Старт программы. Сейчас '+
-     FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,false);
+     AddEchoText(RichEditLog,'РЎС‚Р°СЂС‚ РїСЂРѕРіСЂР°РјРјС‹. РЎРµР№С‡Р°СЃ '+
+     FormatDateTime('d mmmm yyyy "Рі - " dddd',Now)+'. Р’СЂРµРјСЏ: '+TimeToStr(Time)+'.',clMaroon,false);
     end;
    if (TipOperac='AB') then
     begin
@@ -2260,16 +2260,16 @@ var s:string;
 begin
   AddEchoText(RzRichEditEchoCom,#13+#10+
      'Sinhron.exe E:\Sin\ 1 A AB hide',clRed,false);
-  S:='1 параметр: "E:\Sin\" путь к конфигурационному файлу и он определяет рабочую папку'+#13+#10+
-     '2 параметр: "1" номер профиля в списке'+#13+#10+
-     '3 параметр: текущий компьютер: "A" - альфа "B" бета'+#13+#10+
-     '4 параметр: направление синхронизации "AB"-альфа с бета, "BA"-бета с альфа'+#13+#10+
-     '5 параметр: "hide" (необязательный) позволяет выполнять все операции скрытно. Для отключения всех '+#13+#10+
-     '                     сообщений уберите галочку в профиле подтверждения на удаление.'+#13+#10+
-     'Можно подставить только первый параметр для выбора Sinhron.cfg и рабочей папки.'+#13+#10+
-     'Eсли параметров больше одного то обязательно нужно вводить все параметры, кроме пятого (необязательного).'+#13+#10+
-     'При использовании четырех (пяти) параметров программа запустится в свернутом состоянии, отработает и закроется.'+#13+#10+
-     'Шрифт латиница. ';
+  S:='1 РїР°СЂР°РјРµС‚СЂ: "E:\Sin\" РїСѓС‚СЊ Рє РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРјСѓ С„Р°Р№Р»Сѓ Рё РѕРЅ РѕРїСЂРµРґРµР»СЏРµС‚ СЂР°Р±РѕС‡СѓСЋ РїР°РїРєСѓ'+#13+#10+
+     '2 РїР°СЂР°РјРµС‚СЂ: "1" РЅРѕРјРµСЂ РїСЂРѕС„РёР»СЏ РІ СЃРїРёСЃРєРµ'+#13+#10+
+     '3 РїР°СЂР°РјРµС‚СЂ: С‚РµРєСѓС‰РёР№ РєРѕРјРїСЊСЋС‚РµСЂ: "A" - Р°Р»СЊС„Р° "B" Р±РµС‚Р°'+#13+#10+
+     '4 РїР°СЂР°РјРµС‚СЂ: РЅР°РїСЂР°РІР»РµРЅРёРµ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё "AB"-Р°Р»СЊС„Р° СЃ Р±РµС‚Р°, "BA"-Р±РµС‚Р° СЃ Р°Р»СЊС„Р°'+#13+#10+
+     '5 РїР°СЂР°РјРµС‚СЂ: "hide" (РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№) РїРѕР·РІРѕР»СЏРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ РІСЃРµ РѕРїРµСЂР°С†РёРё СЃРєСЂС‹С‚РЅРѕ. Р”Р»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ РІСЃРµС… '+#13+#10+
+     '                     СЃРѕРѕР±С‰РµРЅРёР№ СѓР±РµСЂРёС‚Рµ РіР°Р»РѕС‡РєСѓ РІ РїСЂРѕС„РёР»Рµ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ РЅР° СѓРґР°Р»РµРЅРёРµ.'+#13+#10+
+     'РњРѕР¶РЅРѕ РїРѕРґСЃС‚Р°РІРёС‚СЊ С‚РѕР»СЊРєРѕ РїРµСЂРІС‹Р№ РїР°СЂР°РјРµС‚СЂ РґР»СЏ РІС‹Р±РѕСЂР° Sinhron.cfg Рё СЂР°Р±РѕС‡РµР№ РїР°РїРєРё.'+#13+#10+
+     'EСЃР»Рё РїР°СЂР°РјРµС‚СЂРѕРІ Р±РѕР»СЊС€Рµ РѕРґРЅРѕРіРѕ С‚Рѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РЅСѓР¶РЅРѕ РІРІРѕРґРёС‚СЊ РІСЃРµ РїР°СЂР°РјРµС‚СЂС‹, РєСЂРѕРјРµ РїСЏС‚РѕРіРѕ (РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕРіРѕ).'+#13+#10+
+     'РџСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё С‡РµС‚С‹СЂРµС… (РїСЏС‚Рё) РїР°СЂР°РјРµС‚СЂРѕРІ РїСЂРѕРіСЂР°РјРјР° Р·Р°РїСѓСЃС‚РёС‚СЃСЏ РІ СЃРІРµСЂРЅСѓС‚РѕРј СЃРѕСЃС‚РѕСЏРЅРёРё, РѕС‚СЂР°Р±РѕС‚Р°РµС‚ Рё Р·Р°РєСЂРѕРµС‚СЃСЏ.'+#13+#10+
+     'РЁСЂРёС„С‚ Р»Р°С‚РёРЅРёС†Р°. ';
  AddEchoText(RzRichEditEchoCom,s,clTeal,false);
 end;
 
@@ -2277,13 +2277,13 @@ procedure TFmSinhron.N6HelpProgClick(Sender: TObject);
 var s:string;
 begin
  S:=#13+#10+
- 'Синхронизация выбранных папок 2х компьютеров через внешний носитель например USB-Flash.'+#13+#10+
- 'Программа имеет в профиле 10 пар папок компьютеров альфа и бета. При синхронизации будут включены'+#13+#10+
- 'все подпапки. Позволяет синхронизировать эти папки если работа ведется с файлами на разных рабочих местах.'+#13+#10+
- 'Есть возможность синхронизации без транзита файлов на флешку, напрямую, например если синхронизировать с внешним'+#13+#10+
- 'жестким диском. Также возможно создавать снимки папок с дальнейшим их сравнением. Добавлен просмотрщик снимков.'+#13+#10+
- 'Ведется логирование операций упрощенное или расширенное.'+#13+#10+
- 'Есть режим удаления в корзину и возможность смены скинов программы.';
+ 'РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РІС‹Р±СЂР°РЅРЅС‹С… РїР°РїРѕРє 2С… РєРѕРјРїСЊСЋС‚РµСЂРѕРІ С‡РµСЂРµР· РІРЅРµС€РЅРёР№ РЅРѕСЃРёС‚РµР»СЊ РЅР°РїСЂРёРјРµСЂ USB-Flash.'+#13+#10+
+ 'РџСЂРѕРіСЂР°РјРјР° РёРјРµРµС‚ РІ РїСЂРѕС„РёР»Рµ 10 РїР°СЂ РїР°РїРѕРє РєРѕРјРїСЊСЋС‚РµСЂРѕРІ Р°Р»СЊС„Р° Рё Р±РµС‚Р°. РџСЂРё СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р±СѓРґСѓС‚ РІРєР»СЋС‡РµРЅС‹'+#13+#10+
+ 'РІСЃРµ РїРѕРґРїР°РїРєРё. РџРѕР·РІРѕР»СЏРµС‚ СЃРёРЅС…СЂРѕРЅРёР·РёСЂРѕРІР°С‚СЊ СЌС‚Рё РїР°РїРєРё РµСЃР»Рё СЂР°Р±РѕС‚Р° РІРµРґРµС‚СЃСЏ СЃ С„Р°Р№Р»Р°РјРё РЅР° СЂР°Р·РЅС‹С… СЂР°Р±РѕС‡РёС… РјРµСЃС‚Р°С….'+#13+#10+
+ 'Р•СЃС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё Р±РµР· С‚СЂР°РЅР·РёС‚Р° С„Р°Р№Р»РѕРІ РЅР° С„Р»РµС€РєСѓ, РЅР°РїСЂСЏРјСѓСЋ, РЅР°РїСЂРёРјРµСЂ РµСЃР»Рё СЃРёРЅС…СЂРѕРЅРёР·РёСЂРѕРІР°С‚СЊ СЃ РІРЅРµС€РЅРёРј'+#13+#10+
+ 'Р¶РµСЃС‚РєРёРј РґРёСЃРєРѕРј. РўР°РєР¶Рµ РІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°РІР°С‚СЊ СЃРЅРёРјРєРё РїР°РїРѕРє СЃ РґР°Р»СЊРЅРµР№С€РёРј РёС… СЃСЂР°РІРЅРµРЅРёРµРј. Р”РѕР±Р°РІР»РµРЅ РїСЂРѕСЃРјРѕС‚СЂС‰РёРє СЃРЅРёРјРєРѕРІ.'+#13+#10+
+ 'Р’РµРґРµС‚СЃСЏ Р»РѕРіРёСЂРѕРІР°РЅРёРµ РѕРїРµСЂР°С†РёР№ СѓРїСЂРѕС‰РµРЅРЅРѕРµ РёР»Рё СЂР°СЃС€РёСЂРµРЅРЅРѕРµ.'+#13+#10+
+ 'Р•СЃС‚СЊ СЂРµР¶РёРј СѓРґР°Р»РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ Рё РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРјРµРЅС‹ СЃРєРёРЅРѕРІ РїСЂРѕРіСЂР°РјРјС‹.';
   AddEchoText(RzRichEditEchoCom,s,clBlue,false);
 end;
 

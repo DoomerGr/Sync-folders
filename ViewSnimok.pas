@@ -46,8 +46,8 @@ if ACol = 0 then Format:=DT_CENTER
    else   Format := DT_RIGHT;
    if ARow = 0 then  Format := DT_CENTER;
  StringGrid1.Brush.Style:=bsSolid;
- StringGrid1.Canvas.FillRect(Rect); // перерисовка ячейки
- StrPCopy(C, StringGrid1.Cells[ACol, ARow]); // преобразование строки в формат PChar
+ StringGrid1.Canvas.FillRect(Rect); // РїРµСЂРµСЂРёСЃРѕРІРєР° В¤С‡РµР№РєРё
+ StrPCopy(C, StringGrid1.Cells[ACol, ARow]); // РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РІ С„РѕСЂРјР°С‚ PChar
 
  WinProcs.DrawText(StringGrid1.Canvas.Handle, C, StrLen(C), Rect, Format);
 
@@ -64,8 +64,8 @@ end;
 end.
 
 
-//установка выравнивания, например  DataAlignMent:=taCenter
-//саму процедуру надо подключить на OnDrawCell
+//СѓСЃС‚Р°РЅРѕРІРєР° РІС‹СЂР°РІРЅРёРІР°РЅРёВ¤, РЅР°РїСЂРёРјРµСЂ  DataAlignMent:=taCenter
+//СЃР°РјСѓ РїСЂРѕС†РµРґСѓСЂСѓ РЅР°РґРѕ РїРѕРґРєР»СЋС‡РёС‚СЊ РЅР° OnDrawCell
 
 procedure TMainForm.Grid1DrawCell(Sender: TObject;
 ACol, ARow: Integer; Rect: TRect; State: TGridDrawState);
@@ -73,22 +73,22 @@ ACol, ARow: Integer; Rect: TRect; State: TGridDrawState);
 var s: string;
 begin
 with Sender as TStringGrid do begin
-s:=cells[acol,arow]; //сохраняем текст из ячейки
+s:=cells[acol,arow]; //СЃРѕС…СЂР°РЅВ¤РµРј С‚РµРєСЃС‚ РёР· В¤С‡РµР№РєРё
 canvas.FillRect (rect);
-//перерисовываем ячейку, здесь же можно изменить цвет
+//РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј В¤С‡РµР№РєСѓ, Р·РґРµСЃСЊ Р¶Рµ РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ С†РІРµС‚
 rect.right:=rect.Right-2;
-//смещение текста внутри ячейки, можно не делать
+//СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚Р° РІРЅСѓС‚СЂРё В¤С‡РµР№РєРё, РјРѕР¶РЅРѕ РЅРµ РґРµР»Р°С‚СЊ
 If DataAlignMent=taRightJustify then
-//печатаем текст содержащийся в ячейке с любыми параметрами
+//РїРµС‡Р°С‚Р°РµРј С‚РµРєСЃС‚ СЃРѕРґРµСЂР¶Р°С‰РёР№СЃВ¤ РІ В¤С‡РµР№РєРµ СЃ Р»СЋР±С‹РјРё РїР°СЂР°РјРµС‚СЂР°РјРё
 DrawText(canvas.handle,pchar(s),-1,Rect,
 DT_SINGLELINE OR DT_VCENTER OR DT_RIGHT)
-//например ВЕРТИКАЛЬНО_ПО_ЦЕНТРУ + ГОРИЗОНТАЛЬНО_ВПРАВО
+//РЅР°РїСЂРёРјРµСЂ В¬в‰€вЂ“вЂњВ»В СР‹в„–РЊСњ_С•Сњ_Г·в‰€РЊвЂњвЂ“вЂќ + в€љСњвЂ“В»В«СњРЊвЂњСР‹в„–РЊСњ_В¬С•вЂ“СВ¬Сњ
 else
 DrawText(canvas.handle,pchar(s),-1,Rect,
 DT_SINGLELINE OR DT_VCENTER OR DT_CENTER);
-//например ВЕРТИКАЛЬНО_ПО_ЦЕНТРУ + ГОРИЗОНТАЛЬНО_ПО_ЦЕНТРУ
+//РЅР°РїСЂРёРјРµСЂ В¬в‰€вЂ“вЂњВ»В СР‹в„–РЊСњ_С•Сњ_Г·в‰€РЊвЂњвЂ“вЂќ + в€љСњвЂ“В»В«СњРЊвЂњСР‹в„–РЊСњ_С•Сњ_Г·в‰€РЊвЂњвЂ“вЂќ
 end ...
-//все возможные значения есть в Хэлпе
+//РІСЃРµ РІРѕР·РјРѕР¶РЅС‹Рµ Р·РЅР°С‡РµРЅРёВ¤ РµСЃС‚СЊ РІ вЂ™СЌР»РїРµ
 
 
 procedure TForm1.StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
