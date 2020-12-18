@@ -9,7 +9,8 @@ uses
   SinhronN in 'SinhronN.pas' {FmSinhron},
   DialogFulCopy in 'DialogFulCopy.pas' {FmDialogFulCopy},
   ViewLog in 'ViewLog.pas' {FmViewLog},
-  ViewSnimok in 'ViewSnimok.pas' {FmShowSnimok};
+  ViewSnimok in 'ViewSnimok.pas' {FmShowSnimok},
+  ViewHelp in 'ViewHelp.pas' {FmHelp};
 
 {$R *.res}
 
@@ -21,7 +22,6 @@ begin
   Application.CreateForm(TFmConfig, FmConfig);
   Application.CreateForm(TFmDialogFulCopy, FmDialogFulCopy);
   Application.CreateForm(TFmViewLog, FmViewLog);
-  Application.CreateForm(TFmShowSnimok, FmShowSnimok);
   if ParamCount>1 then
    begin
     FmSinhron.WindowState:=wsMinimized;

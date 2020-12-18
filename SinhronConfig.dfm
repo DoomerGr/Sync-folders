@@ -3837,6 +3837,8 @@ object FmConfig: TFmConfig
     C0000083C0000087F90000CFFF0000}
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnActivate = FormActivate
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 101
@@ -4049,8 +4051,9 @@ object FmConfig: TFmConfig
         Left = 178
         Top = 27
         Width = 789
-        Min = 1
-        Position = 1
+        Max = 9
+        PageSize = 0
+        Position = 0
         ThumbStyle = tsXPPointer
         Transparent = True
         OnChange = RzTrackBarNomFolderChange
@@ -4349,7 +4352,7 @@ object FmConfig: TFmConfig
     Left = 838
     Top = 359
     Bitmap = {
-      494C0101040008007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000800840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

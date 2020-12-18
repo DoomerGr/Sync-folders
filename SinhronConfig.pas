@@ -1,4 +1,4 @@
-unit SinhronConfig;
+﻿unit SinhronConfig;
 
 interface
 
@@ -53,11 +53,13 @@ type
     procedure Button1Click(Sender: TObject);
     procedure RzTrackBarNomFolderChange(Sender: TObject);
     procedure ButtonClearFilesProfClick(Sender: TObject);
-    procedure RzTrackBarNomFolderChanging(Sender: TObject; NewPos: Integer;
-      var AllowChange: Boolean);
     procedure ButtonViewLogClick(Sender: TObject);
     procedure RzCheckBoxOperacDelClick(Sender: TObject);
     procedure RzCheckBoxSaveLogClick(Sender: TObject);
+    procedure RzTrackBarNomFolderChanging(Sender: TObject; NewPos: Integer;
+      var AllowChange: Boolean);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -125,7 +127,7 @@ begin
  ProvPath:=False;
  ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork:=EditPathWork.Text;
  ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome:=EditPathHome.Text;
- for i:=1 to 10 do
+ for i:=0 to 9 do
   begin
    if (ProfilLine.FolderDual[i].PathWork<>'') or
      (ProfilLine.FolderDual[i].PathHome<>'') then
@@ -140,14 +142,13 @@ begin
    exit
   end;
 
-  for i:=1 to 10 do
+  for i:=0 to 9 do
   begin
    if (ProfilLine.FolderDual[i].PathWork<>'') then
     ProfilLine.FolderDual[i].PathWork:=IncludeTrailingBackslash(ProfilLine.FolderDual[i].PathWork);
    if (ProfilLine.FolderDual[i].PathHome<>'') then
     ProfilLine.FolderDual[i].PathHome:=IncludeTrailingBackslash(ProfilLine.FolderDual[i].PathHome);
   end;
-
 
  if RzCheckBoxNoTransit.Checked then
   begin
@@ -156,12 +157,6 @@ begin
    if (DirectoryExists(ProgramPath+'Task\'+ProfilLine.Id+'\HFiles')) then
    DelDir(ProgramPath+'Task\'+ProfilLine.Id+'\HFiles',false,true);
   end;
-
-
-
- AssignFile(f,FmSinhron.FileNameConfig);
- if  not(FileExists(FmSinhron.FileNameConfig)) then Rewrite(f)
-  else Reset(f);
 
  with ProfilLine do
   begin
@@ -178,12 +173,12 @@ begin
    OperacDell:=RzCheckBoxOperacDel.Checked;
    LineExcept:=EditFileExcept.Text;
   end;
+ ProfilArray[NProf]:=ProfilLine;
 
- if profnew then ProfilArray[Length(ProfilArray)-1]:=ProfilLine
-  else  ProfilArray[NProf]:=ProfilLine;
- Rewrite(f);
+ AssignFile(f,FmSinhron.FileNameConfig);Rewrite(f);
  for i:=0 to Length(ProfilArray)-1 do write(f,ProfilArray[i]);
  CloseFile(f);
+
  FmSinhron.TestState(ProfilLine);
  FmSinhron.CreateListExcept(ProfilLine.LineExcept);
  FmSinhron.RzListBoxProfile.Items.Clear;
@@ -218,18 +213,29 @@ procedure TFmConfig.RzTrackBarNomFolderChange(Sender: TObject);
 begin
  EditPathWork.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork);
  EditPathHome.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome);
- RzLabelNomer.Caption:=IntToStr(RzTrackBarNomFolder.Position);
+ RzLabelNomer.Caption:=IntToStr(RzTrackBarNomFolder.Position+1);
 end;
 
 procedure TFmConfig.RzTrackBarNomFolderChanging(Sender: TObject;
   NewPos: Integer; var AllowChange: Boolean);
 begin
- ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork:=EditPathWork.Text;
  ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome:=EditPathHome.Text;
+ ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork:=EditPathWork.Text;
+end;
+
+procedure TFmConfig.FormActivate(Sender: TObject);
+begin
+ RzTrackBarNomFolder.Position:=0;
+end;
+
+procedure TFmConfig.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ RzTrackBarNomFolder.Position:=0;
 end;
 
 procedure TFmConfig.FormCreate(Sender: TObject);
 begin
+ RzTrackBarNomFolder.Position:=0;
  profnew:=False;
 end;
 
@@ -240,13 +246,13 @@ begin
   begin
     if Length(ProfilArray)>0 then
      begin
-       ProfilLine:=FmSinhron.Task;//       ProfilArray[NProf];
+       ProfilLine:=FmSinhron.Task;
        with ProfilLine do
         begin
          EditProfName.text:=NameConf;
          RzCheckBoxDelConfirm.Checked:=DellСonfirmat;
-         EditPathWork.Text:=String(FolderDual[1].PathWork);
-         EditPathHome.Text:=String(FolderDual[1].Pathhome);
+         EditPathWork.Text:=String(FolderDual[0].PathWork);
+         EditPathHome.Text:=String(FolderDual[0].Pathhome);
          RzCheckBoxSaveLog.Checked:=SaveLog;
          RzCheckBoxDellBasket.Checked:=DellBasket;
          RzCheckBoxLogExt.Checked:=LogExt;
@@ -262,7 +268,6 @@ begin
   end
    else
     begin
-     if Length(ProfilArray)=0 then NProf:=0;// else NProf:=Length(ProfilArray)-1;
      EditProfName.text:='';
      RzCheckBoxDelConfirm.Checked:=True;
      EditPathWork.Text:='';
@@ -275,14 +280,14 @@ begin
      RzCheckBoxOperacDel.Checked:=false;
      RzCheckBoxLogExt.Checked:=false;
      RzCheckBoxNoTransit.Checked:=false;
-     for i:=1 to 10 do
+     for i:=0 to 9 do
       begin
        ProfilLine.FolderDual[i].PathWork:='';
        ProfilLine.FolderDual[i].PathHome:='';
       end;
     end;
     RzCheckBoxOperacDelClick(Sender);
-    RzTrackBarNomFolder.Position:=1;
+    RzTrackBarNomFolder.Position:=0;
     RzTrackBarNomFolderChange(sender);
 end;
 

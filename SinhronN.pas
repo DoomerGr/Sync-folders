@@ -1,4 +1,4 @@
-unit SinhronN;
+﻿unit SinhronN;
 
 interface
 
@@ -105,8 +105,7 @@ type
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4ViewSnimokClick(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
-    procedure LoadProfile;
+    procedure LoadProfile(PathProfil:string);
     procedure N5LoadPrifileClick(Sender: TObject);
     procedure RunParamStr(Sender:TObject);
     procedure cmdExampleLineClick(Sender: TObject);
@@ -137,12 +136,19 @@ implementation
 
 {$R *.dfm}
 
-uses FileCtrl, DialogFulCopy, ViewLog, ViewSnimok;
+uses FileCtrl, DialogFulCopy, ViewLog, ViewSnimok, ViewHelp;
 
 procedure TFmSinhron.LoadStyle(Sender: TObject);
+var i:Integer;
 begin
  if Sender is TMenuItem then
- TStyleManager.TrySetStyle(TMenuItem(Sender).Caption,false);
+  begin
+   TStyleManager.TrySetStyle(TMenuItem(Sender).Caption,false);
+   for i:=0 to PopupMenuTools.Items.Items[0].Count-1 do
+   if TStyleManager.ActiveStyle.Name=PopupMenuTools.Items.Items[0].Items[i].Caption then
+    PopupMenuTools.Items.Items[0].Items[i].Checked:=True
+   else  PopupMenuTools.Items.Items[0].Items[i].Checked:=false;
+  end;
 end;
 
 
@@ -171,9 +177,11 @@ var rV,i:integer;
     Path1,FileSnimok1:String;
     List1:TFileList;
     S:TNameAtribFile;
+    Shablon:string;
     f:file of TNameAtribFile;
 
 begin
+ if not(Assigned(FmShowSnimok)) then FmShowSnimok:=TFmShowSnimok.Create(Application);
   if OpenDialogSnimok.Execute then
    begin
     assignfile(f,OpenDialogSnimok.FileName);
@@ -194,10 +202,12 @@ begin
       if not(eof(f)) then read(f,s);
        RzLabelFolderName.Caption:=MinimizeName(s.FName,RzLabelFolderName.Canvas,
         RzLabelFolderName.Width);
+        Shablon:=IncludeTrailingBackslash(s.FName);
         for i:=1 to FileSize(f)-1 do
          begin
            read(f,s);
            StringGrid1.Cells[0,i]:=IntToStr(i);
+           Delete(s.FName,1,Length(Shablon));
            StringGrid1.Cells[1,i]:=s.FName;
            StringGrid1.Cells[2,i]:=IntToStr(s.SizeFile);
            StringGrid1.Cells[3,i]:=DateToStr(s.FDataTime);
@@ -210,7 +220,7 @@ end;
 
 procedure TFmSinhron.N5LoadPrifileClick(Sender: TObject);
 begin
- LoadProfile
+  if OpenDialogConf.Execute then LoadProfile(OpenDialogConf.FileName);
 end;
 
 procedure TFmSinhron.FormActivate(Sender: TObject);
@@ -247,12 +257,15 @@ var f:file of TProfilLine;
     pn:TPoint;
     tbList:ITaskBarList;
     state:TTaskState;
+    Sort:TStringList;
 begin
  // Application.MainFormOnTaskBar := True;
  if (ParamCount>1) and (ParamCount<4) then halt(0);
+
+ pn.x:=-1;StopCopy:=false;Screen.Cursor := crDefault;
  TbList:=CreateComObject(CLSID_TaskBarList) as ITaskBarList;
  TbList.QueryInterface(IID_ITaskBarList3,taskBarList);
- pn.x:=-1;StopCopy:=false;
+
  try
   RegData:=TRegistry.Create;
   RegData.RootKey:=HKEY_CURRENT_USER;
@@ -271,12 +284,11 @@ begin
     finally
     RegData.Free;
  end;
- if pn.x>0 then
+
+ if pn.x>0 then begin FmSinhron.Left:=pn.x;FmSinhron.Top:=pn.y; end;
+
+ with FormatSettings do
   begin
-   FmSinhron.Left:=pn.x;FmSinhron.Top:=pn.y;
-  end;
-  with FormatSettings do
-   begin
     LongMonthNames[1]  := 'Января';
     LongMonthNames[2]  := 'Февраля';
     LongMonthNames[3]  := 'Марта';
@@ -289,15 +301,17 @@ begin
     LongMonthNames[10]  := 'Октября';
     LongMonthNames[11]  := 'Ноября';
     LongMonthNames[12]  := 'Декабря';
-   end;
+  end;
+
  FileCopier := TFileCopier.Create;
  FileCopier.ProgressBar:=ProgressBarFile;
  FileCopier.MemoResult:=RzRichEditEchoCom;
- Screen.Cursor := crDefault;
+
  AddEchoText(RzRichEditEchoCom,'Старт программы. Сейчас '+
  FormatDateTime('d mmmm yyyy "г - " dddd',Now)+'. Время: '+TimeToStr(Time)+'.',clMaroon,Task.SaveLog);
  RzLblVersion.Caption:='v.'+RzVersionInfo1.FileVersion;
  PCIdent:=GetHDSerNo; RichEditLog:=nil;
+
  if ParamCount=1 then
   begin
    ProgramPath:=IncludeTrailingBackslash(ParamStr(1));
@@ -308,35 +322,23 @@ begin
      ProgramPath:=ExtractFilePath(ParamStr(0));
      FileNameConfig:=ProgramPath+'Sinhron.cfg';
     end;
- for i := 0 to Length(TStyleManager.StyleNames)-1 do
+
+ Sort:=TStringList.Create;Sort.Sorted:=True;
+ for i:= 0 to Length(TStyleManager.StyleNames)-1 do
+   Sort.Add(TStyleManager.StyleNames[i]);
+ for i := 0 to Sort.Count-1 do
   begin
     m:=TmenuItem.Create(FmSinhron);
-    m.Caption:=TStyleManager.StyleNames[i];
+    m.Caption:=Sort[i];
     m.OnClick:=LoadStyle;
+    if TStyleManager.ActiveStyle.Name=Sort[i] then m.Checked:=True;
     PopupMenuTools.Items.Items[0].Add(m);
   end;
-  if ParamCount<2 then
-   begin
-    if  FileExists(FileNameConfig) then
-     begin
-       AssignFile(f,FileNameConfig);Reset(f);
-       if FileSize(f)>0 then
-        begin
-         SetLength(ProfilArray,FileSize(f));i:=0;
-         while not(Eof(f)) do
-          begin
-           read(f,ProfilArray[i]);
-           RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
-           inc(i)
-          end;
-         Task:=ProfilArray[0];
-        end;
-      CloseFile(f);
-     end;
-     if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
-     FmSinhron.ExistenceData;
-   end;
+  FreeAndNil(Sort);
+
+ if (ParamCount<2) and (FileExists(FileNameConfig)) then LoadProfile(FileNameConfig);
 end;
+
 
 procedure TFmSinhron.SetTaskProgress(newValue: Integer);
 begin
@@ -379,41 +381,32 @@ begin
 end;
 
 
-procedure TFmSinhron.LoadProfile;
+procedure TFmSinhron.LoadProfile(PathProfil:string);
 var f:file of TProfilLine;
     i:Integer;
 begin
- if OpenDialogConf.Execute then
-  begin
-    ProgramPath:=ExtractFilePath(OpenDialogConf.FileName);
-    SetLength(ProfilArray,0);
-    try
-     AssignFile(f,OpenDialogConf.FileName);Reset(f);
-     if FileSize(f)>0 then
+  ProgramPath:=ExtractFilePath(PathProfil);
+  SetLength(ProfilArray,0);
+  try
+   AssignFile(f,PathProfil);Reset(f);
+   if FileSize(f)>0 then
+    begin
+     FileNameConfig:=PathProfil;
+     SetLength(ProfilArray,FileSize(f));i:=0;
+     RzListBoxProfile.Items.Clear;
+     while not(Eof(f)) do
       begin
-       FileNameConfig:=OpenDialogConf.FileName;
-       SetLength(ProfilArray,FileSize(f));i:=0;
-       RzListBoxProfile.Items.Clear;
-       while not(Eof(f)) do
-        begin
-         read(f,ProfilArray[i]);
-         RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
-         inc(i)
-        end;
-       Task:=ProfilArray[0];
-       if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
-       FmSinhron.ExistenceData;
+       read(f,ProfilArray[i]);
+       RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
+       inc(i)
       end;
-     finally
-      CloseFile(f);
-    end
-  end;
-end;
-
-
-procedure TFmSinhron.Image1Click(Sender: TObject);
-begin
- LoadProfile;
+     Task:=ProfilArray[0];
+     if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
+     FmSinhron.ExistenceData;
+    end;
+   finally
+    CloseFile(f);
+  end
 end;
 
 
@@ -427,7 +420,7 @@ end;
 procedure TFmSinhron.RzBitBtnAddProfilClick(Sender: TObject);
 begin
  SetLength(ProfilArray,Length(ProfilArray)+1);
- FmConfig.profnew:=true;
+ FmConfig.profnew:=true;FmConfig.NProf:=Length(ProfilArray)-1;
  FmConfig.Show
 end;
 
@@ -435,28 +428,28 @@ procedure TFmSinhron.RzBitBtnDelProfilClick(Sender: TObject);
 var i:Integer;
     f:file of TProfilLine;
 begin
-   if RzListBoxProfile.ItemIndex<0 then exit;
+ if RzListBoxProfile.ItemIndex<0 then exit;
 
-   if DirectoryExists(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id) then
-    begin
-      if MessageBox(Handle, 'Удалить задание и все связанные с ним файлы?',
-        'Предупреждение', MB_YESNO + MB_ICONWARNING)=mrNo then Exit
-         else DelDir(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id,false,true)
-    end;
+ if DirectoryExists(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id) then
+  begin
+    if MessageBox(Handle, 'Удалить задание и все связанные с ним файлы?',
+      'Предупреждение', MB_YESNO + MB_ICONWARNING)=mrNo then Exit
+       else DelDir(ProgramPath+'\Task\'+ProfilArray[RzListBoxProfile.ItemIndex].Id,false,true)
+  end;
 
-   for I:=RzListBoxProfile.ItemIndex to Length(ProfilArray)-1 do
-   ProfilArray[i]:=ProfilArray[i+1];
-   SetLength(ProfilArray, Length(ProfilArray)-1);
-   RzListBoxProfile.Items.Clear;
+ for i:=RzListBoxProfile.ItemIndex to Length(ProfilArray)-1 do
+    ProfilArray[i]:=ProfilArray[i+1];
+ SetLength(ProfilArray, Length(ProfilArray)-1);
+ RzListBoxProfile.Items.Clear;
 
-   AssignFile(f,FileNameConfig);Rewrite(f);
-   for i:=0 to Length(ProfilArray)-1 do
-    begin
-     RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
-     write(f,ProfilArray[i]);
-    end;
-   CloseFile(f);
-   ExistenceData;
+ AssignFile(f,FileNameConfig);Rewrite(f);
+ for i:=0 to Length(ProfilArray)-1 do
+  begin
+   RzListBoxProfile.Items.Add(ProfilArray[i].NameConf);
+   write(f,ProfilArray[i]);
+  end;
+ CloseFile(f);
+ ExistenceData;
 end;
 
 procedure TFmSinhron.RzBitBtnEditConfigClick(Sender: TObject);
@@ -555,7 +548,7 @@ begin
       end;
      FName:=Spisok.Strings[i];
      FNameTmp:='';
-     Delete(FName,1,Length(PathFolder)+1);
+//     Delete(FName,1,Length(PathFolder)+1);
      Nature:=TAtrib(Spisok.Objects[i]).Nature;
      FDataTime:=TAtrib(Spisok.Objects[i]).FileDataTime;
      SizeFile:=TAtrib(Spisok.Objects[i]).SizeFile;
@@ -626,7 +619,6 @@ begin
   CloseFile(f);
 end;
 
-
 function TFmSinhron.ChekDiskSize(Disk:String;SizeFiles:int64):boolean;
 var i:integer;
 begin
@@ -648,7 +640,7 @@ begin
  //создание списка============================================================
  SizeFiles:=0;StopCopy:=false;
  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
- for i:=1 to 10 do
+ for i:=0 to 9 do
  with TaskData.FolderDual[i] do
   if PathHome<>'' then
     begin
@@ -697,7 +689,7 @@ begin
    end;
 
 
-  for i:=1 to 10 do
+  for i:=0 to 9 do
   with TaskData.FolderDual[i] do
    begin
     if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -798,8 +790,6 @@ begin
        begin
         RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
         if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
-//        CopyFileWithProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
-//        CopyFileStreamProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
         if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
          else RzRichEditEchoCom.Lines.Add('Отсутствует файл: '+FSource);
        end;
@@ -872,7 +862,7 @@ begin
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
 //проверка существования папок в профиле
- for i:=1 to 10 do
+ for i:=0 to 9 do
   if TaskData.FolderDual[i].PathWork<>'' then
    begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathWork)) then
@@ -883,7 +873,7 @@ begin
       end;
    end;
 
- for i:=1 to 10 do
+ for i:=0 to 9 do
   with TaskData.FolderDual[i] do
    begin
     if PathWork<>'' then
@@ -932,7 +922,7 @@ begin
                Screen.Cursor:= crDefault;
               end
           end
-          else
+         else
            begin
             Screen.Cursor:= crHourGlass;
             AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
@@ -956,7 +946,7 @@ begin
    end;
    //==========================================================================
 
-   for i:=1 to 10 do
+   for i:=0 to 9 do
     with TaskData.FolderDual[i] do
      begin
       if not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat')) then Continue;
@@ -1062,8 +1052,6 @@ begin
            begin
             RzLabelNameFile.Caption:=MinimizeName(FSource,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
             if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
-//            CopyFileWithProgress(Sc,St,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
-//            CopyFileStreamProgress(Sc,St,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
             if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
              else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
            end;
@@ -1092,7 +1080,7 @@ begin
   //создание списка============================================================
   SizeFiles:=0;
   AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
-   for i:=1 to 10 do
+   for i:=0 to 9 do
    with TaskData.FolderDual[i] do
     if PathWork<>'' then
       begin
@@ -1141,7 +1129,7 @@ begin
      end;
   //==========================================================================
 
-    for i:=1 to 10 do
+    for i:=0 to 9 do
     with TaskData.FolderDual[i] do
      begin
       if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -1316,7 +1304,7 @@ begin
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
 //проверка существования папок в профиле
- for i:=1 to 10 do
+ for i:=0 to 9 do
   if TaskData.FolderDual[i].PathHome<>'' then
     begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathHome)) then
@@ -1327,7 +1315,7 @@ begin
       end;
     end;
  Screen.Cursor:= crHourGlass;
- for i:=1 to 10 do
+ for i:=0 to 9 do
   with TaskData.FolderDual[i] do
    begin
      if PathHome<>'' then
@@ -1381,7 +1369,7 @@ begin
    end;
 
  //**********************************************************
-   for i:=1 to 10 do
+   for i:=0 to 9 do
     with TaskData.FolderDual[i] do
      begin
       if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -1781,7 +1769,6 @@ var Poz,Size:Integer;
 
 procedure TFmSinhron.RunNoTransit(TaskData:TProfilLine;Napr:word);
 var I_Poisk,j,i:integer;
-    All:Boolean;
     PathArhFlsTrgFld:String;
     HomeList,WorkList:TFileList;
     Fld1_Path,Fld2_Path:string;
@@ -1791,10 +1778,9 @@ var I_Poisk,j,i:integer;
     SizeFiles:int64;
     MRes:TModalResult;
 begin
- All:=False;SizeFiles:=0;
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 //проверка существования папок в профиле
- for i:=1 to 10 do
+ for i:=0 to 9 do
   begin
     if TaskData.FolderDual[i].PathWork<>'' then
      begin
@@ -1822,7 +1808,7 @@ begin
    AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало синхронизации бета с альфа. Тип операции: без транзита файлов.',clBlue,Task.SaveLog);
 
 
- for i:=1 to 10 do
+ for i:=0 to 9 do
   with TaskData.FolderDual[i] do
    begin
      if (DirectoryExists(PathWork)) and (DirectoryExists(PathHome)) then
@@ -2046,7 +2032,6 @@ begin
             end;
            if MRes=mrNo then goto opros;
        end;
-
        Path:=RzSelectFolderDialog1.SelectedPathName;
        NameSnimok:=SaveDialogFlsSnimok.FileName;
        Screen.Cursor:= crHourGlass;
@@ -2104,9 +2089,11 @@ begin
      Closefile(f)
     end;
     List1:=TFileList.Create;List2:=TFileList.Create;
-    CreateListOfFiles(List1,FileSnimok1,'');CreateListOfFiles(List2,FileSnimok2,'');
     AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok1+' папка '+Path1,clBlue,false);
     AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok2+' папка '+Path2,clBlue,false);
+    Path1:=IncludeTrailingBackslash(Path1);
+    Path2:=IncludeTrailingBackslash(Path2);
+    CreateListOfFiles(List1,FileSnimok1,Path1);CreateListOfFiles(List2,FileSnimok2,Path2);
     for j:=0 to List1.Count-1 do
      begin
       I_Poisk:=List2.IndexOf(List1[j]);
@@ -2162,7 +2149,7 @@ begin
        List2.Free;List1.Free;
   end;
   if not(comp) then AddEchoText(FmViewLog.RzRichEdit1,'В снимках есть отличия.',
-                  clGreen,false)
+                  clRed,false)
    else AddEchoText(FmViewLog.RzRichEdit1,'Снимки идентичны',clGreen,false);
 
 end;
@@ -2274,17 +2261,9 @@ begin
 end;
 
 procedure TFmSinhron.N6HelpProgClick(Sender: TObject);
-var s:string;
 begin
- S:=#13+#10+
- 'Синхронизация выбранных папок 2х компьютеров через внешний носитель например USB-Flash.'+#13+#10+
- 'Программа имеет в профиле 10 пар папок компьютеров альфа и бета. При синхронизации будут включены'+#13+#10+
- 'все подпапки. Позволяет синхронизировать эти папки если работа ведется с файлами на разных рабочих местах.'+#13+#10+
- 'Есть возможность синхронизации без транзита файлов на флешку, напрямую, например если синхронизировать с внешним'+#13+#10+
- 'жестким диском. Также возможно создавать снимки папок с дальнейшим их сравнением. Добавлен просмотрщик снимков.'+#13+#10+
- 'Ведется логирование операций упрощенное или расширенное.'+#13+#10+
- 'Есть режим удаления в корзину и возможность смены скинов программы.';
-  AddEchoText(RzRichEditEchoCom,s,clBlue,false);
+ if Assigned(FmHelp) then FmHelp.Show
+ else begin FmHelp:=TFmHelp.Create(Application); FmHelp.Show;end
 end;
 
 
@@ -2292,7 +2271,12 @@ procedure TFmSinhron.TimerCmdBootTimer(Sender: TObject);
 begin
  TimerCmdBoot.Enabled:=false;
  if (ParamCount<>0) then  FmSinhron.RunParamStr(FmSinhron);
-
 end;
 
+
 End.
+
+
+//        CopyFileWithProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
+//        CopyFileStreamProgress(St,Sc,TAtrib(WorkList.Objects[j]).FileDataTime,ProgressBarFile);
+

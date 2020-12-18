@@ -4706,7 +4706,6 @@ object FmSinhron: TFmSinhron
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 1
       end
@@ -4811,7 +4810,7 @@ object FmSinhron: TFmSinhron
       Top = 424
       Width = 67
       Height = 84
-      Hint = #1048#1079#1084#1077#1085#1080#1090#1100' '#1089#1090#1080#1083#1100' '#1086#1092#1086#1088#1084#1083#1077#1085#1080#1103' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+      Hint = #1048#1085#1089#1090#1088#1091#1084#1077#1085#1090#1099
       Center = True
       ParentShowHint = False
       Picture.Data = {

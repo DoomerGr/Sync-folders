@@ -46,7 +46,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <VCL_Custom_Styles>&quot;Amethyst Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AmethystKamri.vsf&quot;;&quot;Aqua Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AquaGraphite.vsf&quot;;&quot;Aqua Light Slate|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AquaLightSlate.vsf&quot;;&quot;Cyan Dusk|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\CyanDusk.vsf&quot;;&quot;Golden Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\GoldenGraphite.vsf&quot;;&quot;Iceberg Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\LavenderClassico.vsf&quot;;&quot;Light|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Light.vsf&quot;;&quot;Luna|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Luna.vsf&quot;;&quot;Obsidian|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Obsidian.vsf&quot;;&quot;Ruby Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\RubyGraphite.vsf&quot;;&quot;Sapphire Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SapphireKamri.vsf&quot;;&quot;Silver|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Silver.vsf&quot;;&quot;Slate Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SlateClassico.vsf&quot;;&quot;Smokey Quartz Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SmokeyQuartzKamri.vsf&quot;</VCL_Custom_Styles>
+        <VCL_Custom_Styles>&quot;Amethyst Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AmethystKamri.vsf&quot;;&quot;Aqua Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AquaGraphite.vsf&quot;;&quot;Aqua Light Slate|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\AquaLightSlate.vsf&quot;;&quot;Auric|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Auric.vsf&quot;;&quot;Cyan Dusk|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\CyanDusk.vsf&quot;;&quot;Golden Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\GoldenGraphite.vsf&quot;;&quot;Iceberg Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\LavenderClassico.vsf&quot;;&quot;Light|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Light.vsf&quot;;&quot;Luna|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Luna.vsf&quot;;&quot;Metropolis UI Blue|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\MetropolisUIBlue.vsf&quot;;&quot;Obsidian|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Obsidian.vsf&quot;;&quot;Ruby Graphite|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\RubyGraphite.vsf&quot;;&quot;Sapphire Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SapphireKamri.vsf&quot;;&quot;Silver|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Silver.vsf&quot;;&quot;Slate Classico|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SlateClassico.vsf&quot;;&quot;Smokey Quartz Kamri|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\SmokeyQuartzKamri.vsf&quot;</VCL_Custom_Styles>
         <DCC_DebugInformation>true</DCC_DebugInformation>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac\DCU\Win32</DCC_ExeOutput>
@@ -66,6 +66,11 @@
         <VerInfo_Locale>1049</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <VerInfo_Build>61</VerInfo_Build>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_Keys>FileVersion=5.2.2.61;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_MajorVer>5</VerInfo_MajorVer>
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>Sinhron_Icon.ico</Icon_MainIcon>
@@ -81,17 +86,18 @@
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Debugger_RunParams>D:\$Work</Debugger_RunParams>
         <DCC_ImportedDataReferences>false</DCC_ImportedDataReferences>
-        <VerInfo_Build>59</VerInfo_Build>
-        <VerInfo_MajorVer>4</VerInfo_MajorVer>
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.59;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>61</VerInfo_Build>
+        <VerInfo_MajorVer>5</VerInfo_MajorVer>
+        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=5.2.2.61;ProductVersion=1.0.0.0</VerInfo_Keys>
         <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
-        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_ExeOutput>
-        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcuOutput>
+        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_ExeOutput>
+        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_DcuOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32\Release</DCC_DcpOutput>
+        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32\Release</DCC_DcpOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -102,20 +108,20 @@
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_MajorVer>4</VerInfo_MajorVer>
+        <VerInfo_MajorVer>5</VerInfo_MajorVer>
         <DCC_Optimize>true</DCC_Optimize>
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Build>59</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.1.1.59;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>62</VerInfo_Build>
+        <VerInfo_Keys>FileVersion=5.2.2.62;ProductVersion=1.0.0.0</VerInfo_Keys>
         <Icon_MainIcon>Sinhron_Icon1.ico</Icon_MainIcon>
-        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcpOutput>
-        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_ExeOutput>
+        <DCC_DcpOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_DcpOutput>
+        <DCC_ExeOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_ExeOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac_5\DCU\Win32</DCC_DcuOutput>
+        <DCC_DcuOutput>D:\Documents\RAD Studio\Sinhronizac_5\DCU\Win32</DCC_DcuOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -139,6 +145,10 @@
         </DCCReference>
         <DCCReference Include="ViewSnimok.pas">
             <Form>FmShowSnimok</Form>
+        </DCCReference>
+        <DCCReference Include="ViewHelp.pas">
+            <Form>FmHelp</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
