@@ -6670,6 +6670,13 @@ object FmSinhron: TFmSinhron
       Caption = #1055#1088#1086#1089#1084#1086#1090#1088' '#1083#1086#1075#1072' '#1086#1087#1077#1088#1072#1094#1080#1081' '#1087#1088#1086#1092#1080#1083#1103
       OnClick = N1ViewLogClick
     end
+    object N6: TMenuItem
+      Caption = '-'
+    end
+    object N7CreateSnimokProfile: TMenuItem
+      Caption = #1057#1086#1079#1076#1072#1090#1100' '#1089#1085#1080#1084#1086#1082' '#1087#1072#1087#1086#1082' '#1087#1088#1086#1092#1080#1083#1103' '#1090#1077#1082#1091#1097#1077#1075#1086' '#1082#1086#1084#1087#1100#1102#1090#1077#1088#1072
+      OnClick = N7CreateSnimokProfileClick
+    end
   end
   object RzSelectFolderDialog1: TRzSelectFolderDialog
     ButtonCaptions.Cancel = #1047#1072#1082#1088#1099#1090#1100
@@ -6707,7 +6714,7 @@ object FmSinhron: TFmSinhron
     Enabled = False
     Interval = 3000
     OnTimer = TimerCmdBootTimer
-    Left = 257
+    Left = 273
     Top = 64
   end
 end

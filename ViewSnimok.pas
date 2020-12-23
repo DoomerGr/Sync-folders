@@ -1,11 +1,11 @@
-unit ViewSnimok;
+﻿unit ViewSnimok;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   WinProcs,Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls,
-  RzLabel, Vcl.ExtCtrls, RzPanel;
+  RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Menus;
 
 type
   TFmShowSnimok = class(TForm)
@@ -13,13 +13,19 @@ type
     RzPanel1: TRzPanel;
     RzLabel1: TRzLabel;
     RzLabelFolderName: TRzLabel;
-    procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
-      Rect: TRect; State: TGridDrawState);
+    PopupMenu1: TPopupMenu;
+    N1_Find: TMenuItem;
+    FindDialog1: TFindDialog;
     procedure RzPanel1Resize(Sender: TObject);
+    procedure N1_FindClick(Sender: TObject);
+    procedure FindDialog1Find(Sender: TObject);
+    procedure FindDialog1Show(Sender: TObject);
+    procedure StringGrid1DblClick(Sender: TObject);
+    procedure StringGrid1Click(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }
+    Poisk:Integer;
   end;
 
 var
@@ -29,17 +35,111 @@ implementation
 
 {$R *.dfm}
 
+procedure TFmShowSnimok.FindDialog1Find(Sender: TObject);
+var i:Integer;
+    Find_S,Stmp:string;
+begin
+ if not(frMatchCase in FindDialog1.Options) then
+            Find_S:=UpperCase(FindDialog1.FindText);
+
+ if Poisk>1 then
+  if frDown  in FindDialog1.Options then
+    begin
+     if Poisk<StringGrid1.cols[1].Count-2 then Poisk:=Poisk+1
+    end
+  else  if Poisk>2 then Poisk:=Poisk-1;
+
+
+ if frDown  in FindDialog1.Options then
+  for i:=Poisk to StringGrid1.cols[1].Count-1 do
+   begin
+     if not(frMatchCase in FindDialog1.Options) then
+      Stmp:=UpperCase(StringGrid1.cols[1][i])
+     else Stmp:=StringGrid1.cols[1][i];
+
+     if frWholeWord  in FindDialog1.Options then
+       begin
+        if Find_S=Stmp then
+         begin
+          StringGrid1.Row:=i;Poisk:=i;
+          break
+         end
+       end
+     else
+      begin
+       if Pos(Find_S,Stmp)>0 then
+        begin
+         StringGrid1.Row:=i;
+         Poisk:=i;
+         break
+        end;
+      end;
+   end
+  else
+    for i:=Poisk downto 1 do
+     begin
+       if not(frMatchCase in FindDialog1.Options) then
+        Stmp:=UpperCase(StringGrid1.cols[1][i])
+       else Stmp:=StringGrid1.cols[1][i];
+       if frWholeWord  in FindDialog1.Options then
+         begin
+          if Find_S=Stmp then
+           begin
+            StringGrid1.Row:=i;Poisk:=i;
+            break
+           end
+         end
+       else
+        begin
+         if Pos(Find_S,Stmp)>0 then
+          begin
+           StringGrid1.Row:=i;Poisk:=i;
+           break
+          end;
+        end;
+     end
+end;
+
+
+procedure TFmShowSnimok.FindDialog1Show(Sender: TObject);
+begin
+ Poisk:=1;
+end;
+
+procedure TFmShowSnimok.N1_FindClick(Sender: TObject);
+
+begin
+ if StringGrid1.RowCount=0 then exit
+ else  FindDialog1.Execute;
+end;
+
 procedure TFmShowSnimok.RzPanel1Resize(Sender: TObject);
 begin
  RzLabelFolderName.Width:=RzPanel1.Width-106
 end;
+
+procedure TFmShowSnimok.StringGrid1Click(Sender: TObject);
+begin
+ Poisk:=StringGrid1.Row;
+end;
+
+procedure TFmShowSnimok.StringGrid1DblClick(Sender: TObject);
+begin
+ if goRowSelect in StringGrid1.Options then
+  StringGrid1.Options:=StringGrid1.Options-[goRowSelect]
+   else StringGrid1.Options:=StringGrid1.Options+[goRowSelect]
+end;
+
+end.
+
+//======================================================================
 
 procedure TFmShowSnimok.StringGrid1DrawCell(Sender: TObject; ACol,
   ARow: Integer; Rect: TRect; State: TGridDrawState);
 var  Format: Word;
      C:array[0..255] of Char;
 begin
-             exit;
+exit;
 //if ARow=0 then exit;
 if ACol = 0 then Format:=DT_CENTER
    else if ACol = 1 then Format := DT_LEFT
@@ -60,8 +160,6 @@ if ACol = 0 then Format:=DT_CENTER
   end;}
 
 end;
-
-end.
 
 
 //установка выравнивани¤, например  DataAlignMent:=taCenter

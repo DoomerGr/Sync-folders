@@ -26,13 +26,12 @@ object FmShowSnimok: TFmShowSnimok
     Font.Height = -14
     Font.Name = 'Tahoma'
     Font.Style = []
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goThumbTracking]
     ParentFont = False
+    PopupMenu = PopupMenu1
     TabOrder = 0
-    OnDrawCell = StringGrid1DrawCell
-    ExplicitLeft = -8
-    ExplicitTop = 160
-    ExplicitHeight = 291
+    OnClick = StringGrid1Click
+    OnDblClick = StringGrid1DblClick
     ColWidths = (
       64
       614
@@ -50,9 +49,6 @@ object FmShowSnimok: TFmShowSnimok
     BorderOuter = fsNone
     TabOrder = 1
     OnResize = RzPanel1Resize
-    ExplicitLeft = 440
-    ExplicitTop = 96
-    ExplicitWidth = 185
     object RzLabel1: TRzLabel
       Left = 18
       Top = 13
@@ -80,5 +76,19 @@ object FmShowSnimok: TFmShowSnimok
       Font.Style = [fsBold]
       ParentFont = False
     end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 792
+    Top = 280
+    object N1_Find: TMenuItem
+      Caption = #1053#1072#1081#1090#1080' '#1092#1072#1081#1083
+      OnClick = N1_FindClick
+    end
+  end
+  object FindDialog1: TFindDialog
+    OnShow = FindDialog1Show
+    OnFind = FindDialog1Find
+    Left = 624
+    Top = 256
   end
 end

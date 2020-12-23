@@ -52,7 +52,7 @@ TProfilLine = record
    NameConf:shortstring;
    Id:string[8];
    IdPC:string[25];
-   FolderDual: array [0..9] of TFolderDual;
+   FolderDual: array [1..10] of TFolderDual;
    LineExcept:shortstring;
    PC:string[4];
    OperacDell:boolean;
@@ -67,7 +67,7 @@ TProfile = record
    NameConf:string;
    Id:string;
    IdPC:string;
-   FolderDual: array [0..9] of TFolderDual;
+   FolderDual: array [1..10] of TFolderDual;
    LineExcept:string;
    PC:string;
    OperacDell:boolean;

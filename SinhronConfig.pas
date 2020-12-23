@@ -127,7 +127,7 @@ begin
  ProvPath:=False;
  ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork:=EditPathWork.Text;
  ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome:=EditPathHome.Text;
- for i:=0 to 9 do
+ for i:=1 to 10 do
   begin
    if (ProfilLine.FolderDual[i].PathWork<>'') or
      (ProfilLine.FolderDual[i].PathHome<>'') then
@@ -142,7 +142,7 @@ begin
    exit
   end;
 
-  for i:=0 to 9 do
+  for i:=1 to 10 do
   begin
    if (ProfilLine.FolderDual[i].PathWork<>'') then
     ProfilLine.FolderDual[i].PathWork:=IncludeTrailingBackslash(ProfilLine.FolderDual[i].PathWork);
@@ -213,7 +213,7 @@ procedure TFmConfig.RzTrackBarNomFolderChange(Sender: TObject);
 begin
  EditPathWork.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathWork);
  EditPathHome.Text:=String(ProfilLine.FolderDual[RzTrackBarNomFolder.Position].PathHome);
- RzLabelNomer.Caption:=IntToStr(RzTrackBarNomFolder.Position+1);
+ RzLabelNomer.Caption:=IntToStr(RzTrackBarNomFolder.Position);
 end;
 
 procedure TFmConfig.RzTrackBarNomFolderChanging(Sender: TObject;
@@ -225,17 +225,17 @@ end;
 
 procedure TFmConfig.FormActivate(Sender: TObject);
 begin
- RzTrackBarNomFolder.Position:=0;
+ RzTrackBarNomFolder.Position:=1;
 end;
 
 procedure TFmConfig.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
- RzTrackBarNomFolder.Position:=0;
+ RzTrackBarNomFolder.Position:=1;
 end;
 
 procedure TFmConfig.FormCreate(Sender: TObject);
 begin
- RzTrackBarNomFolder.Position:=0;
+ RzTrackBarNomFolder.Position:=1;
  profnew:=False;
 end;
 
@@ -251,8 +251,8 @@ begin
         begin
          EditProfName.text:=NameConf;
          RzCheckBoxDelConfirm.Checked:=DellСonfirmat;
-         EditPathWork.Text:=String(FolderDual[0].PathWork);
-         EditPathHome.Text:=String(FolderDual[0].Pathhome);
+         EditPathWork.Text:=String(FolderDual[1].PathWork);
+         EditPathHome.Text:=String(FolderDual[1].Pathhome);
          RzCheckBoxSaveLog.Checked:=SaveLog;
          RzCheckBoxDellBasket.Checked:=DellBasket;
          RzCheckBoxLogExt.Checked:=LogExt;
@@ -280,7 +280,7 @@ begin
      RzCheckBoxOperacDel.Checked:=false;
      RzCheckBoxLogExt.Checked:=false;
      RzCheckBoxNoTransit.Checked:=false;
-     for i:=0 to 9 do
+     for i:=1 to 10 do
       begin
        ProfilLine.FolderDual[i].PathWork:='';
        ProfilLine.FolderDual[i].PathHome:='';

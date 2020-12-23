@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.923,D:\Documents\RAD Studio\Sinhronizac_5\Unit1.pas=D:\Documents\RAD Studio\Sinhronizac_5\ViewHelp.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.493,=D:\Documents\RAD Studio\Sinhronizac_5\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.923,D:\Documents\RAD Studio\Sinhronizac_5\ViewHelp.dfm=D:\Documents\RAD Studio\Sinhronizac_5\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.923,D:\Documents\RAD Studio\Sinhronizac_5\ViewHelp.pas=D:\Documents\RAD Studio\Sinhronizac_5\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.923,D:\Documents\RAD Studio\Sinhronizac_5\Unit1.dfm=D:\Documents\RAD Studio\Sinhronizac_5\ViewHelp.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -67,6 +67,8 @@ type
     cmdExampleLine: TMenuItem;
     TimerCmdBoot: TTimer;
     N6HelpProg: TMenuItem;
+    N6: TMenuItem;
+    N7CreateSnimokProfile: TMenuItem;
     procedure RzBitBtnEditConfigClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RzBitBtnAddProfilClick(Sender: TObject);
@@ -111,7 +113,8 @@ type
     procedure cmdExampleLineClick(Sender: TObject);
     procedure TimerCmdBootTimer(Sender: TObject);
     procedure N6HelpProgClick(Sender: TObject);
-
+    procedure N7CreateSnimokProfileClick(Sender: TObject);
+    procedure SnimokOfProfile(Sender: TObject);
   private
     FileCopier:IFileCopier;
     TaskBarList:ITaskBarList3;
@@ -640,7 +643,7 @@ begin
  //создание списка============================================================
  SizeFiles:=0;StopCopy:=false;
  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
- for i:=0 to 9 do
+ for i:=1 to 10 do
  with TaskData.FolderDual[i] do
   if PathHome<>'' then
     begin
@@ -689,7 +692,7 @@ begin
    end;
 
 
-  for i:=0 to 9 do
+  for i:=1 to 10 do
   with TaskData.FolderDual[i] do
    begin
     if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -862,7 +865,7 @@ begin
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
 //проверка существования папок в профиле
- for i:=0 to 9 do
+ for i:=1 to 10 do
   if TaskData.FolderDual[i].PathWork<>'' then
    begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathWork)) then
@@ -873,7 +876,7 @@ begin
       end;
    end;
 
- for i:=0 to 9 do
+ for i:=1 to 10 do
   with TaskData.FolderDual[i] do
    begin
     if PathWork<>'' then
@@ -946,7 +949,7 @@ begin
    end;
    //==========================================================================
 
-   for i:=0 to 9 do
+   for i:=1 to 10 do
     with TaskData.FolderDual[i] do
      begin
       if not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat')) then Continue;
@@ -1080,7 +1083,7 @@ begin
   //создание списка============================================================
   SizeFiles:=0;
   AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
-   for i:=0 to 9 do
+   for i:=1 to 10 do
    with TaskData.FolderDual[i] do
     if PathWork<>'' then
       begin
@@ -1129,7 +1132,7 @@ begin
      end;
   //==========================================================================
 
-    for i:=0 to 9 do
+    for i:=1 to 10 do
     with TaskData.FolderDual[i] do
      begin
       if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -1304,7 +1307,7 @@ begin
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
 //проверка существования папок в профиле
- for i:=0 to 9 do
+ for i:=1 to 10 do
   if TaskData.FolderDual[i].PathHome<>'' then
     begin
      if not(DirectoryExists(TaskData.FolderDual[i].PathHome)) then
@@ -1315,7 +1318,7 @@ begin
       end;
     end;
  Screen.Cursor:= crHourGlass;
- for i:=0 to 9 do
+ for i:=1 to 10 do
   with TaskData.FolderDual[i] do
    begin
      if PathHome<>'' then
@@ -1369,7 +1372,7 @@ begin
    end;
 
  //**********************************************************
-   for i:=0 to 9 do
+   for i:=1 to 10 do
     with TaskData.FolderDual[i] do
      begin
       if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
@@ -1780,7 +1783,7 @@ var I_Poisk,j,i:integer;
 begin
  if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 //проверка существования папок в профиле
- for i:=0 to 9 do
+ for i:=1 to 10 do
   begin
     if TaskData.FolderDual[i].PathWork<>'' then
      begin
@@ -1808,7 +1811,7 @@ begin
    AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало синхронизации бета с альфа. Тип операции: без транзита файлов.',clBlue,Task.SaveLog);
 
 
- for i:=0 to 9 do
+ for i:=1 to 10 do
   with TaskData.FolderDual[i] do
    begin
      if (DirectoryExists(PathWork)) and (DirectoryExists(PathHome)) then
@@ -2264,6 +2267,68 @@ procedure TFmSinhron.N6HelpProgClick(Sender: TObject);
 begin
  if Assigned(FmHelp) then FmHelp.Show
  else begin FmHelp:=TFmHelp.Create(Application); FmHelp.Show;end
+end;
+
+
+procedure TFmSinhron.SnimokOfProfile(Sender: TObject);
+var i:integer;
+    WPath,tmp:string;
+begin
+
+ if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
+ if (DirectoryExists(PathTask+'\WFiles')) then
+      if DelDir(PathTask+'\WFiles',false,true)=false then exit;
+ if (DirectoryExists(PathTask+'\HFiles')) then
+      if DelDir(PathTask+'\HFiles',false,true)=false then exit;
+
+//проверка существования папок в профиле
+ for i:=1 to 10 do
+  begin
+   if RzRadioButtonWork.Checked then WPath:=Task.FolderDual[i].PathWork
+    else WPath:=Task.FolderDual[i].PathHome;
+   if WPath<>'' then
+    begin
+    if not(DirectoryExists(WPath)) then
+     begin
+      MessageDlg('В профиле ошибочный путь:'+#10+#13+WPath,mtError,[mbOK],0);
+      exit;
+     end
+    end
+   else
+    begin
+     if RzRadioButtonWork.Checked then tmp:=Task.FolderDual[i].PathHome
+     else tmp:=Task.FolderDual[i].PathWork;
+     if tmp<>'' then
+      begin
+       MessageDlg('В профиле ошибочный путь:'+#10+#13+WPath,mtError,[mbOK],0);
+       exit;
+      end
+    end;
+  end;
+ for i:=1 to 10 do
+  with Task.FolderDual[i] do
+   begin
+    if RzRadioButtonWork.Checked then WPath:=Task.FolderDual[i].PathWork
+     else WPath:=Task.FolderDual[i].PathHome;
+
+    if WPath<>'' then
+      begin
+        Screen.Cursor:= crHourGlass;
+        AddEchoText(RzRichEditEchoCom,'Создание снимка: '+WPath,clTeal,Task.SaveLog);
+        if RzRadioButtonWork.Checked then
+         CreateListFiles(WPath,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat')
+          else CreateListFiles(WPath,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
+        Screen.Cursor:= crDefault;
+        AddEchoText(RzRichEditEchoCom,'Конец операции создания.',clTeal,Task.SaveLog);
+      end;
+   end;
+end;
+
+
+procedure TFmSinhron.N7CreateSnimokProfileClick(Sender: TObject);
+begin
+ PathTask:=ProgramPath+'Task\'+Task.Id;
+ SnimokOfProfile(Sender);
 end;
 
 
