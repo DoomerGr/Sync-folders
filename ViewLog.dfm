@@ -31,9 +31,11 @@ object FmViewLog: TFmViewLog
     ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 0
+    StyleElements = [seBorder]
+    Zoom = 100
     FrameStyle = fsGroove
     FrameVisible = True
-    FramingPreference = fpCustomFraming
+    ReadOnlyColor = clWindow
   end
   object MainMenu1: TMainMenu
     Left = 104

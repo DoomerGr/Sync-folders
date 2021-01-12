@@ -21,7 +21,7 @@ type
     RzPanel2: TRzPanel;
     RzListBoxProfile: TRzListBox;
     RzBtnSinhronWorkHome: TRzBitBtn;
-    RzPanel1: TRzPanel;
+    rzpnlLeft: TRzPanel;
     RzLabel1: TRzLabel;
     RzBitBtnAddProfil: TRzBitBtn;
     RzBitBtnDelProfil: TRzBitBtn;
@@ -42,8 +42,8 @@ type
     RzLblVersion: TRzLabel;
     RzBtnStopCopy: TRzRapidFireButton;
     RzLabel5: TRzLabel;
-    img1: TImage;
-    img2: TImage;
+    image1_orang: TImage;
+    image2_orang: TImage;
     PopupMenuTools: TPopupMenu;
     RzRichEditEchoCom: TRzRichEdit;
     PopupMenuLogView: TPopupMenu;
@@ -69,6 +69,8 @@ type
     N6HelpProg: TMenuItem;
     N6: TMenuItem;
     N7CreateSnimokProfile: TMenuItem;
+    Image2_blue: TImage;
+    Image1_blue: TImage;
     procedure RzBitBtnEditConfigClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RzBitBtnAddProfilClick(Sender: TObject);
@@ -84,7 +86,7 @@ type
     procedure RunHomeWork_Home(TaskData:TProfilLine);
     procedure RunHomeWork_Work(TaskData:TProfilLine);
     procedure TestState(TaskData:TProfilLine);
-    procedure CreateListOfFiles(var List:TFileList; PathFiles:String;PathShab:string);
+    function  CreateListOfFiles(var List:TFileList; PathFiles:String;PathShab:string):boolean;
     procedure RzBtnStopCopyClick(Sender: TObject);
     procedure RzRadioButtonWorkClick(Sender: TObject);
     procedure RzListBoxProfileClick(Sender: TObject);
@@ -115,6 +117,7 @@ type
     procedure N6HelpProgClick(Sender: TObject);
     procedure N7CreateSnimokProfileClick(Sender: TObject);
     procedure SnimokOfProfile(Sender: TObject);
+
   private
     FileCopier:IFileCopier;
     TaskBarList:ITaskBarList3;
@@ -143,15 +146,32 @@ uses FileCtrl, DialogFulCopy, ViewLog, ViewSnimok, ViewHelp;
 
 procedure TFmSinhron.LoadStyle(Sender: TObject);
 var i:Integer;
+    s:string;
 begin
  if Sender is TMenuItem then
   begin
    TStyleManager.TrySetStyle(TMenuItem(Sender).Caption,false);
+   S:=TMenuItem(Sender).Caption;
+    if (s='CopperDark') or (s='Golden Graphite') or (s='Ruby Graphite')
+     or (s='Windows10 Dark') or (s='Auric') or (s='Metropolis UI Dark')
+     or (s='TabletDark')  then
+     begin
+      RzRichEditEchoCom.StyleElements:=RzRichEditEchoCom.StyleElements+[seFont];
+      Image2_blue.Hide;Image2_orang.Show;
+      Image1_blue.Hide;Image1_orang.Show;
+     end
+      else
+       begin
+        RzRichEditEchoCom.StyleElements:=RzRichEditEchoCom.StyleElements-[seFont];
+        Image2_blue.Show;Image2_orang.Hide;
+        Image1_blue.Show;Image1_orang.Hide;
+       end;
    for i:=0 to PopupMenuTools.Items.Items[0].Count-1 do
    if TStyleManager.ActiveStyle.Name=PopupMenuTools.Items.Items[0].Items[i].Caption then
     PopupMenuTools.Items.Items[0].Items[i].Checked:=True
    else  PopupMenuTools.Items.Items[0].Items[i].Checked:=false;
   end;
+  RzRichEditEchoCom.Clear;
 end;
 
 
@@ -177,14 +197,14 @@ end;
 
 procedure TFmSinhron.N4ViewSnimokClick(Sender: TObject);
 var rV,i:integer;
-    Path1,FileSnimok1:String;
-    List1:TFileList;
     S:TNameAtribFile;
     Shablon:string;
     f:file of TNameAtribFile;
+    FmShowSnimok: TFmShowSnimok;
 
 begin
- if not(Assigned(FmShowSnimok)) then FmShowSnimok:=TFmShowSnimok.Create(Application);
+// if not(Assigned(FmShowSnimok)) then
+ FmShowSnimok:=TFmShowSnimok.Create(Application);
   if OpenDialogSnimok.Execute then
    begin
     assignfile(f,OpenDialogSnimok.FileName);
@@ -193,6 +213,8 @@ begin
     rV:=GetDeviceCaps(GetDC(GetDesktopWindow), VERTRES);
     FmShowSnimok.Height:=rV-140;
     FmShowSnimok.top:=FmShowSnimok.top-15;
+    FmShowSnimok.Caption:='Список файлов снимка: '+
+                                     ExtractFileName(OpenDialogSnimok.FileName);
     FmShowSnimok.Show;
     with FmShowSnimok do
      begin
@@ -252,14 +274,12 @@ begin
 end;
 
 procedure TFmSinhron.FormCreate(Sender: TObject);
-var f:file of TProfilLine;
-    i:Integer;
+var i:Integer;
     S:String;
     m:TmenuItem;
     RegData:TRegistry;
     pn:TPoint;
     tbList:ITaskBarList;
-    state:TTaskState;
     Sort:TStringList;
 begin
  // Application.MainFormOnTaskBar := True;
@@ -273,16 +293,30 @@ begin
   RegData:=TRegistry.Create;
   RegData.RootKey:=HKEY_CURRENT_USER;
   RegData.Access:=KEY_READ;
-   if RegData.OpenKey('\SOFTWARE\UrlWest\Sinhron',false) then
-    begin
-       S:=RegData.ReadString('SinhronStyle');
-       if S<>'' then TStyleManager.TrySetStyle(S,false);
-        try
-         pn.x:=RegData.ReadInteger('SinhronX');
-         pn.Y:=RegData.ReadInteger('SinhronY');
-        except
-         pn.x:=-1;
-        end;
+  if RegData.OpenKey('\SOFTWARE\UrlWest\Sinhron',false) then
+   begin
+    S:=RegData.ReadString('SinhronStyle');
+    if (s='CopperDark') or (s='Golden Graphite') or (s='Ruby Graphite')
+     or (s='Windows10 Dark') or (s='Auric') or (s='Metropolis UI Dark')
+     or (s='TabletDark')  then
+     begin
+      RzRichEditEchoCom.StyleElements:=RzRichEditEchoCom.StyleElements+[seFont];
+      Image2_blue.Hide;Image2_orang.Show;
+      Image1_blue.Hide;Image1_orang.Show;
+     end
+      else
+       begin
+        RzRichEditEchoCom.StyleElements:=RzRichEditEchoCom.StyleElements-[seFont];
+        Image2_blue.Show;Image2_orang.Hide;
+        Image1_blue.Show;Image1_orang.Hide;
+       end;
+    if S<>'' then TStyleManager.TrySetStyle(S,false);
+     try
+      pn.x:=RegData.ReadInteger('SinhronX');
+      pn.Y:=RegData.ReadInteger('SinhronY');
+      except
+       pn.x:=-1;
+     end;
     end;
     finally
     RegData.Free;
@@ -598,13 +632,21 @@ begin
 end;
 
 
-procedure TFmSinhron.CreateListOfFiles(var List:TFileList; PathFiles:String;PathShab:string);
+function TFmSinhron.CreateListOfFiles(var List:TFileList; PathFiles:String;PathShab:string):boolean;
 var f:file of TNameAtribFile;
     AtribFile:TAtrib;
     tmp:TNameAtribFile;
 begin
   AssignFile(f,PathFiles);Reset(f);
   if not EOF(f) then read(f,tmp);//пропускаем первую запись
+  if Tmp.FName<>PathShab then
+   begin
+    Result:=false;CloseFile(f);
+    MessageDlg('Файл снимка не соответствует указанной папке в текущем профиле.'+#13+#10+
+    'Снимок: '+PathFiles+#13+#10+'Папка: '+PathShab+#13+#10+
+    'Рекомендация. В редакторе профилей выполните "Очистить файлы профиля" и выполните синхронизацию заново.',mtError, [mbOK], 0);
+    exit
+   end;
    while not EOF(f) do
     begin
       read(f,tmp); AtribFile:=TAtrib.Create;
@@ -619,7 +661,7 @@ begin
         List.AddObject(FName,AtribFile);
        end;
     end;
-  CloseFile(f);
+  CloseFile(f);Result:=true;
 end;
 
 function TFmSinhron.ChekDiskSize(Disk:String;SizeFiles:int64):boolean;
@@ -632,9 +674,7 @@ end;
 
 procedure TFmSinhron.RunWorkHome_Home(TaskData:TProfilLine);
 var I_Poisk,j,i:integer;
-    PathArhFlsTrgFld:String;
     HomeList,WorkList:TFileList;
-    AtribFile:TAtrib;
     FSource,FDest:string;
     Res:Boolean;
     MRes:TModalResult;
@@ -642,19 +682,20 @@ var I_Poisk,j,i:integer;
 begin
  //создание списка============================================================
  SizeFiles:=0;StopCopy:=false;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+
+  ']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
  for i:=1 to 10 do
  with TaskData.FolderDual[i] do
   if PathHome<>'' then
     begin
-     if DirectoryExists(PathHome) then
-       begin
-        Screen.Cursor:= crHourGlass;
-        AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
-        CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
-        Screen.Cursor:= crDefault;
-       end
-        else
+      if DirectoryExists(PathHome) then
+        begin
+          Screen.Cursor:= crHourGlass;
+          AddEchoText(RzRichEditEchoCom,'Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+          CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
+          Screen.Cursor:= crDefault;
+        end
+      else
         begin
          ForceDirectories(PathHome);
          SizeFiles:=CreateListFiles(PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
@@ -699,10 +740,12 @@ begin
        (not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat'))) then Continue;
 
     WorkList:=TFileList.Create;
-    CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
+    if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+     begin WorkList.Free; exit end;
 
     HomeList:=TFileList.Create;
-    CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
+    if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+     begin HomeList.Free; exit end;
 
     //сравнение списков рабочий-->домашний
     for j:=0 to WorkList.Count-1 do
@@ -853,16 +896,11 @@ var I_Poisk,j,i:integer;
     All:Boolean;
     PathArhFlsTrgFld:String;
     HomeList,WorkList:TFileList;
-    AtribFile:TAtrib;
     FSource,FDest:string;
     ShCopy:TModalResult;
     SizeFiles:int64;
 begin
  All:=False;SizeFiles:=0;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: альфа==>бета. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
- if (DirectoryExists(PathTask+'\WFiles')) then
-      if DelDir(PathTask+'\WFiles',false,true)=false then exit;
- if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
 //проверка существования папок в профиле
  for i:=1 to 10 do
@@ -875,6 +913,12 @@ begin
        exit;
       end;
    end;
+
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+
+   ']  Начало операции: альфа==>бета. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
+ if (DirectoryExists(PathTask+'\WFiles')) then
+      if DelDir(PathTask+'\WFiles',false,true)=false then exit;
+ if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
  for i:=1 to 10 do
   with TaskData.FolderDual[i] do
@@ -956,12 +1000,12 @@ begin
 
       //создание списка рабочий
       WorkList:=TFileList.Create;
-      CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
-
+      if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+       begin WorkList.Free; exit end;
       //создание списка домашний
       HomeList:=TFileList.Create;
-      CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
-
+      if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+       begin HomeList.Free; exit end;
       //сравнение списков рабочий-->домашний
       for j:=0 to WorkList.Count-1 do
        begin
@@ -1071,12 +1115,9 @@ end;
 
 procedure TFmSinhron.RunHomeWork_Work(TaskData:TProfilLine);
 var I_Poisk,j,i:integer;
-    PathArhFlsTrgFld:String;
     HomeList,WorkList:TFileList;
-    AtribFile:TAtrib;
     PathFldFrom,FDest,FSource:string;
     MRes:TModalResult;
-    Res:Boolean;
     SizeFiles:int64;
 
 begin
@@ -1139,10 +1180,12 @@ begin
          (not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat'))) then Continue;
 
       WorkList:=TFileList.Create;
-      CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
+      if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+       begin WorkList.Free; exit; end;
 
       HomeList:=TFileList.Create;
-      CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
+      if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+       begin HomeList.Free; exit; end;
 
       //сравнение списков домашний -->рабочий
       for j:=0 to HomeList.Count-1 do
@@ -1301,12 +1344,8 @@ var I_Poisk,j,i:integer;
     f:file of TNameAtribFile;
 begin
  All:=False;SizeFiles:=0;
- AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
- if (DirectoryExists(PathTask+'\HFiles')) then
-   if DelDir(PathTask+'\HFiles',false,true)=false then exit;
- if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
 
-//проверка существования папок в профиле
+ //проверка существования папок в профиле
  for i:=1 to 10 do
   if TaskData.FolderDual[i].PathHome<>'' then
     begin
@@ -1317,6 +1356,14 @@ begin
        exit;
       end;
     end;
+
+ AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+
+  ']  Начало операции: бета=>альфа. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
+
+ if (DirectoryExists(PathTask+'\HFiles')) then
+   if DelDir(PathTask+'\HFiles',false,true)=false then exit;
+ if not(DirectoryExists(PathTask)) then ForceDirectories(PathTask);
+
  Screen.Cursor:= crHourGlass;
  for i:=1 to 10 do
   with TaskData.FolderDual[i] do
@@ -1383,11 +1430,13 @@ begin
 
       //создание списка рабочий
       WorkList:=TFileList.Create;
-      CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
+      if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+       begin WorkList.Free; exit end;
 
       //создание списка домашний
       HomeList:=TFileList.Create;
-      CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
+      if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+       begin HomeList.Free; exit end;
 
       //сравнение списков домашний-->рабочий
       for j:=0 to HomeList.Count-1 do
@@ -1706,7 +1755,7 @@ end;
 procedure TFmSinhron.AddEchoText(Edit:TRzRichEdit;Str:String; Color: TColor;Log:boolean);
 var  Pos1,Pos2: Integer;
      p: tpoint;
-     NomV:integer;
+
 begin
   if color=clNone	Then Color:=clBlack;
   Pos1:=Edit.Perform(EM_LINEINDEX, Edit.Lines.Count, 0);
@@ -1769,6 +1818,7 @@ var Poz,Size:Integer;
        end
     else RichEditLog.Lines.SaveToFile(ProgramPath+'Task\'+Task.Id+'\'+Task.Id+'.log');
  end;
+
 
 procedure TFmSinhron.RunNoTransit(TaskData:TProfilLine;Napr:word);
 var I_Poisk,j,i:integer;
@@ -1840,18 +1890,23 @@ begin
            end;
            Continue
       end;
-
-      //создание списка рабочий
-      WorkList:=TFileList.Create; HomeList:=TFileList.Create;
       if napr=12 then
        begin
-        CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
-        CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
+        WorkList:=TFileList.Create;
+        if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+         begin WorkList.Free; exit end;
+         HomeList:=TFileList.Create;
+        if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+         begin HomeList.Free; exit end;
        end
         else
         begin
-         CreateListOfFiles(HomeList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork);
-         CreateListOfFiles(WorkList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome);
+         HomeList:=TFileList.Create;
+         if not(CreateListOfFiles(HomeList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+          begin HomeList.Free; exit end;
+         WorkList:=TFileList.Create;
+         if not(CreateListOfFiles(WorkList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+          begin WorkList.Free; exit end;
         end;
 
       //сравнение списков рабочий-->домашний
@@ -2091,12 +2146,13 @@ begin
     finally
      Closefile(f)
     end;
-    List1:=TFileList.Create;List2:=TFileList.Create;
     AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok1+' папка '+Path1,clBlue,false);
     AddEchoText(FmViewLog.RzRichEdit1,'Снимок '+FileSnimok2+' папка '+Path2,clBlue,false);
     Path1:=IncludeTrailingBackslash(Path1);
     Path2:=IncludeTrailingBackslash(Path2);
-    CreateListOfFiles(List1,FileSnimok1,Path1);CreateListOfFiles(List2,FileSnimok2,Path2);
+
+    List1:=TFileList.Create;CreateListOfFiles(List1,FileSnimok1,Path1);
+    List2:=TFileList.Create;CreateListOfFiles(List2,FileSnimok2,Path2);
     for j:=0 to List1.Count-1 do
      begin
       I_Poisk:=List2.IndexOf(List1[j]);

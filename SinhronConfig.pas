@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, VCLTee.TeCanvas, DiskTools,
   Vcl.ExtCtrls, RzPanel, RzButton, Vcl.ImgList, RzGroupBar, RzCmboBx, RzLabel,
-  Vcl.ComCtrls,RzRadChk, RzShellDialogs, Vcl.Mask, RzEdit, RzSpnEdt, RzTrkBar;
+  Vcl.ComCtrls,RzRadChk, RzShellDialogs, Vcl.Mask, RzEdit, RzSpnEdt, RzTrkBar,
+  System.ImageList;
 
 type
 

@@ -40,7 +40,6 @@ begin
 end;
 
 procedure TFmViewLog.FormShow(Sender: TObject);
-var MemStream:TMemoryStream;
 begin
  RzRichEdit1.Lines.Clear;
  if NameFileLog<>'' then

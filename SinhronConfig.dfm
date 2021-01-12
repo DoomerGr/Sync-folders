@@ -7,7 +7,7 @@ object FmConfig: TFmConfig
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   Icon.Data = {
@@ -3842,7 +3842,7 @@ object FmConfig: TFmConfig
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 101
-  TextHeight = 13
+  TextHeight = 17
   object RzPanel1: TRzPanel
     Left = 0
     Top = 519
@@ -3857,7 +3857,6 @@ object FmConfig: TFmConfig
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    VisualStyle = vsClassic
     object RzBitBtnSaveConfig: TRzBitBtn
       Left = 600
       Top = 16
@@ -4022,26 +4021,26 @@ object FmConfig: TFmConfig
       object RzLabel1: TRzLabel
         Left = 30
         Top = 35
-        Width = 114
-        Height = 18
+        Width = 108
+        Height = 17
         Caption = #1043#1088#1091#1087#1087#1072' '#1087#1072#1087#1086#1082' '#8470
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
+        Font.Color = clWindowText
+        Font.Height = -14
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        Transparent = True
+        Transparent = False
       end
       object RzLabelNomer: TRzLabel
         Left = 151
-        Top = 34
+        Top = 35
         Width = 8
-        Height = 18
+        Height = 17
         Caption = '1'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
+        Font.Color = clWindowText
+        Font.Height = -14
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -4143,7 +4142,7 @@ object FmConfig: TFmConfig
       Caption = #1054#1087#1094#1080#1080
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -13
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentColor = False
@@ -4151,12 +4150,12 @@ object FmConfig: TFmConfig
       object RzLabel2: TRzLabel
         Left = 13
         Top = 73
-        Width = 130
-        Height = 18
+        Width = 126
+        Height = 17
         Caption = #1060#1072#1081#1083#1099' '#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
+        Font.Color = clWindowText
+        Font.Height = -14
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -4165,14 +4164,14 @@ object FmConfig: TFmConfig
       object RzLabel4: TRzLabel
         Left = 13
         Top = 36
-        Width = 210
-        Height = 18
+        Width = 177
+        Height = 17
         Caption = #1069#1090#1086#1090' '#1082#1086#1084#1087#1100#1102#1090#1077#1088' '#1103#1074#1083#1103#1077#1090#1089#1103':'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
+        Font.Color = clWindowText
+        Font.Height = -14
         Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
+        Font.Style = []
         ParentFont = False
         Transparent = True
       end
@@ -4254,7 +4253,7 @@ object FmConfig: TFmConfig
         OnClick = RzCheckBoxOperacDelClick
       end
       object RadioButtonPCWork: TRadioButton
-        Left = 264
+        Left = 208
         Top = 37
         Width = 113
         Height = 17
@@ -4270,7 +4269,7 @@ object FmConfig: TFmConfig
         TabStop = True
       end
       object RadioButtonPCHome: TRadioButton
-        Left = 408
+        Left = 317
         Top = 37
         Width = 113
         Height = 17
@@ -4352,7 +4351,7 @@ object FmConfig: TFmConfig
     Left = 838
     Top = 359
     Bitmap = {
-      494C010104000800880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

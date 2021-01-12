@@ -4,11 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, RzLabel, RzBorder;
 
 type
   TFmHelp = class(TForm)
-    Memo1: TMemo;
+    RzLabel1: TRzLabel;
+    RzBorder1: TRzBorder;
   private
     { Private declarations }
   public
