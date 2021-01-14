@@ -692,12 +692,12 @@ procedure TFmSinhron.RunWorkHome_Home(TaskData:TProfilLine);
 var I_Poisk,j,i:integer;
     HomeList,WorkList:TFileList;
     FSource,FDest:string;
-    Res:Boolean;
+    Del:Boolean;
     MRes:TModalResult;
     SizeFiles:int64;
 begin
  //создание списка============================================================
- SizeFiles:=0;StopCopy:=false;
+ SizeFiles:=0;StopCopy:=false;Del:=False;
  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+
   ']  Начало операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
  for i:=1 to 10 do
@@ -877,7 +877,7 @@ begin
                if FileExists(FDest) then
                 begin
                  AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
-                 DelFiles(FDest,TaskData.DellBasket)
+                 DelFiles(FDest,TaskData.DellBasket);Del:=True
                 end
               end
             else
@@ -886,7 +886,7 @@ begin
                if  DirectoryExists(FDest) then
                 begin
                  AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
-                 DelDir(FDest,TaskData.DellBasket,True)
+                 DelDir(FDest,TaskData.DellBasket,True);Del:=True
                 end
               end
           end
@@ -896,10 +896,13 @@ begin
      if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
      RzLabelNameFile.Caption:='';
      ProgressBarFile.Position:=ProgressBarFile.Max;
-     Screen.Cursor:= crHourGlass;
-     AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+'] Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
-     CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
-     Screen.Cursor:= crDefault;
+     if (SizeFiles>0) or Del then
+      begin
+       Screen.Cursor:= crHourGlass;
+       AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+'] Анализ: '+TaskData.FolderDual[i].PathHome,clTeal,Task.SaveLog);
+       CreateListFiles(TaskData.FolderDual[i].PathHome,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat');
+       Screen.Cursor:= crDefault;Del:=False;
+      end;
    end;
  if (DirectoryExists(PathTask+'\WFiles')) then DelDir(PathTask+'\WFiles',false,true);
  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: альфа==>бета. Тип операции: Компьютер бета',clBlue,Task.SaveLog);
@@ -1148,11 +1151,12 @@ var I_Poisk,j,i:integer;
     HomeList,WorkList:TFileList;
     PathFldFrom,FDest,FSource:string;
     MRes:TModalResult;
+    Del:Boolean;
     SizeFiles:int64;
 
 begin
   //создание списка============================================================
-  SizeFiles:=0;
+  SizeFiles:=0;Del:=False;
   AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Начало операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
    for i:=1 to 10 do
    with TaskData.FolderDual[i] do
@@ -1203,159 +1207,162 @@ begin
      end;
   //==========================================================================
 
-    for i:=1 to 10 do
-    with TaskData.FolderDual[i] do
+  for i:=1 to 10 do
+  with TaskData.FolderDual[i] do
+   begin
+    if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
+       (not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat'))) then Continue;
+
+    WorkList:=TFileList.Create;
+    if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
+     begin WorkList.Free; exit; end;
+
+    HomeList:=TFileList.Create;
+    if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
+     begin HomeList.Free; exit; end;
+
+    //сравнение списков домашний -->рабочий
+    for j:=0 to HomeList.Count-1 do
      begin
-      if (not(FileExists(PathTask+'\WTabFile_'+IntToStr(i)+'.fdat'))) or
-         (not(FileExists(PathTask+'\HTabFile_'+IntToStr(i)+'.fdat'))) then Continue;
-
-      WorkList:=TFileList.Create;
-      if not(CreateListOfFiles(WorkList,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathWork)) then
-       begin WorkList.Free; exit; end;
-
-      HomeList:=TFileList.Create;
-      if not(CreateListOfFiles(HomeList,PathTask+'\HTabFile_'+IntToStr(i)+'.fdat',TaskData.FolderDual[i].PathHome)) then
-       begin HomeList.Free; exit; end;
-
-      //сравнение списков домашний -->рабочий
-      for j:=0 to HomeList.Count-1 do
-       begin
-        I_Poisk:=WorkList.IndexOf(HomeList[j]);
-         if I_Poisk>=0 then
-           if TAtrib(HomeList.Objects[j]).Nature=1 then
-              begin
-                if TAtrib(HomeList.Objects[j]).FileDataTime<=TAtrib(WorkList.Objects[I_Poisk]).FileDataTime then
-                  begin
-                   TAtrib(HomeList.Objects[j]).Action:='skip';
-                   TAtrib(WorkList.Objects[I_Poisk]).Free;
-                   WorkList.Delete(I_Poisk);
-                  end
-                 else
-                  begin
-                   TAtrib(HomeList.Objects[j]).Action:='copy';
-                   if Task.LogExt then
-                   AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
-                   TaskData.FolderDual[i].PathWork+WorkList[I_Poisk],clPurple,Task.SaveLog);
-                   TAtrib(WorkList.Objects[I_Poisk]).Free;
-                   WorkList.Delete(I_Poisk);
-                  end
-              end
-            else
-             begin
-              TAtrib(HomeList.Objects[j]).Action:='skip';
-              TAtrib(WorkList.Objects[I_Poisk]).Free;
-              WorkList.Delete(I_Poisk);
-             end
-         else
-          begin
-           if TAtrib(HomeList.Objects[j]).Nature=1 then TAtrib(HomeList.Objects[j]).action:='copy';
-           if Task.LogExt then
-           AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
-          end;
-       end;
-
-      if WorkList.Count>0 then
-       for j:=0 to WorkList.Count-1 do
-        begin
-         if TaskData.OperacDell then TAtrib(WorkList.Objects[j]).action:='del'
-          else TAtrib(WorkList.Objects[j]).action:='skip';
-         HomeList.AddObject(WorkList[j],TAtrib(WorkList.Objects[j]));
-         WorkList.Objects[j]:=nil;
-        end;
-      FreeAndNil(WorkList);
-
-      //подсчет необходимого места
-       SizeFiles:=0;
-       for j:=0 to HomeList.Count-1 do
-        begin
-         if TAtrib(HomeList.Objects[j]).Action='copy' then
-         SizeFiles:=SizeFiles+TAtrib(HomeList.Objects[j]).SizeFile
-        end;
-
-       if not(ChekDiskSize(Char(TaskData.FolderDual[i].PathWork[1]),SizeFiles)) then
-        begin
-         MessageDlg('На диске не достаточно свободного места для выполнения операций',
-         mtError, [mbOK], 0);
-         RzPanelProgress.Hide;
-         FreeAndNil(HomeList);
-         exit
-        end;
-
-       PathFldFrom:=PathTask+'\HFiles\Folder_'+IntToStr(i)+'\';
-
-       if SizeFiles>0 then
-        begin
-         RzPanelProgress.Show;
-         AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+ PathFldFrom,clGreen,Task.Savelog);
-         ProgressBarFolder.Max:=HomeList.Count;
-         ProgressBarFolder.Position:=0;
-        end;
-
-      if TaskData.DellСonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
-      for j:=0 to HomeList.Count-1 do
-       begin
-          if StopCopy then
-           begin
-            FreeAndNil(HomeList);FreeAndNil(WorkList);
-            break;
-           end;
-        ProgressBarFolder.Position:=ProgressBarFolder.Position+1;
-        SetTaskProgress(ProgressBarFolder.Position);
-        FSource:=PathFldFrom+TAtrib(HomeList.Objects[j]).FNameTmp;
-        FDest:=TaskData.FolderDual[i].PathWork+HomeList[j];
-        if TAtrib(HomeList.Objects[j]).Action='copy' then
-         begin
-          RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
-          if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
-          if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
-           else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
-         end;
-        if TAtrib(HomeList.Objects[j]).Action='del' then
-         begin
-          if (MRes=mrYes) or (MRes=mrNo) then
-          with CreateMessageDialog('Удалить: '+FDest, mtWarning,
-                                     [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
-            try
-               Caption := 'Внимание';
-              (FindComponent('Yes') as TButton).Caption := 'Да';
-              (FindComponent('No') as TButton).Caption := 'Нет';
-              (FindComponent('YesToAll') as TButton).Caption := 'Да для всех';
-              (FindComponent('NoToAll') as TButton).Caption := 'Нет для всех';
-               MRes:=ShowModal;
-             finally
-             Free
-            end;
-          if (MRes<>mrNo) and (MRes<>mrNoToAll) then
+      I_Poisk:=WorkList.IndexOf(HomeList[j]);
+       if I_Poisk>=0 then
+         if TAtrib(HomeList.Objects[j]).Nature=1 then
             begin
-              if TAtrib(HomeList.Objects[j]).Nature=1 then
+              if TAtrib(HomeList.Objects[j]).FileDataTime<=TAtrib(WorkList.Objects[I_Poisk]).FileDataTime then
                 begin
-                 if FileExists(FDest) then
-                  begin
-                   AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
-                   DelFiles(FDest,TaskData.DellBasket)
-                  end
+                 TAtrib(HomeList.Objects[j]).Action:='skip';
+                 TAtrib(WorkList.Objects[I_Poisk]).Free;
+                 WorkList.Delete(I_Poisk);
                 end
-              else
+               else
                 begin
-                 if pos('..',FDest)<>0 then delete(FDest,pos('..',FDest)-1,3);
-                 if  DirectoryExists(FDest) then
-                  begin
-                   AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
-                   DelDir(FDest,TaskData.DellBasket,True)
-                  end
+                 TAtrib(HomeList.Objects[j]).Action:='copy';
+                 if Task.LogExt then
+                 AddEchoText(RzRichEditEchoCom,'Файлы отличаются: '+TaskData.FolderDual[i].PathHome+HomeList[j]+' <==> '+
+                 TaskData.FolderDual[i].PathWork+WorkList[I_Poisk],clPurple,Task.SaveLog);
+                 TAtrib(WorkList.Objects[I_Poisk]).Free;
+                 WorkList.Delete(I_Poisk);
                 end
             end
+          else
+           begin
+            TAtrib(HomeList.Objects[j]).Action:='skip';
+            TAtrib(WorkList.Objects[I_Poisk]).Free;
+            WorkList.Delete(I_Poisk);
+           end
+       else
+        begin
+         if TAtrib(HomeList.Objects[j]).Nature=1 then TAtrib(HomeList.Objects[j]).action:='copy';
+         if Task.LogExt then
+         AddEchoText(RzRichEditEchoCom,'Файл добавлен: '+TaskData.FolderDual[i].PathWork+HomeList[j],clGreen,Task.Savelog);
+        end;
+     end;
+
+    if WorkList.Count>0 then
+     for j:=0 to WorkList.Count-1 do
+      begin
+       if TaskData.OperacDell then TAtrib(WorkList.Objects[j]).action:='del'
+        else TAtrib(WorkList.Objects[j]).action:='skip';
+       HomeList.AddObject(WorkList[j],TAtrib(WorkList.Objects[j]));
+       WorkList.Objects[j]:=nil;
+      end;
+    FreeAndNil(WorkList);
+
+    //подсчет необходимого места
+     SizeFiles:=0;
+     for j:=0 to HomeList.Count-1 do
+      begin
+       if TAtrib(HomeList.Objects[j]).Action='copy' then
+       SizeFiles:=SizeFiles+TAtrib(HomeList.Objects[j]).SizeFile
+      end;
+
+     if not(ChekDiskSize(Char(TaskData.FolderDual[i].PathWork[1]),SizeFiles)) then
+      begin
+       MessageDlg('На диске не достаточно свободного места для выполнения операций',
+       mtError, [mbOK], 0);
+       RzPanelProgress.Hide;
+       FreeAndNil(HomeList);
+       exit
+      end;
+
+     PathFldFrom:=PathTask+'\HFiles\Folder_'+IntToStr(i)+'\';
+
+     if SizeFiles>0 then
+      begin
+       RzPanelProgress.Show;
+       AddEchoText(RzRichEditEchoCom,'Копирование файлов из '+ PathFldFrom,clGreen,Task.Savelog);
+       ProgressBarFolder.Max:=HomeList.Count;
+       ProgressBarFolder.Position:=0;
+      end;
+
+    if TaskData.DellСonfirmat then  MRes:=mrYes else MRes:=mrYesToAll;
+    for j:=0 to HomeList.Count-1 do
+     begin
+        if StopCopy then
+         begin
+          FreeAndNil(HomeList);FreeAndNil(WorkList);
+          break;
          end;
+      ProgressBarFolder.Position:=ProgressBarFolder.Position+1;
+      SetTaskProgress(ProgressBarFolder.Position);
+      FSource:=PathFldFrom+TAtrib(HomeList.Objects[j]).FNameTmp;
+      FDest:=TaskData.FolderDual[i].PathWork+HomeList[j];
+      if TAtrib(HomeList.Objects[j]).Action='copy' then
+       begin
+        RzLabelNameFile.Caption:=MinimizeName(FDest,RzLabelNameFile.Canvas,RzLabelNameFile.Width);
+        if not(DirectoryExists(ExtractFileDir(FDest))) then  ForceDirectories(ExtractFileDir(FDest));
+        if FileExists(FSource) then CopyFileExProgress(FSource,FDest)
+         else AddEchoText(RzRichEditEchoCom,'Отсутствует файл: '+FSource,clRed,Task.SaveLog);
        end;
-        HomeList.Free;
-        if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
-        RzLabelNameFile.Caption:='';
-        ProgressBarFile.Position:=ProgressBarFile.Max;
+      if TAtrib(HomeList.Objects[j]).Action='del' then
+       begin
+        if (MRes=mrYes) or (MRes=mrNo) then
+        with CreateMessageDialog('Удалить: '+FDest, mtWarning,
+                                   [mbYes,mbYesToAll,mbNo,mbNoToAll]) do
+          try
+             Caption := 'Внимание';
+            (FindComponent('Yes') as TButton).Caption := 'Да';
+            (FindComponent('No') as TButton).Caption := 'Нет';
+            (FindComponent('YesToAll') as TButton).Caption := 'Да для всех';
+            (FindComponent('NoToAll') as TButton).Caption := 'Нет для всех';
+             MRes:=ShowModal;
+           finally
+           Free
+          end;
+        if (MRes<>mrNo) and (MRes<>mrNoToAll) then
+          begin
+            if TAtrib(HomeList.Objects[j]).Nature=1 then
+              begin
+               if FileExists(FDest) then
+                begin
+                 AddEchoText(RzRichEditEchoCom,'Удаление файла: '+FDest,clRed,Task.SaveLog);
+                 DelFiles(FDest,TaskData.DellBasket);Del:=True
+                end
+              end
+            else
+              begin
+               if pos('..',FDest)<>0 then delete(FDest,pos('..',FDest)-1,3);
+               if  DirectoryExists(FDest) then
+                begin
+                 AddEchoText(RzRichEditEchoCom,'Удаление папки: '+FDest,clRed,Task.SaveLog);
+                 DelDir(FDest,TaskData.DellBasket,True);Del:=True
+                end
+              end
+          end
+       end;
+     end;
+      HomeList.Free;
+      if SizeFiles>0 then AddEchoText(RzRichEditEchoCom,'Копирование файлов завершено',clGreen,Task.Savelog);
+      RzLabelNameFile.Caption:='';
+      ProgressBarFile.Position:=ProgressBarFile.Max;
+      if (SizeFiles>0) or Del then
+       begin
         Screen.Cursor:= crHourGlass;
         AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+'] Анализ: '+TaskData.FolderDual[i].PathWork,clTeal,Task.SaveLog);
         CreateListFiles(TaskData.FolderDual[i].PathWork,PathTask+'\WTabFile_'+IntToStr(i)+'.fdat');
-        Screen.Cursor:= crDefault;
-     end;
+        Screen.Cursor:= crDefault;Del:=False;
+       end;
+   end;
  if (DirectoryExists(PathTask+'\HFiles')) then DelDir(PathTask+'\HFiles',false,true);
  Timer1.Enabled:=True;
  AddEchoText(RzRichEditEchoCom,'['+TimeToStr(Time)+']  Конец операции: бета=>альфа. Тип операции: Компьютер альфа',clBlue,Task.SaveLog);
