@@ -1,5 +1,5 @@
 ﻿unit SinhronN;
-//Test GitHub
+
 interface
 
 uses
