@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, VCLTee.TeCanvas, DiskTools,
   Vcl.ExtCtrls, RzPanel, RzButton, Vcl.ImgList, RzGroupBar, RzCmboBx, RzLabel,
   Vcl.ComCtrls,RzRadChk, RzShellDialogs, Vcl.Mask, RzEdit, RzSpnEdt, RzTrkBar,
-  System.ImageList;
+  System.ImageList, RzLine;
 
 type
 
@@ -45,6 +45,7 @@ type
     RzCheckBoxDellBasket: TRzCheckBox;
     RzCheckBoxNoTransit: TRzCheckBox;
     RzCheckBoxLogExt: TRzCheckBox;
+    CheckBoxСontentFile: TCheckBox;
     procedure RzBitBtnCloseConfigClick(Sender: TObject);
     procedure RzBitBtnSaveConfigClick(Sender: TObject);
     procedure ButtonPathWorkClick(Sender: TObject);
@@ -166,6 +167,7 @@ begin
    SaveLog:=RzCheckBoxSaveLog.Checked;
    DellBasket:=RzCheckBoxDellBasket.Checked;
    LogExt:=RzCheckBoxLogExt.Checked;
+   CompareContent:=CheckBoxСontentFile.Checked;
    Notransit:=RzCheckBoxNoTransit.Checked;
    ID:=EditIdProf.Text;
    IdPC:=FmSinhron.PCIdent;
@@ -258,11 +260,19 @@ begin
          RzCheckBoxDellBasket.Checked:=DellBasket;
          RzCheckBoxLogExt.Checked:=LogExt;
          RzCheckBoxNoTransit.Checked:=Notransit;
+         CheckBoxСontentFile.Checked:=CompareContent;
          EditIdProf.Text:=String(Id);
          EditFileExcept.Text:=String(LineExcept);
          if IdPC=FmSinhron.PCIdent then
-          if PC='work' then RadioButtonPCWork.Checked:=true
-           else RadioButtonPCHome.Checked:=true;
+          begin
+           if PC='work' then RadioButtonPCWork.Checked:=true
+             else RadioButtonPCHome.Checked:=true
+          end
+         else
+          begin
+           if PC='work' then RadioButtonPCHome.Checked:=true
+             else RadioButtonPCWork.Checked:=true
+          end;
          RzCheckBoxOperacDel.Checked:=OperacDell;
         end;
      end
@@ -281,6 +291,7 @@ begin
      RzCheckBoxOperacDel.Checked:=false;
      RzCheckBoxLogExt.Checked:=false;
      RzCheckBoxNoTransit.Checked:=false;
+     CheckBoxСontentFile.Checked:=false;
      for i:=1 to 10 do
       begin
        ProfilLine.FolderDual[i].PathWork:='';

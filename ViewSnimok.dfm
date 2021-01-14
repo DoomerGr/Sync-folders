@@ -3,7 +3,7 @@ object FmShowSnimok: TFmShowSnimok
   Top = 0
   Caption = #1057#1087#1080#1089#1086#1082' '#1092#1072#1081#1083#1086#1074
   ClientHeight = 582
-  ClientWidth = 1006
+  ClientWidth = 1145
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,9 +17,10 @@ object FmShowSnimok: TFmShowSnimok
   object StringGrid1: TStringGrid
     Left = 0
     Top = 41
-    Width = 1006
+    Width = 1145
     Height = 541
     Align = alClient
+    ColCount = 6
     FixedCols = 0
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -32,23 +33,26 @@ object FmShowSnimok: TFmShowSnimok
     TabOrder = 0
     OnClick = StringGrid1Click
     OnDblClick = StringGrid1DblClick
+    ExplicitWidth = 1006
     ColWidths = (
       64
       614
       105
       92
-      95)
+      95
+      141)
   end
   object RzPanel1: TRzPanel
     Left = 0
     Top = 0
-    Width = 1006
+    Width = 1145
     Height = 41
     Align = alTop
     BorderInner = fsBump
     BorderOuter = fsNone
     TabOrder = 1
     OnResize = RzPanel1Resize
+    ExplicitWidth = 1006
     object RzLabel1: TRzLabel
       Left = 18
       Top = 13

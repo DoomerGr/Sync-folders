@@ -3,7 +3,7 @@ object FmSinhron: TFmSinhron
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = #1057#1080#1085#1088#1086#1085#1080#1079#1072#1094#1080#1103' '#1087#1072#1087#1086#1082' '#1076#1074#1091#1093' '#1082#1086#1084#1087#1100#1102#1090#1077#1088#1086#1074' '#1095#1077#1088#1077#1079' '#1074#1085#1077#1096#1085#1080#1081' '#1085#1086#1089#1080#1090#1077#1083#1100
+  Caption = #1057#1080#1085#1093#1088#1086#1085#1080#1079#1072#1094#1080#1103' '#1076#1072#1085#1085#1099#1093
   ClientHeight = 562
   ClientWidth = 953
   Color = clBtnFace
@@ -4780,7 +4780,7 @@ object FmSinhron: TFmSinhron
     TabOrder = 1
     object RzLblVersion: TRzLabel
       Left = 14
-      Top = 522
+      Top = 516
       Width = 72
       Height = 13
       Hint = #1042#1072#1089#1080#1083#1100#1103#1085#1086#1074' '#1048#1075#1086#1088#1100' '#1053#1080#1082#1086#1083#1072#1077#1074#1080#1095
@@ -4797,7 +4797,7 @@ object FmSinhron: TFmSinhron
     end
     object RzLabel5: TRzLabel
       Left = 5
-      Top = 541
+      Top = 535
       Width = 85
       Height = 13
       Caption = 'Doomer 2020 '#1075
@@ -4810,7 +4810,7 @@ object FmSinhron: TFmSinhron
     end
     object image1_orang: TImage
       Left = 13
-      Top = 424
+      Top = 407
       Width = 67
       Height = 84
       Hint = #1048#1085#1089#1090#1088#1091#1084#1077#1085#1090#1099
@@ -6686,8 +6686,8 @@ object FmSinhron: TFmSinhron
       Transparent = True
     end
     object Image1_blue: TImage
-      Left = 12
-      Top = 423
+      Left = 13
+      Top = 407
       Width = 67
       Height = 84
       Hint = #1048#1085#1089#1090#1088#1091#1084#1077#1085#1090#1099
@@ -7392,6 +7392,10 @@ object FmSinhron: TFmSinhron
     end
     object N1: TMenuItem
       Caption = '-'
+    end
+    object crc321: TMenuItem
+      Caption = #1057#1086#1079#1076#1072#1090#1100' '#1089#1085#1080#1084#1086#1082' '#1087#1072#1087#1082#1080' '#1089' crc32'
+      OnClick = crc321Click
     end
     object N2: TMenuItem
       Caption = #1057#1086#1079#1076#1072#1090#1100' '#1089#1085#1080#1084#1086#1082' '#1087#1072#1087#1082#1080

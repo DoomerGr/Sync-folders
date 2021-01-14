@@ -1,9 +1,10 @@
-object FmConfig: TFmConfig
+﻿object FmConfig: TFmConfig
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1086#1092#1080#1083#1103
-  ClientHeight = 580
-  ClientWidth = 995
+  ClientHeight = 609
+  ClientWidth = 1005
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -3845,8 +3846,8 @@ object FmConfig: TFmConfig
   TextHeight = 17
   object RzPanel1: TRzPanel
     Left = 0
-    Top = 519
-    Width = 995
+    Top = 548
+    Width = 1005
     Height = 61
     Align = alBottom
     BorderOuter = fsNone
@@ -3933,11 +3934,12 @@ object FmConfig: TFmConfig
   object RzGroupBar1: TRzGroupBar
     Left = 0
     Top = 0
-    Width = 995
-    Height = 519
+    Width = 1005
+    Height = 548
     GradientColorStart = clBtnFace
     GradientColorStop = clBtnShadow
     GroupBorderSize = 8
+    VisualStyle = vsClassic
     Align = alClient
     Color = clBtnShadow
     Font.Charset = DEFAULT_CHARSET
@@ -4137,7 +4139,7 @@ object FmConfig: TFmConfig
       CanClose = False
       Items = <>
       Opened = True
-      OpenedHeight = 180
+      OpenedHeight = 231
       DividerVisible = False
       Caption = #1054#1087#1094#1080#1080
       Font.Charset = DEFAULT_CHARSET
@@ -4258,7 +4260,6 @@ object FmConfig: TFmConfig
         Width = 113
         Height = 17
         Caption = '  '#1040#1083#1100#1092#1072
-        Checked = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -14
@@ -4266,7 +4267,6 @@ object FmConfig: TFmConfig
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 4
-        TabStop = True
       end
       object RadioButtonPCHome: TRadioButton
         Left = 317
@@ -4344,6 +4344,26 @@ object FmConfig: TFmConfig
         State = cbUnchecked
         TabOrder = 8
         Transparent = True
+      end
+      object CheckBoxСontentFile: TCheckBox
+        Left = 13
+        Top = 184
+        Width = 337
+        Height = 17
+        Hint = 
+          #1055#1088#1080' '#1089#1088#1072#1074#1085#1077#1085#1080#1080' '#1092#1072#1081#1083#1086#1074' '#1091#1095#1080#1090#1099#1074#1072#1077#1090#1089#1103' '#1080#1093' '#1089#1086#1076#1077#1088#1078#1080#1084#1086#1077'. '#1055#1088#1080' '#1086#1090#1089#1091#1090#1089#1090#1074#1080#1080#13#10 +
+          #1086#1090#1083#1080#1095#1080#1081' '#1092#1072#1081#1083#1099' '#1085#1077' '#1082#1086#1087#1080#1088#1091#1102#1090#1089#1103'. '#1053#1077#1086#1073#1093#1086#1076#1080#1084#1086' '#1087#1077#1088#1077#1089#1086#1079#1076#1072#1090#1100' '#1089#1085#1080#1084#1082#1080' '#1087#1072#1087#1086#1082 +
+          ' '#13#10#1076#1083#1103' '#1088#1072#1089#1095#1077#1090#1072' '#1082#1086#1085#1090#1088#1086#1083#1100#1085#1099#1093' '#1089#1091#1084#1084' '#1092#1072#1081#1083#1086#1074'.'
+        Caption = #1059#1095#1080#1090#1099#1074#1072#1090#1100' '#1087#1088#1080' '#1089#1088#1072#1074#1085#1077#1085#1080#1080' c'#1086#1076#1077#1088#1078#1080#1084#1086#1077' '#1092#1072#1081#1083#1086#1074
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -14
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 9
       end
     end
   end
