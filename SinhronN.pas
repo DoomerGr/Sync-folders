@@ -1,4 +1,5 @@
-﻿unit SinhronN;
+﻿//Версия 5
+unit SinhronN;
 
 interface
 
@@ -93,7 +94,7 @@ type
     procedure RzRadioButtonHomeClick(Sender: TObject);
     procedure RzBtnSinhronHomeWorkClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    function  CreateListExcept(s:String):TStringList;
+    procedure CreateListExcept(s:String);
     function  CreateListFiles(PathFolder:String;NameFiles:String):int64;
     function  ChekDiskSize(Disk:String;SizeFiles:int64):boolean;
     procedure CopyFileExProgress(const AFrom,ATo:String);
@@ -340,6 +341,7 @@ begin
     LongMonthNames[12]  := 'Декабря';
   end;
 
+ ListExcept:=TStringList.Create;ListExcept.Clear;
  FileCopier := TFileCopier.Create;
  FileCopier.ProgressBar:=ProgressBarFile;
  FileCopier.MemoResult:=RzRichEditEchoCom;
@@ -390,10 +392,10 @@ begin
 end;
 
 
-function TFmSinhron.CreateListExcept(s:String):TStringList;
+procedure TFmSinhron.CreateListExcept(s:String);
 var tmp:string;
 begin
- Result:=TStringList.Create;
+ ListExcept.Clear;
  while Length(S)<>0 do
   begin
     if Pos(';',S)<>0 then
@@ -402,12 +404,12 @@ begin
        delete(s,1,Pos(';',S));
        if pos('*',tmp)<>0 then
         begin
-         Result.Add(copy(tmp,pos('*',tmp)-1,Length(tmp)-pos('*',tmp)+1));
+         ListExcept.Add(copy(tmp,pos('*',tmp)-1,Length(tmp)-pos('*',tmp)+1));
         end
-       else Result.Add(tmp)
+       else ListExcept.Add(tmp)
       end
     else
-    begin Result.Add(s);s:='';end;
+    begin ListExcept.Add(s);s:='';end;
   end;
 end;
 
@@ -438,7 +440,6 @@ begin
        inc(i)
       end;
      Task:=ProfilArray[0];
-     if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
      FmSinhron.ExistenceData;
     end;
    finally
@@ -1564,6 +1565,7 @@ begin
 
  StopCopy:=false; Task:=ProfilArray[RzListBoxProfile.ItemIndex];
  PathTask:=ProgramPath+'Task\'+Task.Id;
+ if Task.LineExcept<>'' then CreateListExcept(Task.LineExcept);
 
  if Task.Notransit then
    RunNoTransit(Task,21)
@@ -1603,6 +1605,7 @@ begin
 
  StopCopy:=false; Task:=ProfilArray[RzListBoxProfile.ItemIndex];
  PathTask:=ProgramPath+'Task\'+Task.Id;
+ if Task.LineExcept<>'' then CreateListExcept(Task.LineExcept);
 
  if Task.Notransit then
    RunNoTransit(Task,12)
@@ -1697,11 +1700,6 @@ begin
        if Task.PC='work' then RzRadioButtonHome.Checked:=true
       else RzRadioButtonWork.Checked:=true
      end;
-  if Task.LineExcept<>'' then
-   begin
-    if ListExcept<>nil then ListExcept.Clear;
-    ListExcept:=CreateListExcept(Task.LineExcept);
-   end;
  TestState(Task)
 end;
 
@@ -2256,7 +2254,7 @@ begin
    if nom>Length(ProfilArray)-1 then Halt(0);
    if ((Task.NameConf='') or (Tip='0')) or
               ((TipOperac<>'AB') and (TipOperac<>'BA')) then Halt(0);
-   if Task.LineExcept<>'' then ListExcept:=CreateListExcept(Task.LineExcept);
+   if Task.LineExcept<>'' then CreateListExcept(Task.LineExcept);
    PathTask:=ProgramPath+'Task\'+Task.Id;
    if Task.SaveLog then
     begin

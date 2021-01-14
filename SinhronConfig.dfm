@@ -1,9 +1,10 @@
 object FmConfig: TFmConfig
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1086#1092#1080#1083#1103
-  ClientHeight = 580
-  ClientWidth = 995
+  ClientHeight = 574
+  ClientWidth = 1005
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -3845,8 +3846,8 @@ object FmConfig: TFmConfig
   TextHeight = 17
   object RzPanel1: TRzPanel
     Left = 0
-    Top = 519
-    Width = 995
+    Top = 513
+    Width = 1005
     Height = 61
     Align = alBottom
     BorderOuter = fsNone
@@ -3857,6 +3858,8 @@ object FmConfig: TFmConfig
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitTop = 519
+    ExplicitWidth = 995
     object RzBitBtnSaveConfig: TRzBitBtn
       Left = 600
       Top = 16
@@ -3933,8 +3936,8 @@ object FmConfig: TFmConfig
   object RzGroupBar1: TRzGroupBar
     Left = 0
     Top = 0
-    Width = 995
-    Height = 519
+    Width = 1005
+    Height = 513
     GradientColorStart = clBtnFace
     GradientColorStop = clBtnShadow
     GroupBorderSize = 8
@@ -3948,6 +3951,7 @@ object FmConfig: TFmConfig
     ParentColor = False
     ParentFont = False
     TabOrder = 1
+    ExplicitHeight = 528
     object RzGroup1: TRzGroup
       CanClose = False
       Items = <>
@@ -4137,7 +4141,7 @@ object FmConfig: TFmConfig
       CanClose = False
       Items = <>
       Opened = True
-      OpenedHeight = 180
+      OpenedHeight = 195
       DividerVisible = False
       Caption = #1054#1087#1094#1080#1080
       Font.Charset = DEFAULT_CHARSET

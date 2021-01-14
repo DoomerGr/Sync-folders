@@ -261,8 +261,15 @@ begin
          EditIdProf.Text:=String(Id);
          EditFileExcept.Text:=String(LineExcept);
          if IdPC=FmSinhron.PCIdent then
-          if PC='work' then RadioButtonPCWork.Checked:=true
-           else RadioButtonPCHome.Checked:=true;
+          begin
+           if PC='work' then RadioButtonPCWork.Checked:=true
+             else RadioButtonPCHome.Checked:=true
+          end
+         else
+          begin
+           if PC='work' then RadioButtonPCHome.Checked:=true
+             else RadioButtonPCWork.Checked:=true
+          end;
          RzCheckBoxOperacDel.Checked:=OperacDell;
         end;
      end
