@@ -65,7 +65,7 @@
         <DCC_S>false</DCC_S>
         <VerInfo_Locale>1049</VerInfo_Locale>
         <SanitizedProjectName>Sinhron</SanitizedProjectName>
-        <Custom_Styles>&quot;Amethyst Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AmethystKamri.vsf&quot;;&quot;Aqua Light Slate|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AquaLightSlate.vsf&quot;;Auric|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Auric.vsf;Copper|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Copper.vsf;CopperDark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\CopperDark.vsf;Diamond|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Diamond.vsf;&quot;Golden Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\GoldenGraphite.vsf&quot;;&quot;Iceberg Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\LavenderClassico.vsf&quot;;Light|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Light.vsf;Luna|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Luna.vsf;&quot;Metropolis UI Blue|VCLSTYLE|$(BDSCOMMONDIR)\Styles\MetropolisUIBlue.vsf&quot;;&quot;Metropolis UI Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\MetropolisUIDark.vsf&quot;;&quot;Ruby Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\RubyGraphite.vsf&quot;;&quot;Sapphire Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SapphireKamri.vsf&quot;;Silver|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Silver.vsf;Sky|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Sky.vsf;&quot;Slate Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SlateClassico.vsf&quot;;&quot;Smokey Quartz Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SmokeyQuartzKamri.vsf&quot;;Sterling|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Sterling.vsf;TabletDark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\TabletDark.vsf;Windows10|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10.vsf;&quot;Windows10 Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Dark.vsf&quot;</Custom_Styles>
+        <Custom_Styles>&quot;Amethyst Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AmethystKamri.vsf&quot;;&quot;Aqua Light Slate|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AquaLightSlate.vsf&quot;;Auric|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Auric.vsf;&quot;Golden Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\GoldenGraphite.vsf&quot;;&quot;Iceberg Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\LavenderClassico.vsf&quot;;Light|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Light.vsf;Luna|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Luna.vsf;&quot;Metropolis UI Blue|VCLSTYLE|$(BDSCOMMONDIR)\Styles\MetropolisUIBlue.vsf&quot;;&quot;Metropolis UI Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\MetropolisUIDark.vsf&quot;;&quot;Ruby Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\RubyGraphite.vsf&quot;;&quot;Sapphire Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SapphireKamri.vsf&quot;;Silver|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Silver.vsf;Sky|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Sky.vsf;&quot;Slate Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SlateClassico.vsf&quot;;&quot;Smokey Quartz Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SmokeyQuartzKamri.vsf&quot;;TabletDark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\TabletDark.vsf;Windows10|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10.vsf;&quot;Windows10 Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Dark.vsf&quot;</Custom_Styles>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
@@ -93,16 +93,16 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_ImportedDataReferences>false</DCC_ImportedDataReferences>
-        <VerInfo_Build>5</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
         <VerInfo_MajorVer>6</VerInfo_MajorVer>
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Keys>FileVersion=6.1.1.5;ProductVersion=1.0.0.0;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=6.1.1.6;ProductVersion=1.0.0.0;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
-        <DCC_ExeOutput>D:\Documents\RAD Rio Studio\Sinhronizac\Win32\Release</DCC_ExeOutput>
-        <DCC_DcuOutput>D:\Documents\RAD Rio Studio\Sinhronizac\DCU</DCC_DcuOutput>
+        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\Win32\Release</DCC_ExeOutput>
+        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\DCU</DCC_DcuOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcpOutput>D:\Documents\RAD Rio Studio\Sinhronizac\Win32\Release</DCC_DcpOutput>
+        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\Win32\Release</DCC_DcpOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Rio Studio\Projects\Sinhronizac_v6</DCC_UnitSearchPath>
         <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -125,12 +125,12 @@
         <VerInfo_Build>5</VerInfo_Build>
         <VerInfo_Keys>FileVersion=6.1.1.5;ProductVersion=1.0.0.0;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>Sinhron_Icon1.ico</Icon_MainIcon>
-        <DCC_DcpOutput>D:\Documents\RAD Rio Studio\Sinhronizac\DCU\Win32\Debug</DCC_DcpOutput>
-        <DCC_ExeOutput>D:\Documents\RAD Rio Studio\Sinhronizac\DCU\Win32\Debug</DCC_ExeOutput>
+        <DCC_DcpOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\DCU\Win32\Debug</DCC_DcpOutput>
+        <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\DCU\Win32\Debug</DCC_ExeOutput>
         <DCC_UnitSearchPath>C:\Program Files (x86)\Embarcadero\RC6\Source;C:\Users\Игорь\Documents\RAD Rio Studio\Projects\Sinhronizac_v6</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_DcuOutput>D:\Documents\RAD Rio Studio\Sinhronizac\DCU</DCC_DcuOutput>
+        <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\DCU</DCC_DcuOutput>
         <BT_BuildType>Debug</BT_BuildType>
     </PropertyGroup>
     <ItemGroup>
