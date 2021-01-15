@@ -4269,7 +4269,7 @@
         TabOrder = 4
       end
       object RadioButtonPCHome: TRadioButton
-        Left = 315
+        Left = 314
         Top = 37
         Width = 113
         Height = 17

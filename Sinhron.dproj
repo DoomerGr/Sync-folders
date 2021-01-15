@@ -93,11 +93,11 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_ImportedDataReferences>false</DCC_ImportedDataReferences>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>7</VerInfo_Build>
         <VerInfo_MajorVer>6</VerInfo_MajorVer>
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Keys>FileVersion=6.1.1.6;ProductVersion=1.0.0.0;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=6.1.1.7;ProductVersion=1.0.0.0;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>Ico\Refresh.ico</Icon_MainIcon>
         <DCC_ExeOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\Win32\Release</DCC_ExeOutput>
         <DCC_DcuOutput>C:\Users\Игорь\Documents\RAD Studio\Projects\Sinhronizac\DCU</DCC_DcuOutput>
