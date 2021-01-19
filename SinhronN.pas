@@ -9,7 +9,6 @@ uses
   RzBorder, RzLabel, Vcl.Buttons, Vcl.ComCtrls, RzPrgres, RzSpnEdt, RzStatus,Winapi.RichEdit,
   ShlObj,ComObj,System.Win.Registry,vcl.Themes,Vcl.Menus, RzShellDialogs;
 
-
 type
 
   TTaskState = record

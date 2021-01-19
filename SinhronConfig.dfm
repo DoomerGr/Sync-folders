@@ -4182,6 +4182,7 @@
         Top = 114
         Width = 176
         Height = 19
+        Hint = #1047#1072#1087#1088#1086#1089' '#1076#1083#1103' '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1103' '#1087#1088#1080' '#1091#1076#1072#1083#1077#1085#1080#1080' '#1092#1072#1081#1083#1086#1074' '#1080' '#1087#1072#1087#1086#1082
         Caption = #1057#1087#1088#1086#1089#1080#1090#1100' '#1087#1088#1080' '#1091#1076#1072#1083#1077#1085#1080#1080
         Checked = True
         FrameColor = 8409372
@@ -4193,6 +4194,8 @@
         HighlightColor = 2203937
         HotTrack = True
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         State = cbChecked
         TabOrder = 1
         Transparent = True
@@ -4218,6 +4221,7 @@
         Top = 148
         Width = 182
         Height = 19
+        Hint = #1042#1077#1089#1090#1080' '#1079#1072#1087#1080#1089#1100' '#1074#1099#1087#1086#1083#1085#1103#1077#1084#1099#1093' '#1086#1087#1077#1088#1072#1094#1080#1081
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1083#1086#1075' '#1086#1087#1077#1088#1072#1094#1080#1080
         FrameColor = 8409372
         Font.Charset = DEFAULT_CHARSET
@@ -4228,6 +4232,8 @@
         HighlightColor = 2203937
         HotTrack = True
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         State = cbUnchecked
         TabOrder = 2
         Transparent = True
@@ -4238,6 +4244,7 @@
         Top = 114
         Width = 173
         Height = 19
+        Hint = #1059#1076#1072#1083#1077#1085#1080#1077' '#1086#1090#1089#1091#1090#1089#1090#1074#1091#1102#1097#1080#1093' '#1074' '#1086#1088#1080#1075#1080#1085#1072#1083#1100#1085#1086#1081' '#1087#1072#1087#1082#1077' '#1092#1072#1081#1083#1086#1074' '#1080' '#1087#1072#1087#1086#1082' '
         Caption = #1059#1076#1072#1083#1103#1090#1100' '#1087#1072#1087#1082#1080' '#1080' '#1092#1072#1081#1083#1099
         Checked = True
         FrameColor = 8409372
@@ -4249,6 +4256,8 @@
         HighlightColor = 2203937
         HotTrack = True
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         State = cbChecked
         TabOrder = 3
         Transparent = True
@@ -4269,7 +4278,7 @@
         TabOrder = 4
       end
       object RadioButtonPCHome: TRadioButton
-        Left = 314
+        Left = 315
         Top = 37
         Width = 113
         Height = 17
@@ -4287,6 +4296,7 @@
         Top = 114
         Width = 140
         Height = 19
+        Hint = #1059#1076#1072#1083#1103#1090#1100' '#1092#1072#1081#1083#1099' '#1074' '#1082#1086#1088#1079#1080#1085#1091
         Caption = #1059#1076#1072#1083#1103#1090#1100' '#1074' '#1082#1086#1088#1079#1080#1085#1091
         FrameColor = 8409372
         Font.Charset = DEFAULT_CHARSET
@@ -4297,6 +4307,8 @@
         HighlightColor = 2203937
         HotTrack = True
         ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         State = cbUnchecked
         TabOrder = 6
         Transparent = True

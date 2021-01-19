@@ -22,6 +22,7 @@ begin
   Application.CreateForm(TFmConfig, FmConfig);
   Application.CreateForm(TFmDialogFulCopy, FmDialogFulCopy);
   Application.CreateForm(TFmViewLog, FmViewLog);
+  Application.HintHidePause:=6000;
   if ParamCount>1 then
    begin
     FmSinhron.WindowState:=wsMinimized;
