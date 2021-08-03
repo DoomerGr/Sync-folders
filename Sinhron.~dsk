@@ -11,19 +11,22 @@ File_8=TSourceModule,'D:\Documents\RAD Rio Studio\RashetEvolv\DlgRotKontur1.pas'
 
 [Modules]
 Module0=D:\Documents\RAD Rio Studio\Sinhronizac_v6\SinhronConfig.pas
-Module1=D:\Documents\RAD Rio Studio\Sinhronizac_v6\SinhronN.pas
-Module2=D:\Documents\RAD Rio Studio\Sinhronizac_v6\DialogFulCopy.pas
-Module3=D:\Documents\RAD Rio Studio\Sinhronizac_v6\DiskTools.pas
-Module4=D:\Documents\RAD Rio Studio\Sinhronizac_v6\FolderCrpt_Form.pas
-Module5=Refreshing_Data_Display
+Module1=D:\Documents\RAD Rio Studio\Sinhronizac_v6\Sinhron.dproj
+Module2=D:\Documents\RAD Rio Studio\Sinhronizac_v6\SinhronN.pas
+Module3=D:\Documents\RAD Rio Studio\Sinhronizac_v6\DialogFulCopy.pas
+Module4=D:\Documents\RAD Rio Studio\Sinhronizac_v6\DiskTools.pas
+Module5=D:\Documents\RAD Rio Studio\Sinhronizac_v6\FolderCrpt_Form.pas
 Module6=default.htm
 Module7=en?search=StrToJURI&go=Go
-Module8=D:\Documents\RAD Rio Studio\Sinhronizac_v6\Sinhron.dproj
+Module8=Refreshing_Data_Display
 Count=9
 EditWindowCount=1
 
 [D:\Documents\RAD Rio Studio\Sinhronizac_v6\SinhronConfig.pas]
 ModuleType=TSourceModule
+
+[D:\Documents\RAD Rio Studio\Sinhronizac_v6\Sinhron.dproj]
+ModuleType=TBaseProject
 
 [D:\Documents\RAD Rio Studio\Sinhronizac_v6\SinhronN.pas]
 ModuleType=TSourceModule
@@ -37,17 +40,14 @@ ModuleType=TSourceModule
 [D:\Documents\RAD Rio Studio\Sinhronizac_v6\FolderCrpt_Form.pas]
 ModuleType=TSourceModule
 
-[Refreshing_Data_Display]
-ModuleType=TURLModule
-
 [default.htm]
 ModuleType=TURLModule
 
 [en?search=StrToJURI&go=Go]
 ModuleType=TURLModule
 
-[D:\Documents\RAD Rio Studio\Sinhronizac_v6\Sinhron.dproj]
-ModuleType=TBaseProject
+[Refreshing_Data_Display]
+ModuleType=TURLModule
 
 [EditWindow0]
 ViewCount=9
@@ -79,13 +79,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000004D0F0000000000000168070000000000000100000000D709000009000000446F636B53697465330100000000331B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000031000000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000771C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000004D0F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000331B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1593
+RightPanelData=00000800010100000000031000000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000771C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1269
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE440000000000000239060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531DE4400000000000002F5040000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -265,12 +265,12 @@ State=0
 Left=0
 Top=28
 Width=9917
-Height=1387
+Height=1050
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=9917
-ClientHeight=1387
-TBDockHeight=1387
+ClientHeight=1050
+TBDockHeight=1050
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -284,11 +284,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2110
+Height=2447
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2110
+ClientHeight=2447
 TBDockHeight=7148
 LRDockWidth=2000
 Dockable=1
@@ -342,13 +342,13 @@ Visible=1
 Docked=1
 State=0
 Left=0
-Top=300
+Top=425
 Width=1896
-Height=4355
+Height=3487
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=4355
+ClientHeight=3487
 TBDockHeight=9008
 LRDockWidth=1896
 Dockable=1
@@ -357,8 +357,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Caption,CustomHint
-ExpandedItems=Anchors=0,Constraints=0,Font=1,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=1,Touch=0,BevelEdges=0,Font.Style=1,GlassFrame=0,HorzScrollBar=0,Padding=0,PopupMenu=0,BorderIcons=0,VertScrollBar=0,FrameControllerNotifications=0,CaptionFont=0
+SelectedItem=Action,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0
 
 [DebugLogView]
 PercentageSizes=1
@@ -449,11 +449,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6879
+Height=6021
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6879
+ClientHeight=6021
 TBDockHeight=4884
 LRDockWidth=7151
 Dockable=1
@@ -468,11 +468,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6879
+Height=6021
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6879
+ClientHeight=6021
 TBDockHeight=5963
 LRDockWidth=2510
 Dockable=1
@@ -542,7 +542,7 @@ Visible=0
 Docked=1
 State=0
 Left=-37
-Top=-162
+Top=-251
 Width=1849
 Height=3141
 MaxLeft=-1
@@ -673,11 +673,11 @@ State=0
 Left=0
 Top=0
 Width=1896
-Height=2274
+Height=3478
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=2274
+ClientHeight=3478
 TBDockHeight=3680
 LRDockWidth=1896
 Dockable=1
@@ -692,11 +692,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6879
+Height=6021
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6879
+ClientHeight=6021
 TBDockHeight=4884
 LRDockWidth=5307
 Dockable=1
@@ -807,11 +807,11 @@ State=0
 Left=0
 Top=28
 Width=1896
-Height=2274
+Height=3478
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=2274
+ClientHeight=3478
 TBDockHeight=9008
 LRDockWidth=1896
 Dockable=1
@@ -831,11 +831,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2110
+Height=2447
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2110
+ClientHeight=2447
 TBDockHeight=9008
 LRDockWidth=2000
 Dockable=1
